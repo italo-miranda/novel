@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>.org.eclipse.dltk.core.external.folders</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>.link1</name>
+			<type>2</type>
+			<location>D:/Users/italo/Área de Trabalho/Drive/IFBA-TCC/Docs Projeto Italo/5.Projeto/novel/.metadata/.plugins/org.eclipse.php.core/__language__/73332030</location>
+		</link>
+	</linkedResources>
+</projectDescription>
