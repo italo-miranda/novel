@@ -1,0 +1,12 @@
+#logo-inicial{
+	float: left;
+}
+
+#sidebar{
+	background: red;
+}
+
+#conteudo{
+	background: blue;
+	text-align: center;
+}
