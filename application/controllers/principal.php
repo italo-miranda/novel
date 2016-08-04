@@ -29,4 +29,22 @@ class Principal extends CI_Controller {
 		$pagina = array('tela' => 'login');
 		$this->load->view('construtor', $pagina);
 	}
+
+	public function recuperarSenha()
+	{
+		$pagina = array('tela' => 'recuperarSenha');
+		$this->load->view('construtor', $pagina);
+	}
+
+	public function menu()
+	{
+		$pagina = array('tela' => 'menu');
+		$this->load->view('construtor', $pagina);
+	}
+
+	public function controle()
+	{
+		$pagina = array('tela' => 'controle');
+		$this->load->view('construtor', $pagina);
+	}
 }

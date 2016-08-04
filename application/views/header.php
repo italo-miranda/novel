@@ -10,13 +10,11 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/jquery-3.1.0.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.js"); ?>"></script>
 
-<header></header>
-	
+
 <!-- Aqui começa o conteudo -->
 <div role="main">
-	<div class="container">
-		<div class="row">
-	
+	<div class="container-fluid col-md-12">
+
 		
 			
 				

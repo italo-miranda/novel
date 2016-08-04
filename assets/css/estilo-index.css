@@ -17,6 +17,15 @@
 	text-align: center;
 }
 
-#painel-login{	
-	text-align: center;
+#botao-esqueciSenha{
+	float: right;
+}
+
+.form-group{
+	padding: 1%;
+}
+
+.centered {
+    margin: 0 auto !important;
+    float: none !important;
 }
