@@ -1,8 +1,8 @@
 <!-- Aqui e a area do conteudo -->
-			<div class="col-md-12">
-				<div id="conteudo" class="container col-md-4 centered">
+			<div class="col-md-12 col-xs-12">
+				<div id="conteudo" class="container col-md-4 col-xs-8 centered well">
 					<div class="row">
-						<div id="painel-login" class="centered col-md-12">
+						<div id="painel-login" class="centered col-md-12 col-xs-12">
 							<h1>Painel de login</h1>
 							<form class="form-inline" role="form">
 							  	<div class="form-group">

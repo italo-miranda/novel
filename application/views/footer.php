@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-12 container" id="footer">
+	<div class="col-md-12 container well" id="footer" style="padding: 1%;">
 		<h1>Footer</h1>	
 	</div>
 </div>

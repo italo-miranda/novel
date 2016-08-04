@@ -26,4 +26,10 @@ class Palavra extends CI_Controller {
 		$pagina = array('tela' => 'menu');
 		$this->load->view('construtor', $pagina);
 	}
+
+	public function jogarPalavra()
+	{
+		$pagina = array('tela' => 'jogar-palavra');
+		$this->load->view('construtor', $pagina);
+	}
 }
