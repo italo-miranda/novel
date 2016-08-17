@@ -36,3 +36,19 @@
 .link-sem-linha:hover{
 	text-decoration: none;
 }
+
+.titulo-menu{
+	font-weight: bold;
+}
+
+.afastado-1pc{
+	padding: 1%;
+}
+
+.img-texto{
+	opacity: 0.3;
+}
+
+.img-texto:hover{
+	opacity: 1;
+}

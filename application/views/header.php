@@ -3,7 +3,7 @@
 <head>
 	<title>Novel</title>
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
-	<link rel="stylesheet" href="<?php echo base_url("assets/css/estilo-index.css"); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/estilo.css"); ?>" />
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 
 <!-- Aqui começa o conteudo -->
 <div role="main">
-	<div class="container-fluid col-md-12">
+	<div class="col-md-12">
 
 		
 			

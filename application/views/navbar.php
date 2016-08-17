@@ -5,7 +5,7 @@
 	    	<span class="icon-bar"></span>
 	    	<span class="icon-bar"></span>
 	    </button>
-		<a href="#" class="navbar-brand" href="#">Novel</a>
+		<a class="navbar-brand" href="<?php echo base_url('principal/menu'); ?>">Novel</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
 		<ul class="nav navbar-nav navbar-right">
