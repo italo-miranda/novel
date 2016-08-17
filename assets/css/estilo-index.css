@@ -28,3 +28,11 @@
     margin: 0 auto !important;
     float: none !important;
 }
+
+.link-sem-linha{
+	text-decoration: none;
+}
+
+.link-sem-linha:hover{
+	text-decoration: none;
+}

@@ -41,10 +41,4 @@ class Principal extends CI_Controller {
 		$pagina = array('tela' => 'menu');
 		$this->load->view('construtor', $pagina);
 	}
-
-	public function controle()
-	{
-		$pagina = array('tela' => 'controle');
-		$this->load->view('construtor', $pagina);
-	}
 }

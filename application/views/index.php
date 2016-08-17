@@ -7,7 +7,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-xs-8 centered">
-				<button type="button" class="btn btn-success btn-lg btn-block">Jogar</button>
+				<a class="link-sem-linha" href="<?php echo base_url('principal/login'); ?>"><button type="button" class="btn btn-success btn-lg btn-block">Jogar</button></a>
 			</div>
 		</div>		
 	
