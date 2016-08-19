@@ -32,7 +32,7 @@ class Principal extends CI_Controller {
 
 	public function recuperarSenha()
 	{
-		$pagina = array('tela' => 'recuperarSenha');
+		$pagina = array('tela' => 'recuperar-senha');
 		$this->load->view('construtor', $pagina);
 	}
 
