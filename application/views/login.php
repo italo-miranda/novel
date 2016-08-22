@@ -17,7 +17,7 @@
 									<button type="submit" class="btn btn-success">Começar</button>
 								</div>
 								<div id="botao-esqueciSenha">
-									<a href="http://localhost/novel/principal/recuperarSenha" class="btn btn-link" role="button">Esqueci a senha</a>
+									<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
 								</div>
 							</form>						
 						</div>

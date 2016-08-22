@@ -3,7 +3,7 @@ if($tela =='controle'):
 	$this->load->view('controle');
 else:
 	$this->load->view('header');
-		if ($tela != 'index' && $tela != 'login' && $tela != 'recuperarSenha' && $tela !='controle'):
+		if ($tela != 'index' && $tela != 'login' && $tela != 'recuperarSenha'):
 		 	$this->load->view('navbar');
 	     	$this->load->view($tela);
 		else :
