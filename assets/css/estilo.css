@@ -41,6 +41,7 @@
 	font-weight: bold;
 }
 
+
 .afastado-1pc{
 	padding: 1%;
 }
@@ -51,4 +52,8 @@
 
 .img-texto:hover{
 	opacity: 1;
+}
+
+.left{
+	float: left;
 }
