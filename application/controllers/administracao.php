@@ -14,4 +14,16 @@ class Administracao extends CI_Controller {
 		$pagina = array('tela' => 'cadastrar-palavra');
 		$this->load->view('construtor', $pagina);
 	}
+
+	public function editarPalavra()
+	{
+		$pagina = array('tela' => 'editar-palavra');
+		$this->load->view('construtor', $pagina);
+	}
+
+	public function cadastrarTexto()
+	{
+		$pagina = array('tela' => 'cadastrar-texto');
+		$this->load->view('construtor', $pagina);
+	}
 }
