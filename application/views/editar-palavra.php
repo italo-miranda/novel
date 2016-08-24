@@ -81,3 +81,22 @@
 						</div>
 					</div>
 				</div>
+
+<!--
+
+PREENCHIMENTO DINAMICO DOS GRAFEMAS, DEVE SER COLOCADO ENTRE AS TAGS <SELECT> </SELECT>
+
+<?php
+/*
+for ($i=i; $i <= 10; $i++) { 
+	foreach ($grafemas as $gr):
+        echo '<option value="'$grafema'">';
+        echo($grafema);
+		echo '</option>
+	endforeach;
+}
+*/            
+?>
+
+
+-->

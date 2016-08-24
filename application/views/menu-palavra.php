@@ -7,7 +7,9 @@
 			<div class="row afastado-1pc">
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<a href="<?php echo base_url('jogar-palavra/$grafema');?>">
+							<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						</a>						
 					</div>
 					<div class="row">
 						<span class="glyphicon glyphicon-star-empty"></span>

@@ -9,6 +9,12 @@ class Administracao extends CI_Controller {
 		$this->load->view('construtor', $pagina);
 	}
 
+	public function recuperarSenha()
+	{
+		$pagina = array('tela' => 'recuperar-senha');
+		$this->load->view('construtor', $pagina);
+	}
+
 	public function cadastrarPalavra()
 	{
 		$pagina = array('tela' => 'cadastrar-palavra');
@@ -26,4 +32,11 @@ class Administracao extends CI_Controller {
 		$pagina = array('tela' => 'cadastrar-texto');
 		$this->load->view('construtor', $pagina);
 	}
+
+	public function editarTexto()
+	{
+		$pagina = array('tela' => 'editar-texto');
+		$this->load->view('construtor', $pagina);
+	}
+	
 }

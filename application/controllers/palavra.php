@@ -11,6 +11,7 @@ class Palavra extends CI_Controller {
 
 	public function jogarPalavra()
 	{
+		$id = $this->uri->segment(3);
 		$pagina = array('tela' => 'jogar-palavra');
 		$this->load->view('construtor', $pagina);
 	}

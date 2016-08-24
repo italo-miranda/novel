@@ -2,11 +2,6 @@
 	float: left;	
 }
 
-#sidebar{
-	background: red;
-	text-align: center;
-}
-
 #conteudo{
 	text-align: center;
 }
@@ -20,6 +15,9 @@
 	float: right;
 }
 
+#botao-admin{
+	float: left;	
+}
 .form-group{
 	padding: 1%;
 }

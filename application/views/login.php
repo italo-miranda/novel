@@ -16,8 +16,15 @@
 								<div>
 									<button type="submit" class="btn btn-success">Começar</button>
 								</div>
-								<div id="botao-esqueciSenha">
-									<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
+								<div class="row">
+									<div id="botao-admin" class="col-md-6 col-xs-6">
+										<a href="<?php echo base_url('administracao'); ?>" class="btn" role="button">
+											<span class="glyphicon glyphicon-cog"></span>
+										</a>
+									</div>
+									<div id="botao-esqueciSenha" class="col-md-6 col-xs-6">
+										<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
+									</div>
 								</div>
 							</form>						
 						</div>
