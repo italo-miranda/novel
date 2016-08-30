@@ -13,8 +13,8 @@
 
 <!-- Aqui começa o conteudo -->
 <div role="main">
-	<div class="col-md-12">
-
+	<div class="col-md-12 col-xs-12">
+<!--
 		<nav class="navbar navbar-default">
 			 <div class="navbar-header">
 			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -33,27 +33,29 @@
 					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>Sair</a></li>
 			    </ul> 
 			</div> 
-		</nav>
+		</nav> -->
 
 		<!-- Aqui é a área do conteúdo -->
-		<div id="conteudo" class="col-md-12 col-xs-12 well">
-			<div class="row centered">
-				<h3 class="titulo-menu">Escolha o nível</h3>
-			</div>
-			<div id="imagens-menu" class="row centered">
-				<div class="col-md-6 col-xs-6">
-					<a class="centered" href="<?php echo base_url('palavra'); ?>"><img src="<?php echo base_url('assets/img/palavra-fake.png'); ?>"></a>
-				</div>
-				<div class="col-md-6 col-xs-6">
-					<a class="centered" href="<?php echo base_url('texto'); ?>"><img src="<?php echo base_url('assets/img/texto-fake.png'); ?>"></a>
+		<div class="row">
+			<div id="conteudo" class="col-md-12 col-xs-12 vertical-center">
+				<div id="conteudo" class="col-md-12 col-xs-12 well">
+					<div class="row">
+						<div class="col-md-12 col-xs-12 centered">
+							<img src="<?php echo base_url('assets/img/logo-fake.png'); ?>">
+						</div>			
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-xs-8 centered afastado-1pc">
+							<a class="link-sem-linha" href="<?php echo base_url('principal/login'); ?>"><button type="button" class="btn btn-success btn-lg btn-block">Jogar</button></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
-
 		<div class="row centered">
-			<div class="col-md-12 col-xs-12 well" id="footer" style="padding: 1%;">
-				<h1>Footer</h1>	
+			<div class="col-md-12 col-xs-12" id="footer">
+				<h5>Novel - Um Software Educativo para a Aprendizagem Autônoma de Ortografia - 2016</h5>
 			</div>
 		</div>
 

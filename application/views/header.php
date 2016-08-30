@@ -13,7 +13,7 @@
 
 <!-- Aqui começa o conteudo -->
 <div role="main">
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 
 		
 			
