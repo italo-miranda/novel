@@ -7,21 +7,20 @@
 							<form class="form-inline" role="form">
 							  	<div class="form-group">
 							    	<label for="login">Login:</label>
-							    	<input type="text" class="form-control" id="login">
+							    	<input type="text" required="" class="form-control" id="login">
 							  	</div>
 							  	<div class="form-group">
 							    	<label for="pwd">Senha:</label>
-							   		<input type="password" class="form-control" id="senha">
+							   		<input type="password" required="" class="form-control" id="senha">
 							  	</div>
-								<div>
-									<button type="submit" class="btn btn-success">Começar</button>
+								<div class="centered afastado-1pc col-md-10 col-xs-12">
+									<button type="submit" class="btn btn-lg btn-block btn-success">Começar</button>
+									
+								</div>
+								<div class="row centered afastado-1pc col-md-10 col-xs-12">
+									<a href="<?php echo base_url('principal/cadastrarJogador'); ?>" class="btn btn-block btn-lg btn-info" role="button">Não tenho cadastro</a>
 								</div>
 								<div class="row">
-									<div id="botao-admin" class="col-md-6 col-xs-6">
-										<a href="<?php echo base_url('administracao'); ?>" class="btn" role="button">
-											<span class="glyphicon glyphicon-cog"></span>
-										</a>
-									</div>
 									<div id="botao-esqueciSenha" class="col-md-6 col-xs-6">
 										<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
 									</div>

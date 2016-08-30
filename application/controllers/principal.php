@@ -47,4 +47,10 @@ class Principal extends CI_Controller {
 		$pagina = array('tela' => 'controle');
 		$this->load->view('construtor', $pagina);
 	}
+
+	public function cadastrarJogador()
+	{
+		$pagina = array('tela' => 'cadastrar-jogador');
+		$this->load->view('construtor', $pagina);
+	}
 }

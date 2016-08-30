@@ -280,7 +280,7 @@ PREENCHIMENTO DINAMICO DO GABARITO
 
 <?php
 /*
-for ($i=i; $i <= 10; $i++) { 
+for ($i=1; $i <= 10; $i++) { 
 	foreach ($gabarito as $gab):
         echo '<div class="row">';
         	echo '<div class="form-group centered">';
