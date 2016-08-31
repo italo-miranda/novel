@@ -4,7 +4,7 @@
 			<div class="row">
 				<div id="painel-login" class="centered col-md-12 col-xs-12">
 					<h1>Painel de login</h1>
-					<form class="form-inline" role="form">
+					<form class="form-inline" role="form" method="POST" action="<?php echo base_url('principal/login');?>">
 					  	<div class="form-group">
 					    	<label for="login">Login:</label>
 					    	<input type="text" required="" class="form-control" id="login">

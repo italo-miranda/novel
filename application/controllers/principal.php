@@ -3,21 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Principal extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	public function __construct() {
+        parent::__construct();
+        $this->load->helper('array');
+        $this->load->model('modelJogador');
+
+    }
+
+
 	public function index()
 	{
 		$pagina = array('tela' => 'index');
@@ -26,6 +19,26 @@ class Principal extends CI_Controller {
 
 	public function login()
 	{
+		//Validação dos campos
+		$this->form_validation->set_rules('login', 'trin|xss_clean');
+        $this->form_validation->set_rules('senha', 'trin|xss_clean');
+
+        //Se a validação passa, o sistema tenta fazer o login
+        if ($this->form_validation->run()){
+        	//Salva o login e a senha digitados no array $dados
+	        $dados = elements(array('login', 'senha'), $this->input->post());
+
+	        //tenta fazer o login
+	        $login = $this->modelJogador->fazerLogin($dados['login'], $dados['senha']);
+
+	        if($login){	        	
+	        	echo "deu certo!"
+	        } else {
+	        	echo "Login deu errado!";
+	        }
+        }
+        
+
 		$pagina = array('tela' => 'login');
 		$this->load->view('construtor', $pagina);
 	}
