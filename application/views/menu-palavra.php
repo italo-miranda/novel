@@ -10,50 +10,22 @@
 						<a href="<?php echo base_url('jogar-palavra/$grafema');?>">
 							<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 						</a>						
-					</div>
+					</div>			
+				</div>
+				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
+						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-					</div>					
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-					</div>					
+					</div>				
 				</div>				
 			</div>
 
@@ -61,50 +33,22 @@
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-					</div>					
+					</div>				
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-					</div>					
+					</div>				
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>
-					<div class="row">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-					</div>					
+					</div>				
 				</div>				
 			</div>
 		</div>

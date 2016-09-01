@@ -3,11 +3,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administracao extends CI_Controller {
 
-	public function index()
-	{
-		$pagina = array('tela' => 'login-administrador');
-		$this->load->view('construtor', $pagina);
+	public function __construct() {
+	    parent::__construct();
+	    $this->load->helper('array');
+	    $this->load->model('modelAdministracao');
+    }	
+
+	public function index(){
+		if ($this->session->userdata('logged_in')) {
+                redirect('principal/menu');
+            } else{
+			$pagina = array('tela' => 'login-administrador', 'erro'=> FALSE,);
+			$this->load->view('construtor', $pagina);
+		}
 	}
+
+
+	public function fazerLogin(){
+
+		//Se o jogador já estiver logado, redireciona para o menu principal
+		if ($this->session->userdata('logged_in')) {
+                redirect('administracao/menuAdministrador');
+        } else{ 
+			//Salva o login e a senha digitados no array $dados
+		    $dados = $this->input->post(array('login', 'senha'));
+
+		    //tenta fazer o login
+		    $login = $this->modelAdministracao->fazerLogin($dados['login'], $dados['senha']);
+		   	var_dump($login);
+		    if($login){	        	
+			    	$this->session->set_userdata(array(			    			
+	                    'codAdministrador' => $login['codAdministrador'],	                    
+	                    'nome' => $login['nome'],
+	                    'logged_in' => TRUE,
+	                ));
+		    	//redirect('administracao/menuAdministrador');
+		    } else {
+		    	$pagina = array('tela' => 'login-administrador', 'erro'=> TRUE, );
+				$this->load->view('construtor', $pagina);
+		    }
+		} 		
+	}
+
+	public function logoff() {
+
+        $this->session->sess_destroy();
+        redirect('principal/index');
+    }
 
 	public function recuperarSenha()
 	{
@@ -15,27 +57,33 @@ class Administracao extends CI_Controller {
 		$this->load->view('construtor', $pagina);
 	}
 
+	public function menuAdministrador()
+	{
+		$pagina = array('tela' => 'menu-administrador', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff',);
+		$this->load->view('construtor', $pagina);
+	}
+
 	public function cadastrarPalavra()
 	{
-		$pagina = array('tela' => 'cadastrar-palavra');
+		$pagina = array('tela' => 'cadastrar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
 		$this->load->view('construtor', $pagina);
 	}
 
 	public function editarPalavra()
 	{
-		$pagina = array('tela' => 'editar-palavra');
+		$pagina = array('tela' => 'editar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
 		$this->load->view('construtor', $pagina);
 	}
 
 	public function cadastrarTexto()
 	{
-		$pagina = array('tela' => 'cadastrar-texto');
+		$pagina = array('tela' => 'cadastrar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
 		$this->load->view('construtor', $pagina);
 	}
 
 	public function editarTexto()
 	{
-		$pagina = array('tela' => 'editar-texto');
+		$pagina = array('tela' => 'editar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
 		$this->load->view('construtor', $pagina);
 	}
 	

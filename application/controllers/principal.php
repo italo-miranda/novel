@@ -7,7 +7,6 @@ class Principal extends CI_Controller {
         parent::__construct();
         $this->load->helper('array');
         $this->load->model('modelJogador');
-
     }
 
 
@@ -19,26 +18,46 @@ class Principal extends CI_Controller {
 
 	public function login()
 	{
-				       
-		$pagina = array('tela' => 'login');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+                redirect('principal/menu');
+            } else{ 			       
+				$pagina = array('tela' => 'login', 'erro'=> FALSE,);
+				$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function fazerLogin(){
 
-		//Salva o login e a senha digitados no array $dados
-	    $dados = $this->input->post(array('login', 'senha'));
+		//Se o jogador já estiver logado, redireciona para o menu principal
+		if ($this->session->userdata('logged_in')) {
+                redirect('principal/menu');
+        } else{ 
+			//Salva o login e a senha digitados no array $dados
+		    $dados = $this->input->post(array('login', 'senha'));
 
-	    var_dump($dados);
-	    //tenta fazer o login
-	    $login = $this->modelJogador->fazerLogin($dados['login'], $dados['senha']);
-	    	        
-	    if($login){	        	
-	    	redirect('principal/menu');
-	    } else {
-	    	redirect('principal/index');
-	    }
+		    //tenta fazer o login
+		    $login = $this->modelJogador->fazerLogin($dados['login'], $dados['senha']);
+		    	        
+		    if($login){	        	
+		    	$this->session->set_userdata(array(
+	                    'codJogador' => $login['codJogador'],
+	                    'avatar' => $login['avatar'],
+	                    'nome' => $login['nome'],	                    
+	                    'logged_in' => TRUE,
+	                ));
+		    	redirect('principal/menu');
+		    } else {
+		    	$pagina = array('tela' => 'login', 'erro'=> TRUE,);
+			$this->load->view('construtor', $pagina);
+		    }
+		} 		
 	}
+
+	public function logoff() {
+
+        $this->session->sess_destroy();
+        redirect('principal/index');
+    }
 
 	public function recuperarSenha()
 	{
@@ -48,7 +67,7 @@ class Principal extends CI_Controller {
 
 	public function menu()
 	{
-		$pagina = array('tela' => 'menu');
+		$pagina = array('tela' => 'menu', 'linkNovel'=> 'menu', 'linkLogoff'=>'logoff');
 		$this->load->view('construtor', $pagina);
 	}
 
@@ -63,4 +82,6 @@ class Principal extends CI_Controller {
 		$pagina = array('tela' => 'cadastrar-jogador');
 		$this->load->view('construtor', $pagina);
 	}
+
+
 }

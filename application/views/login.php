@@ -25,8 +25,20 @@
 								<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
 							</div>
 						</div>
-					</form>						
+					</form>								
 				</div>
 			</div>
 		</div>
+
+		<!--Mostrar mensagem de erro se o login ou senha forem inválidos-->
+					<?php
+						if ($erro){
+							echo '<script language="javascript">';
+								echo 'function mensagemErro(){';
+									echo 'alert("Login ou senha inválidos. Tente novamente!");';
+								echo '}';
+								echo 'onload=mensagemErro();';
+							echo '</script>';
+						}
+					?>		
 							
