@@ -7,13 +7,8 @@ include 'rodada.php';
 
 class modelJogador extends CI_Model {
 
-	public  $jogador = NULL;
-	public  $rodada = NULL;
-
 	public function __construct() {
         parent::__construct();
-        $jogador = new Jogador;
-		$rodada = new Rodada;
     }
 
 	
@@ -31,32 +26,27 @@ class modelJogador extends CI_Model {
 
 	public function fazerLogin($login, $senha)
 	{
-		//Define string que será usada na função query do codeigniter
-		$consulta = "SELECT `*` FROM `Jogador` WHERE `login`='{$login}' AND `senha`= '{$senha}' LIMIT 1";
-
-		//Define que $query recebe o resultado da consulta feita utilizando $consulta
-		$query = $this->db->query($consulta);
 		
-		//Se a consulta não for vazia, então é preciso setar os atributos de $jogador
-		if ($query){
-			$this->jogador->setCodJogador($query->codJogador);
-			$this->jogador->setNome($query->nome);
-			$this->jogador->setEmail($query->email);
-			$this->jogador->setLogin($query->login);
-			$this->jogador->setSenha($query->senha);
-			$this->jogador->setAvatar($query->avatar);
-			$this->jogador->setTempoTotal($query->tempoTotal);
-			$this->jogador->setPontuacaoTotal($query->pontuacaoTotal);
+		$this->db->select('*');
+		$this->db->from('Jogador');
+		$this->db->where('login', $login);
+		$this->db->where('senha', $senha);
+		$this->db->limit(1);
+		$query = $this->db->get()->result();
 
-			$dados = array(
-				'nome' => $this->getNome,
-				'avatar' => $this->getAvatar,
-				'codJogador' => $this->getCodJogador,
-			 );
+		if ($query != NULL){
 
-			return $dados;
+			//Se a consulta não for vazia, então é preciso setar os atributos de $jogador
+			foreach ($query as $q) {
+				$dados = array(
+					'nome' => $q->nome,
+					'avatar' => $q->avatar,
+					'codJogador' => $q->codJogador,
+				 );
 
-		} else {
+				return $dados;
+			}
+		}else {
 			return FALSE;
 		}
 	}
@@ -98,37 +88,36 @@ class modelJogador extends CI_Model {
 	//Setters
 
 	protected function setCodJogador($codJogador){
-
-		$this->jogador->codJogador = $codJogador;
+		$jogador->codJogador = $codJogador;
 	}
 
 	protected function setEmail($email){
-		$this->jogador->email = $email;
+		$jogador->email = $email;
 	}
 
 	protected function setNome($nome){
 
-		$this->jogador->nome = $nome;
+		$jogador->nome = $nome;
 	}
 
 	protected function setlogin($login){
-		$this->jogador->login = $login;
+		$jogador->login = $login;
 	}
 
 	protected function setSenha($senha){
-		$this->jogador->senha = $senha;
+		$jogador->senha = $senha;
 	}
 
 	protected function setAvatar($avatar){
-		$this->jogador->avatar = $avatar;
+		$jogador->avatar = $avatar;
 	}
 
 	protected function setTempoTotal($tempoTotal){
-		$this->jogador->TempoTotal = $tempoTotal;
+		$jogador->TempoTotal = $tempoTotal;
 	}
 
 	protected function setPontuacaoTotal($pontuacaoTotal){
-		$this->jogador->pontuacaoTotal = $pontuacaoTotal;
+		$jogador->pontuacaoTotal = $pontuacaoTotal;
 	}
 	
 }

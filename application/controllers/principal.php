@@ -19,28 +19,25 @@ class Principal extends CI_Controller {
 
 	public function login()
 	{
-		//Validação dos campos
-		$this->form_validation->set_rules('login', 'trin|xss_clean');
-        $this->form_validation->set_rules('senha', 'trin|xss_clean');
-
-        //Se a validação passa, o sistema tenta fazer o login
-        if ($this->form_validation->run()){
-        	//Salva o login e a senha digitados no array $dados
-	        $dados = elements(array('login', 'senha'), $this->input->post());
-
-	        //tenta fazer o login
-	        $login = $this->modelJogador->fazerLogin($dados['login'], $dados['senha']);
-
-	        if($login){	        	
-	        	echo "deu certo!"
-	        } else {
-	        	echo "Login deu errado!";
-	        }
-        }
-        
-
+				       
 		$pagina = array('tela' => 'login');
 		$this->load->view('construtor', $pagina);
+	}
+
+	public function fazerLogin(){
+
+		//Salva o login e a senha digitados no array $dados
+	    $dados = $this->input->post(array('login', 'senha'));
+
+	    var_dump($dados);
+	    //tenta fazer o login
+	    $login = $this->modelJogador->fazerLogin($dados['login'], $dados['senha']);
+	    	        
+	    if($login){	        	
+	    	redirect('principal/menu');
+	    } else {
+	    	redirect('principal/index');
+	    }
 	}
 
 	public function recuperarSenha()
