@@ -10,13 +10,34 @@
 	text-align: center;
 }
 
-#botao-esqueciSenha{
-	
+#palavraIncompleta{
+	font-weight: bold;
+}
+
+#inputPalavra{
+	font-size: 100%;
+}
+
+#tempo{
+	border: none;
+	text-align-last: center;
+	width: 10%;
+	background-color: transparent;
 }
 
 #botao-admin{
 	float: left;	
 }
+
+.tabela-gabarito{
+	padding: 1%
+	border-spacing: 2%;
+}
+
+.modal-footer{
+	text-align: center;
+}
+
 .form-group{
 	padding: 1%;
 }

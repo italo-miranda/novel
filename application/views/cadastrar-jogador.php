@@ -1,5 +1,5 @@
 <!-- Aqui e a area do conteudo -->
-			<div class="col-md-12 col-xs-12 afastado-1pc">
+			<div class="col-md-12 col-xs-12 afastado-1pc vertical-center">
 				<div id="conteudo" class="col-md-6 col-xs-12 centered well" >
 					<div class="row">
 						<div id="painel-login" class="col-md-12 col-xs-12">
@@ -65,7 +65,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" alt="alt funcionado" src="<?php echo base_url('assets/img/avatar-fake.png'); ?>">
+								   					<img class="centered" alt="alt funcionado" src="<?php echo base_url('assets/img/cecilia.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" required type="radio" name="avatar">
@@ -75,7 +75,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/avatar-fake.png'); ?>">
+								   					<img class="centered" src="<?php echo base_url('assets/img/graciliano.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" required type="radio" name="avatar">
@@ -85,7 +85,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/avatar-fake.png'); ?>">
+								   					<img class="centered" src="<?php echo base_url('assets/img/clarisse.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" required type="radio" name="avatar">
@@ -95,7 +95,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/avatar-fake.png'); ?>">
+								   					<img class="centered" src="<?php echo base_url('assets/img/joao.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" required type="radio" name="avatar">

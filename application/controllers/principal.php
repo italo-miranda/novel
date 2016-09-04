@@ -43,7 +43,7 @@ class Principal extends CI_Controller {
 	                    'codJogador' => $login['codJogador'],
 	                    'avatar' => $login['avatar'],
 	                    'nome' => $login['nome'],	                    
-	                    'logged_in' => TRUE,
+	                    'logged_in' => TRUE,                   
 	                ));
 		    	redirect('principal/menu');
 		    } else {
@@ -67,7 +67,7 @@ class Principal extends CI_Controller {
 
 	public function menu()
 	{
-		$pagina = array('tela' => 'menu', 'linkNovel'=> 'menu', 'linkLogoff'=>'logoff');
+		$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff',);
 		$this->load->view('construtor', $pagina);
 	}
 
@@ -79,7 +79,7 @@ class Principal extends CI_Controller {
 
 	public function cadastrarJogador()
 	{
-		$pagina = array('tela' => 'cadastrar-jogador');
+		$pagina = array('tela' => 'cadastrar-jogador', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff');
 		$this->load->view('construtor', $pagina);
 	}
 
