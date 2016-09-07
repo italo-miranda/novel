@@ -11,18 +11,24 @@ class Principal extends CI_Controller {
 
 
 	public function index()
-	{
-		$pagina = array('tela' => 'index');
-		$this->load->view('construtor', $pagina);
+	{		
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {        	
+			$pagina = array('tela' => 'index');
+			$this->load->view('construtor', $pagina);
+		}
 	}
+
 
 	public function login()
 	{
+
 		if ($this->session->userdata('logged_in')) {
-                redirect('principal/menu');
-            } else{ 			       
-				$pagina = array('tela' => 'login', 'erro'=> FALSE,);
-				$this->load->view('construtor', $pagina);
+            redirect('principal/menu');
+        } else{ 			       			
+			$pagina = array('tela' => 'index', 'erro'=> FALSE,);
+			$this->load->view('construtor', $pagina);
 		}
 	}
 
@@ -61,14 +67,24 @@ class Principal extends CI_Controller {
 
 	public function recuperarSenha()
 	{
-		$pagina = array('tela' => 'recuperar-senha');
-		$this->load->view('construtor', $pagina);
+
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/index');
+        } else {			
+			$pagina = array('tela' => 'recuperar-senha');
+			$this->load->view('construtor', $pagina);	
+		}
 	}
 
 	public function menu()
 	{
-		$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff',);
-		$this->load->view('construtor', $pagina);
+		
+		if ($this->session->userdata('logged_in')) {
+        	$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff',);
+			$this->load->view('construtor', $pagina);    
+        } else {
+			redirect('principal/index');
+		}
 	}
 
 	public function controle()
@@ -78,10 +94,29 @@ class Principal extends CI_Controller {
 	}
 
 	public function cadastrarJogador()
-	{
-		$pagina = array('tela' => 'cadastrar-jogador', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff');
-		$this->load->view('construtor', $pagina);
+	{					
+		if ($this->session->userdata('logged_in')) {
+        	redirect('principal/menu');    
+        } else {
+			$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE);
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
+	public function realizarCadastro(){
+		if ($this->session->userdata('logged_in')) {
+        	redirect('principal/menu');    
+        } else {
+        	$dados = $this->input->post();
+			$retorno = $this->modelJogador->cadastrarJogador($dados);
 
+			if($retorno){
+				$pagina = array('tela' => 'login', 'erro' => $retorno);
+				$this->load->view('construtor', $pagina);
+			} else {
+				$pagina = array('tela' => 'cadastrar-jogador', 'erro' => $retorno);
+				$this->load->view('construtor', $pagina);		
+			}			
+		}		
+	}
 }

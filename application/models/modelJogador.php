@@ -9,18 +9,6 @@ class modelJogador extends CI_Model {
     }
 
 	
-
-	/*
-	Esta função é genérica. Serve para qualquer tipo de rodada.
-	Isto deve evitar que se tenha uma função para cada tipo de
-	nível do jogo.
-	*/
-
-	public function jogarRodada($grafemas, $tipoRodada)
-	{
-		$this->rodada->jogar($this->codJogador, $grafemas, $tipoRodada);
-	}
-
 	public function fazerLogin($login, $senha)
 	{
 		
@@ -45,6 +33,28 @@ class modelJogador extends CI_Model {
 		}else {
 			return FALSE;
 		} 
+	}
+
+	public function cadastrarJogador($dados){
+		$nome = $dados['nome'];
+		$email = $dados['email'];
+		$login = $dados['login'];
+		$senha = $senha['senha'];
+		$avatar = $dados['dados'];
+
+		$return = FALSE;
+		if($dados != NULL){
+			$string = array(
+			'nome'=>$nome,
+			'email'=>$email,
+			'login'=>$login,
+			'senha'=>$senha,
+			'avatar'=>$avatar,
+			);
+
+		$retorno = $this->db->insert('Jogador', $string);
+		} 
+		return $retorno;	
 	}
 	
 }

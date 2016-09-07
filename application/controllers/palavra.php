@@ -10,66 +10,90 @@ class Palavra extends CI_Controller {
     }
 
 	public function index()	{
-
-		$inputJogador = array('null'=> 'nulo');
-		$pagina = array(
-			'tela' => 'menu-palavra', 
-			'linkNovel'=> 'principal/menu', 
-			'linkLogoff'=>'principal/logoff', 
-			'abrirModal' => "FALSE",
-			'inputJogador' => $inputJogador,
-			'gabarito' => NULL,
-			'pontuacao' => NULL,
-			);
-		$this->load->view('construtor', $pagina);
+		
+		if ($this->session->userdata('logged_in')) {
+            $inputJogador = array('null'=> 'nulo');
+			$pagina = array(
+				'tela' => 'menu-palavra', 
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff', 
+				'abrirModal' => "FALSE",
+				'inputJogador' => $inputJogador,
+				'gabarito' => NULL,
+				'pontuacao' => NULL,
+				);
+			$this->load->view('construtor', $pagina);
+        } else {
+			redirect('principal/index');
+		}
 	}
 
 	public function jogarPalavra() 	{
-		$grafema = $this->uri->segment(3);
+			
+		if ($this->session->userdata('logged_in')) {
+        	$grafema = $this->uri->segment(3);
+        	$grafema = urldecode($grafema);
+			$retorno = $this->modelPalavra->sortearPalavras($grafema);
+			
+			if($retorno){
 
-		$retorno = $this->modelPalavra->sortearPalavras($grafema);
-		
-		$palavrasSorteadas = $retorno[0];
-		$codGrafema = $retorno[1];
+				$palavrasSorteadas = $retorno[0];
+				$codGrafema = $retorno[1];				
 
-		foreach ($palavrasSorteadas as $key) {			 			
-			$palavras[] = $key[0];
-		}
+				foreach ($palavrasSorteadas as $key) {			 			
+					$palavras[] = $key[0];					
+				}
 
-		if($palavrasSorteadas){
-			$pagina = array('tela' => 'jogar-palavra', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff', 'palavras'=> $palavras,'grafema'=> $grafema, 'codGrafema' => $codGrafema);
-			$this->load->view('construtor', $pagina);
+				$pagina = array('tela' => 'jogar-palavra', 
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'palavras'=> $palavras,
+					'grafema'=> $grafema, 
+					'codGrafema' => $codGrafema);
+
+				$this->load->view('construtor', $pagina);
+			}
+        } else {
+			redirect('principal/index');
 		}		
 	}
 
 	public function inserirRodadaPalavra(){
+		if ($this->session->userdata('logged_in')) {
 
-		$dados = elements(array('codGrafema', 'inputLetra0', 'inputLetra1', 'duracao', 'gabarito0', 'gabarito1'), $this->input->post());
+			$dados = $this->input->post();
 
-		$inputJogador = array(
-			'inputLetra0' => $dados['inputLetra0'],
-			'inputLetra1' => $dados['inputLetra1'],
-			);
+			for ($i = 0; $i<5; $i++){
+				$inputJogador[] = $dados['inputLetra'.$i];
+			}
 
-		$gabarito = array(
-			'gabarito0' => $dados['gabarito0'],
-			'gabarito1' => $dados['gabarito1'],
-			);			
+			for ($i = 0; $i<5; $i++){
+				$gabarito[] = $dados['gabarito'.$i];
+			}
 
-		$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
+			for ($i = 0; $i<5; $i++){
+				$justificativa[] = $dados['justificativa'.$i];
+			}
 
-		$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
+			$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
 
-		$pagina = array(
-			'tela' => 'menu-palavra',
-			'linkNovel'=> 'principal/menu', 
-			'linkLogoff'=>'principal/logoff', 
-			'inputJogador' => $inputJogador,
-			'gabarito' => $gabarito,
-			'pontuacao' => $pontuacao,
-			'abrirModal' => "TRUE",
-			'inseriu' => $inseriu,
-			);
-		$this->load->view('construtor', $pagina);
+			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
+
+			$pagina = array(
+				'tela' => 'menu-palavra',
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff', 
+				'inputJogador' => $inputJogador,
+				'gabarito' => $gabarito,
+				'pontuacao' => $pontuacao,
+				'justificativa' => $justificativa,
+				'abrirModal' => "TRUE",
+				'inseriu' => $inseriu,
+				);
+			$this->load->view('construtor', $pagina);
+		
+        } else {
+        	redirect('principal/index');
+		}	
 	}
 }

@@ -2,12 +2,12 @@
 	<div id="conteudo" class="col-md-12 col-xs-12 well">
 		<div class="row">
 				<h3 class="titulo-menu">Nível Palavra</h3>
-		</div>
+		</div>		
 		<div id="imagens-menu" class="centered" >
 			<div class="row afastado-1pc">
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<a href="<?php echo base_url("palavra/jogarPalavra/ch");?>">
+						<a href="<?php echo base_url("palavra/jogarPalavra/ch_x");?>">
 							<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 						</a>						
 					</div>			
@@ -53,9 +53,8 @@
 			</div>
 		</div>
 		<input type="hidden" id="abrirModal" value="<?php echo ($abrirModal); ?>">
+		<input type="hidden" id="abrirModal" value="<?php echo ($inseriu); ?>">
 
-
-	
 
   <!-- Modal -->
   	<div class="modal fade" id="pop" role="dialog">
@@ -67,17 +66,19 @@
 	        </div>
 	        <input type="hidden" id="inputs" name="inputs" value=""/>
 	        <div class="modal-body">          
-					<?php						
+					<?php											
 						echo '<table class="centered tabela-gabarito" border="1%">';
 							echo '<tr>';
-								echo '<th> Sua resposta </td>';
-								echo '<th> Gabarito </td>';
+								echo '<th> Sua resposta </th>';
+								echo '<th> Gabarito </th>';
+								echo '<th> Explicação </th>';
 							echo '<tr>';
 							$i = 0;
 							foreach ($inputJogador as $input => $value) {
 								echo '<tr>';
 									echo '<td>'.$value.'</td>';	
-									echo '<td>'.$gabarito['gabarito'.$i].'</td>';	
+									echo '<td>'.$gabarito[$i].'</td>';	
+									echo '<td>'.$justificativa[$i].'</td>';	
 								echo '</tr>';
 							$i++;
 							}
@@ -99,8 +100,8 @@
 
 var abrir = document.getElementById("abrirModal").value;
 	if(abrir.localeCompare("TRUE") == 0){
-		mostrarGabarito();	
-	}
+			mostrarGabarito();	
+	} 
 
 	function mostrarGabarito(){		
 		$("#pop").modal();		

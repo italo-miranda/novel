@@ -6,7 +6,7 @@
 							<div class="row">
 								<h1 class="titulo-menu centered">Cadastre-se para jogar!</h1>
 							</div>							
-							<form class="form-vertical" role="form">
+							<form class="form-vertical" role="form" method="post" action="<?php echo base_url('principal/realizarCadastro');?>">
 							  	<div class="row">
 							  		<div class="form-group centered">
 							  			<div class="col-md-4 col-xs-4">
@@ -68,7 +68,7 @@
 								   					<img class="centered" alt="alt funcionado" src="<?php echo base_url('assets/img/cecilia.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar">
+								   					<input class="centered" required type="radio" name="avatar" value="cecilia">
 								   				</div>								   											   	
 	   							 			</label>					
 								   		</div>
@@ -78,17 +78,17 @@
 								   					<img class="centered" src="<?php echo base_url('assets/img/graciliano.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar">
+								   					<input class="centered" required type="radio" name="avatar" value="graciliano">
 								   				</div>								   											   	
 	   							 			</label>	
 								   		</div>
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/clarisse.jpg'); ?>">
+								   					<img class="centered" src="<?php echo base_url('assets/img/clarice.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar">
+								   					<input class="centered" required type="radio" name="avatar" value="clarice">
 								   				</div>								   											   	
 	   							 			</label>						
 								   		</div>
@@ -98,7 +98,7 @@
 								   					<img class="centered" src="<?php echo base_url('assets/img/joao.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar">
+								   					<input class="centered" required type="radio" name="avatar" value="joao">
 								   				</div>								   											   	
 	   							 			</label>								
 								   		</div>
@@ -111,3 +111,15 @@
 						</div>
 					</div>
 				</div>
+
+					<!--Mostrar mensagem de erro se o login ou senha forem inválidos-->
+					<?php
+						if ($erro){
+							echo '<script language="javascript">';
+								echo 'function mensagemErro(){';
+									echo 'alert("Não foi possível realizar o cadastro. Por favor, tente novamente!");';
+								echo '}';
+								echo 'onload=mensagemErro();';
+							echo '</script>';
+						}
+					?>

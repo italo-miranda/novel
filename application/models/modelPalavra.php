@@ -8,66 +8,76 @@ class modelPalavra extends CI_Model {
         parent::__construct();
     }
 
-
-
+    //Esta função deve receber o tipo do grafema,
+    //buscar as palavras referentes ao grafema,
+    //e sortear 5 palavras, que irão compor uma rodada
     public function sortearPalavras($tipoGrafema){
 
+        //Busca do código do grafema pelo tipo do Grafema
     	$this->db->select('codGrafema');
     	$this->db->from('Grafema');
     	$this->db->where('tipoGrafema', $tipoGrafema);
     	$this->db->limit(1);
     	$codigo = $this->db->get()->result();
-    	        	
+
+        //Busca todos os códigos das palavras referentes ao código do grafema
 		$codGrafema = $codigo[0]->codGrafema;		
 	   	$this->db->select('codPalavra');
     	$this->db->from('Palavra');
     	$this->db->where('codGrafema', $codGrafema);     			    		
-    	$listaPalavras = $this->db->get()->result();    	    	
-
+    	$listaPalavras = $this->db->get()->result();  
+          	    	
+        //Se a consulta não for nula
 		if ($listaPalavras) {
 
 			$qtd = 0;
 	    	$listaCodigos = array();
 	    	unset($listaCodigos);
 
-
+            //Guarda os códigos das palavras em $listaCódigos
 			foreach ($listaPalavras as $list) {
 				$listaCodigos[] = $list->codPalavra;
 				$qtd++;
 			}
     	
-
-			$selecionados = array_rand($listaCodigos, $qtd);	
+            //Armazena os códigos das palavras e escolhe 5 aleatoreamente			
+            $selecionados = array_rand($listaCodigos, 5);            
 			$palavrasSorteadas = array();
 			unset($palavrasSorteadas);
-			for ($i=0; $i < 2; $i++) { 
-				
-				$numero = $listaCodigos[$selecionados[$i]];
-				$this->db->select('enunciado, codPalavra, imagem, palavraIncompleta, letraGabarito');
-		    	$this->db->from('Palavra');
-		    	$this->db->where('codPalavra', $numero);     			    		
-		    	$palavrasSorteadas[] = $this->db->get()->result();				
+
+            //Armazena as palavras escolhidas em $palavrasSorteadas
+			for ($i=0; $i < 5; $i++) { 
+                $numero = $listaCodigos[$selecionados[$i]];
+                $this->db->select('*');
+                $this->db->from('Palavra');
+                $this->db->where('codPalavra', $numero);                            
+                $palavrasSorteadas[] = $this->db->get()->result();              
+                
 			}
 			$retorno = NULL;
 			unset($retorno);
 			$retorno[] = $palavrasSorteadas;
-			$retorno[] = $codGrafema;
+            $retorno[] = $codGrafema;
 			return $retorno;
     	} else {
     		return FALSE;
     	}
     }
 
+    //Esta função deve receber as respostas digitadas pelo jogador
+    //e o gabarito da rodada. Em seguida, deve verificar se as respostas
+    //estão certas. Para cada palavra certa, o jogador recebe 10 pontos
     public function calcularPontuacao($inputJogador, $gabarito){
     	$pontuacao = 0;
-    	for ($i = 0; $i < 2 ; $i++){
-    		if (strcmp($inputJogador['inputLetra'.$i], $gabarito['gabarito'.$i]) == 0){
+    	for ($i = 0; $i < 5 ; $i++){
+    		if (strcmp($inputJogador[$i], $gabarito[$i]) == 0){
     			$pontuacao = $pontuacao + 10;    		
     		}
     	}
     	return $pontuacao;
     }
 
+    //Esta função recebe os dados de uma rodada e os armazena no banco de dados
     public function inserirRodadaPalavra($codGrafema, $codJogador, $duracao, $pontuacao){
     	if ($codGrafema != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
     		$dados = array(
@@ -79,7 +89,10 @@ class modelPalavra extends CI_Model {
     			);
 
     		$this->db->insert('rodada', $dados);
-    	}
+            return TRUE;
+    	} else{
+            return FALSE;
+        }
     }
 
 

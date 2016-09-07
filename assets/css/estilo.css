@@ -47,6 +47,10 @@
     float: none !important;
 }
 
+#paragrafoTexto{
+	text-align: left;
+}
+
 .link-sem-linha{
 	text-decoration: none;
 }

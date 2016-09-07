@@ -12,20 +12,38 @@
 							</div>							
 							<div class="carousel-inner" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DAS PALAVRAS-->
-							
+							<div class="item active">
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+									<!--AQUI VAI A REGRA, AS EXCEÇÕES E OS PARONIMOS/HOMONIMOS-->
+									</div>
+								</div>
+							</div>
 							<?php	
+								
 								$i = 0;
-								foreach ($palavras as $p):									
-								    if ($i==0){
-								    	echo '<div class="item active">';
-								    }else{
-										echo '<div class="item">';
-									}
-								    	echo '<div class="row">';
+								foreach ($palavras as $p):						   
+									echo '<div class="item">';	
+										echo '<div class="row">';
 								    		echo '<div class="col-md-12 col-xs-12">';
-								    			echo '<h3>Complete com ' . $grafema. '</h3>';
+								    			$grafemaDividido = explode("_", $grafema);
+								    			$tamanho = count($grafemaDividido);								    			
+								    			echo '<h3>Complete com ';
+								    				for ($j =0 ; $j<$tamanho; $j++){
+								    					echo $grafemaDividido[$j];
+								    					if ($j == $tamanho - 1){
+								    						echo ":";
+								    					} else {
+								    						if ($j == $tamanho - 2) {
+									    						echo " ou ";
+									    					} else{
+									    						echo ", ";
+								    						}
+								    					}
+								    				}
+								    			echo '</h3>';
 								    		echo '</div>';
-								    	echo '</div>';
+								    	echo '</div>';														   	
 										echo '<div class="row centered">';
 											if ($p->imagem != NULL){
 												echo '<div class="col-md-4 col-xs-12">';
@@ -36,7 +54,7 @@
 												echo '<div class="col-md-12 col-xs-12">';
 													echo "<h4>". $p->enunciado."</h4>";		
 											}
-											echo '</div>';
+												echo '</div>';
 										echo '</div>';
 
 										echo '<div class="row centered">';
@@ -51,9 +69,11 @@
 										echo '</div>';
 									echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$p->letraGabarito.'" >';
+									echo '<input type="hidden" name="justificativa'.$i.'" value="'.$p->justificativa.'">';
 									$i++;									
 								endforeach;	
 								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';			
+
 
 							?>							
 
@@ -75,11 +95,13 @@
 						</div>	
 
 						<!-- Controles -->
-			  			<div class="row">
+						<div class="row"> 
 							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 								<span class="sr-only">Previous</span>
 							</a>
+						</div>
+			  			<div class="row">
 							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
 								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								<span class="sr-only">Next</span>

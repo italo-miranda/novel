@@ -51,40 +51,64 @@ class Administracao extends CI_Controller {
         redirect('principal/index');
     }
 
-	public function recuperarSenha()
+	public function recuperarSenha()	
 	{
-		$pagina = array('tela' => 'recuperar-senha');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'recuperar-senha');
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function menuAdministrador()
 	{
-		$pagina = array('tela' => 'menu-administrador', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff',);
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'menu-administrador', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff',);
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function cadastrarPalavra()
 	{
-		$pagina = array('tela' => 'cadastrar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'cadastrar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function editarPalavra()
 	{
-		$pagina = array('tela' => 'editar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'editar-palavra', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function cadastrarTexto()
 	{
-		$pagina = array('tela' => 'cadastrar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'cadastrar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
+			$this->load->view('construtor', $pagina);
+		}
 	}
 
 	public function editarTexto()
 	{
-		$pagina = array('tela' => 'editar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
-		$this->load->view('construtor', $pagina);
+		if ($this->session->userdata('logged_in')) {
+            redirect('principal/menu');
+        } else {
+			$pagina = array('tela' => 'editar-texto', 'linkNovel'=> 'menu-administrador', 'linkLogoff'=>'logoff');
+			$this->load->view('construtor', $pagina);
+		}
 	}
 	
 }
