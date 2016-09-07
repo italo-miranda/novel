@@ -77,9 +77,8 @@ class Principal extends CI_Controller {
 	}
 
 	public function menu()
-	{
-		
-		if ($this->session->userdata('logged_in')) {
+	{		
+		if ($this->session->userdata('logged_in')) {		
         	$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff',);
 			$this->load->view('construtor', $pagina);    
         } else {
@@ -108,10 +107,9 @@ class Principal extends CI_Controller {
         	redirect('principal/menu');    
         } else {
         	$dados = $this->input->post();
-			$retorno = $this->modelJogador->cadastrarJogador($dados);
-
+			$retorno = $this->modelJogador->cadastrarJogador($dados);			
 			if($retorno){
-				$pagina = array('tela' => 'login', 'erro' => $retorno);
+				$pagina = array('tela' => 'login', 'erro' => FALSE);
 				$this->load->view('construtor', $pagina);
 			} else {
 				$pagina = array('tela' => 'cadastrar-jogador', 'erro' => $retorno);

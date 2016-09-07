@@ -13,6 +13,8 @@ class modelPalavra extends CI_Model {
     //e sortear 5 palavras, que irão compor uma rodada
     public function sortearPalavras($tipoGrafema){
 
+        $retorno = NULL;
+        
         //Busca do código do grafema pelo tipo do Grafema
     	$this->db->select('codGrafema');
     	$this->db->from('Grafema');
@@ -20,48 +22,46 @@ class modelPalavra extends CI_Model {
     	$this->db->limit(1);
     	$codigo = $this->db->get()->result();
 
-        //Busca todos os códigos das palavras referentes ao código do grafema
-		$codGrafema = $codigo[0]->codGrafema;		
-	   	$this->db->select('codPalavra');
-    	$this->db->from('Palavra');
-    	$this->db->where('codGrafema', $codGrafema);     			    		
-    	$listaPalavras = $this->db->get()->result();  
-          	    	
-        //Se a consulta não for nula
-		if ($listaPalavras) {
+        if ($codigo){
+            $codGrafema = $codigo[0]->codGrafema;                           
+            $listaPalavras = $this->buscarConjuntoPalavras($codGrafema);  
+            
+            //Se a consulta não for nula
+            if ($listaPalavras) {
+                $qtd = 0;
+                $listaCodigos = array();
+                unset($listaCodigos);
 
-			$qtd = 0;
-	    	$listaCodigos = array();
-	    	unset($listaCodigos);
+                //Guarda os códigos das palavras em $listaCódigos
+                foreach ($listaPalavras as $list) {
+                    $listaCodigos[] = $list->codPalavra;
+                    $qtd++;
+                }
+            
+                //Armazena os códigos das palavras e escolhe 5 aleatoreamente           
+                $selecionados = array_rand($listaCodigos, 5);            
+                $palavrasSorteadas = array();
+                unset($palavrasSorteadas);
 
-            //Guarda os códigos das palavras em $listaCódigos
-			foreach ($listaPalavras as $list) {
-				$listaCodigos[] = $list->codPalavra;
-				$qtd++;
-			}
-    	
-            //Armazena os códigos das palavras e escolhe 5 aleatoreamente			
-            $selecionados = array_rand($listaCodigos, 5);            
-			$palavrasSorteadas = array();
-			unset($palavrasSorteadas);
-
-            //Armazena as palavras escolhidas em $palavrasSorteadas
-			for ($i=0; $i < 5; $i++) { 
-                $numero = $listaCodigos[$selecionados[$i]];
-                $this->db->select('*');
-                $this->db->from('Palavra');
-                $this->db->where('codPalavra', $numero);                            
-                $palavrasSorteadas[] = $this->db->get()->result();              
+                //Armazena as palavras escolhidas em $palavrasSorteadas
+                for ($i=0; $i < 5; $i++) { 
+                    $numero = $listaCodigos[$selecionados[$i]];                            
+                    $palavrasSorteadas[] = $this->buscarPalavraPeloCodigo($numero);                                        
+                }
                 
-			}
-			$retorno = NULL;
-			unset($retorno);
-			$retorno[] = $palavrasSorteadas;
-            $retorno[] = $codGrafema;
-			return $retorno;
-    	} else {
-    		return FALSE;
-    	}
+
+
+                $retorno[] = $palavrasSorteadas;
+                $retorno[] = $codGrafema;
+                return $retorno;
+            } else {
+                $retorno = FALSE;
+            }
+        } else {
+            $retorno = FALSE;
+        }		         	    
+
+        return $retorno;
     }
 
     //Esta função deve receber as respostas digitadas pelo jogador
@@ -95,7 +95,21 @@ class modelPalavra extends CI_Model {
         }
     }
 
+    //Busca todos os códigos das palavras referentes ao código do grafema
+    public function buscarConjuntoPalavras($codGrafema){             
+        $this->db->select('codPalavra');
+        $this->db->from('Palavra');
+        $this->db->where('codGrafema', $codGrafema);                            
+        $listaPalavras = $this->db->get()->result(); 
+        return $listaPalavras;
+    }
 
-
-	
+    //Busca uma palavra utilizando como parâmetro o seu código
+    public function buscarPalavraPeloCodigo($codPalavra){
+        $this->db->select('*');
+        $this->db->from('Palavra');
+        $this->db->where('codPalavra', $codPalavra);                            
+        $palavra = $this->db->get()->result(); 
+        return $palavra;
+    }
 }

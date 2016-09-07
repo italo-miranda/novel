@@ -2,28 +2,28 @@
 <div id="conteudo" class="col-md-12 col-xs-12 well">				
 	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('palavra/inserirRodadaPalavra');?>">		
 			<div class="row">
-				<div id="myCarousel" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
+				<div>
+					<button type="button" id="botaoMostrarRegra" class="btn btn-primary" onclick="mostrarRegra()">Ver os ensinamentos do mestre Exímio</button>
+				</div>
+				<div id="carrosselPalavras" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
 					<div class="row" style="padding: 1%;">
 						<div class="col-md-8 col-xs-12 centered">			  				
 			  				<div class="centered col-md-12 col-xs-12">
 								<p><span class="glyphicon glyphicon-time"></span>
 								<input type="text" id="tempo" name="tempo" disabled=""></p>
 								<input type="hidden" id="duracao" name="duracao" value="0">
+								<input type="hidden" id="abrirModal" value="<?php echo ($abrirModal); ?>">
 							</div>							
 							<div class="carousel-inner" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DAS PALAVRAS-->
-							<div class="item active">
-								<div class="row">
-									<div class="col-md-12 col-xs-12">
-									<!--AQUI VAI A REGRA, AS EXCEÇÕES E OS PARONIMOS/HOMONIMOS-->
-									</div>
-								</div>
-							</div>
-							<?php	
-								
+							<?php									
 								$i = 0;
-								foreach ($palavras as $p):						   
-									echo '<div class="item">';	
+								foreach ($palavras as $p):	
+									if ($i == 0) {					   
+										echo '<div class="item active">';	
+									} else {
+										echo '<div class="item">';
+									}
 										echo '<div class="row">';
 								    		echo '<div class="col-md-12 col-xs-12">';
 								    			$grafemaDividido = explode("_", $grafema);
@@ -62,7 +62,7 @@
 												$palavraDividida = explode("_", $p->palavraIncompleta);
 												echo '<h3 id="palavraIncompleta">';
 													echo $palavraDividida[0];
-													echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" name="inputLetra'.$i.'" style="width:8%;">';
+													echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" name="inputLetra'.$i.'" required">';
 													echo $palavraDividida[1];
 												echo '</h3>';
 											echo '</div>';
@@ -95,14 +95,9 @@
 						</div>	
 
 						<!-- Controles -->
-						<div class="row"> 
-							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-						</div>
+
 			  			<div class="row">
-							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+							<a class="right carousel-control" href="#carrosselPalavras" role="button" data-slide="next">
 								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								<span class="sr-only">Next</span>
 							</a>
@@ -111,6 +106,79 @@
 				</div>
 			</div>	
 		</div>
+
+
+<!-- Modal da história-->
+  	<div class="modal fade" id="modalPalavra" role="dialog">
+	    <div class="modal-dialog modal-lg">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>	          
+	        </div>
+	        <input type="hidden" id="inputs" name="inputs" value=""/>
+	        
+	        <div class="modal-body">          
+							
+	        	<div id="carroselRegra" class="carousel slide" data-ride="carousel" data-interval="false">
+
+				    <!-- Wrapper for slides -->
+				    <div class="carousel-inner" role="listbox">
+
+				      <div class="item active">
+				        <img src="" alt="Chania" width="460" height="345">
+				        <div class="carousel-caption">
+				          <h3>Chania</h3>
+				          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+				        </div>
+				      </div>
+
+				      <div class="item">
+				        <img src="img_chania2.jpg" alt="Chania" width="460" height="345">
+				        <div class="carousel-caption">
+				          <h3>Chania</h3>
+				          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+				        </div>
+				      </div>
+				    
+				      <div class="item">
+				        <img src="img_flower.jpg" alt="Flower" width="460" height="345">
+				        <div class="carousel-caption">
+				          <h3>Flowers</h3>
+				          <p>Beatiful flowers in Kolymbari, Crete.</p>
+				        </div>
+				      </div>
+
+				      <div class="item">
+				        <img src="img_flower2.jpg" alt="Flower" width="460" height="345">
+				        <div class="carousel-caption">
+				          <h3>Flowers</h3>
+				          <p>Beatiful flowers in Kolymbari, Crete.</p>
+				        </div>
+				      </div>
+				  
+				    </div>
+
+				    <!-- Left and right controls -->
+				    <a class="left carousel-control" href="#carrosselRegra" role="button" data-slide="prev">
+				      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				      <span class="sr-only">Previous</span>
+				    </a>
+				    <a class="right carousel-control" href="#carrosselRegra" role="button" data-slide="next">
+				      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				      <span class="sr-only">Next</span>
+				    </a>
+				  </div>
+
+	        </div>
+		    <div class="row centered">
+		    	<div class="modal-footer">
+		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>		    		
+		        </div>
+		    </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
 <script language="JavaScript">
@@ -159,9 +227,41 @@
 		document.getElementById("duracao").value = duracao - 1;		
 		document.getElementById("form").submit();
 	}	
+
+	var abrir = document.getElementById("abrirModal").value;
+		if(abrir.localeCompare("TRUE") == 0){
+				mostrarRegra();	
+		} 
+
+	function mostrarRegra(){		
+		$("#modalPalavra").modal();		
+	}
 	
 </script>
 
 
-
 </form>
+
+
+
+
+<?php											
+	/*echo '<table class="centered tabela-gabarito" border="1%">';
+		echo '<tr>';
+			echo '<th> Sua resposta </th>';
+			echo '<th> Gabarito </th>';
+			echo '<th> Explicação </th>';
+		echo '<tr>';
+		$i = 0;
+		foreach ($inputJogador as $input => $value) {
+			echo '<tr>';
+				echo '<td>'.$value.'</td>';	
+				echo '<td>'.$gabarito[$i].'</td>';	
+				echo '<td>'.$justificativa[$i].'</td>';	
+			echo '</tr>';
+		$i++;
+		}
+	echo '</table>';
+	echo '<p class="centered" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
+	*/
+?>	

@@ -39,8 +39,8 @@ class modelJogador extends CI_Model {
 		$nome = $dados['nome'];
 		$email = $dados['email'];
 		$login = $dados['login'];
-		$senha = $senha['senha'];
-		$avatar = $dados['dados'];
+		$senha = $dados['senha1'];
+		$avatar = $dados['avatar'];
 
 		$return = FALSE;
 		if($dados != NULL){

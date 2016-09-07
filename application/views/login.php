@@ -33,7 +33,7 @@
 		<!--Mostrar mensagem de erro se o login ou senha forem inválidos-->
 					<?php
 						if ($erro){
-							echo '<script language="javascript">';
+							echo '<script language="javascript">';							
 								echo 'function mensagemErro(){';
 									echo 'alert("Login ou senha inválidos. Tente novamente!");';
 								echo '}';

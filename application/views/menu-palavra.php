@@ -53,7 +53,8 @@
 			</div>
 		</div>
 		<input type="hidden" id="abrirModal" value="<?php echo ($abrirModal); ?>">
-		<input type="hidden" id="abrirModal" value="<?php echo ($inseriu); ?>">
+		<input type="hidden" id="inseriu" value="<?php echo ($inseriu); ?>">
+		<input type="hidden" id="erro" value="<?php echo ($erro); ?>">
 
 
   <!-- Modal -->
@@ -96,15 +97,29 @@
 	  </div>
 	</div>
 
+<?php
+	if ($erro != NULL){
+		echo '<script language="javascript">';
+			echo 'function mensagemErro(){';
+				echo 'alert("Ops! Moncoso provocou um distúrbio nas palavras... \nTente novamente!");';
+			echo '}';
+			echo 'onload=mensagemErro();';
+		echo '</script>';
+	}
+?>
+
+
 <script type="text/javascript">
 
-var abrir = document.getElementById("abrirModal").value;
-	if(abrir.localeCompare("TRUE") == 0){
-			mostrarGabarito();	
-	} 
+	var abrir = document.getElementById("abrirModal").value;
+		if(abrir.localeCompare("TRUE") == 0){
+				mostrarGabarito();	
+		} 
 
 	function mostrarGabarito(){		
 		$("#pop").modal();		
 	}
+
+
 
 </script>

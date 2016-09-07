@@ -7,11 +7,11 @@
 							<form class="form-inline" role="form" method="post" action="<?php echo base_url('administracao/fazerLogin');?>">
 							  	<div class="form-group">
 							    	<label for="login">Login:</label>
-							    	<input type="text" id="login" name="login" class="form-control" id="login">
+							    	<input type="text" id="login" name="login" required class="form-control" id="login">
 							  	</div>
 							  	<div class="form-group">
 							    	<label for="pwd">Senha:</label>
-							   		<input type="password" id="senha" name="senha" class="form-control" id="senha">
+							   		<input type="password" id="senha" name="senha" required class="form-control" id="senha">
 							  	</div>
 								<div class="col-md-10 col-xs-12 centered">
 									<button type="submit" class="btn btn-block btn-success">Entrar</button>

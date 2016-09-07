@@ -6,7 +6,7 @@
 							<div class="row">
 								<h1 class="titulo-menu centered">Cadastre-se para jogar!</h1>
 							</div>							
-							<form class="form-vertical" role="form" method="post" action="<?php echo base_url('principal/realizarCadastro');?>">
+							<form class="form-vertical" id="form" role="form" method="post" action="<?php echo base_url('principal/realizarCadastro');?>">
 							  	<div class="row">
 							  		<div class="form-group centered">
 							  			<div class="col-md-4 col-xs-4">
@@ -53,7 +53,7 @@
 								    		<label for="senha2">Repita a senha:</label>
 								    	</div>
 								   		<div class="col-md-8 col-xs-8">
-								   			<input type="password" class="form-control" required=""  size="40" id="senha2" name="senha2">
+								   			<input type="password" class="form-control" required="" size="40" id="senha2" name="senha2">							   			
 								   		</div>
 								  	</div>
 							  	</div>
@@ -105,7 +105,7 @@
 								  	</div>
 							  	</div>
 								<div class="row centered">
-									<button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+									<button type="button" onclick="verificarSenhas()" class="btn btn-lg btn-success">Cadastrar</button>
 								</div>
 							</form>																				
 						</div>
@@ -123,3 +123,19 @@
 							echo '</script>';
 						}
 					?>
+
+					<script type="text/javascript">
+						
+						function verificarSenhas(){
+							var senha1 = document.getElementById("senha1").value;
+							var senha2 = document.getElementById("senha2").value;
+							if (senha1 != senha2){
+								alert("As senhas não coincidem! Por favor, digite senhas iguais.");
+								document.getElementById("senha2").value = "";
+								document.getElementById("senha2").focus();
+							} else {
+								document.getElementById("form").submit();
+							}
+						}						
+
+					</script>

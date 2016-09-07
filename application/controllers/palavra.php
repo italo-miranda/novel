@@ -12,6 +12,8 @@ class Palavra extends CI_Controller {
 	public function index()	{
 		
 		if ($this->session->userdata('logged_in')) {
+			$erro = $this->uri->segment(3);
+        	$erro = urldecode($erro);
             $inputJogador = array('null'=> 'nulo');
 			$pagina = array(
 				'tela' => 'menu-palavra', 
@@ -21,6 +23,8 @@ class Palavra extends CI_Controller {
 				'inputJogador' => $inputJogador,
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
+				'erro' => $erro,
+				'inseriu' => TRUE,
 				);
 			$this->load->view('construtor', $pagina);
         } else {
@@ -44,22 +48,32 @@ class Palavra extends CI_Controller {
 					$palavras[] = $key[0];					
 				}
 
+				//fazer função para mostrar a regra
+				$abrirModal = TRUE;
+
 				$pagina = array('tela' => 'jogar-palavra', 
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
 					'palavras'=> $palavras,
 					'grafema'=> $grafema, 
-					'codGrafema' => $codGrafema);
+					'codGrafema' => $codGrafema,
+					'abrirModal' => $abrirModal,
+					);
 
 				$this->load->view('construtor', $pagina);
+			} else {
+				redirect('palavra/index/0');
 			}
         } else {
-			redirect('principal/index');
+			redirect('principal/menu');
 		}		
 	}
 
 	public function inserirRodadaPalavra(){
 		if ($this->session->userdata('logged_in')) {
+
+			$erro = $this->uri->segment(3);
+        	$erro = urldecode($erro);
 
 			$dados = $this->input->post();
 
@@ -89,6 +103,7 @@ class Palavra extends CI_Controller {
 				'justificativa' => $justificativa,
 				'abrirModal' => "TRUE",
 				'inseriu' => $inseriu,
+				'erro' => $erro,
 				);
 			$this->load->view('construtor', $pagina);
 		

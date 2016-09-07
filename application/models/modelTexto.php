@@ -133,17 +133,18 @@ class modelTexto extends CI_Model {
     public function inserirRodadaTexto($grafemas, $codJogador, $duracao, $pontuacao){
     	if ($grafemas != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
     		    	
-    		$grafemaSeparado = separarGrafemas($grafemas);
+    		$grafemaSeparado = $this->separarGrafemas($grafemas);
 
     		foreach ($grafemaSeparado as $gr => $valor) {
-    			$codGrafema = encontrarCodigoGrafema($valor);
+    			$codGrafema = $this->encontrarCodigoGrafema($valor);
     			$dados = array(
-    			'codGrafema' => $codGrafema,
+    			'codGrafema' => $codGrafema[0]->codGrafema,
     			'codJogador' => $codJogador,
     			'tipoRodada' => 'texto',
     			'duracao' => $duracao,
     			'pontuacao' => $pontuacao,
     			);    		
+
     		$this->db->insert('rodada', $dados);
     		} 
     	} else{
