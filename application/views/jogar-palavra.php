@@ -228,10 +228,7 @@
 		document.getElementById("form").submit();
 	}	
 
-	var abrir = document.getElementById("abrirModal").value;
-		if(abrir.localeCompare("TRUE") == 0){
-				mostrarRegra();	
-		} 
+	mostrarRegra();	
 
 	function mostrarRegra(){		
 		$("#modalPalavra").modal();		
