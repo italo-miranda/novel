@@ -38,6 +38,7 @@
 									echo 'alert("Login ou senha inválidos. Tente novamente!");';
 								echo '}';
 								echo 'onload=mensagemErro();';
+								echo 'alert("Cadastro efetuado! Entre com seu login e senha para começar.");';
 							echo '</script>';
 						}
 					?>		

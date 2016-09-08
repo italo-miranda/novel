@@ -65,10 +65,10 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" alt="alt funcionado" src="<?php echo base_url('assets/img/cecilia.jpg'); ?>">
+								   					<img class="centered" src="<?php echo base_url('assets/img/cecilia.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar" value="cecilia">
+								   					<input class="centered" required type="radio" name="avatar" value="cecilia"/>
 								   				</div>								   											   	
 	   							 			</label>					
 								   		</div>
@@ -78,7 +78,7 @@
 								   					<img class="centered" src="<?php echo base_url('assets/img/graciliano.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar" value="graciliano">
+								   					<input class="centered" type="radio" name="avatar" value="graciliano"/>
 								   				</div>								   											   	
 	   							 			</label>	
 								   		</div>
@@ -88,7 +88,7 @@
 								   					<img class="centered" src="<?php echo base_url('assets/img/clarice.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar" value="clarice">
+								   					<input class="centered" type="radio" name="avatar" value="clarice"/>
 								   				</div>								   											   	
 	   							 			</label>						
 								   		</div>
@@ -98,7 +98,7 @@
 								   					<img class="centered" src="<?php echo base_url('assets/img/joao.jpg'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" required type="radio" name="avatar" value="joao">
+								   					<input class="centered" type="radio" name="avatar" value="joao"/>
 								   				</div>								   											   	
 	   							 			</label>								
 								   		</div>
@@ -106,6 +106,7 @@
 							  	</div>
 								<div class="row centered">
 									<button type="button" onclick="verificarSenhas()" class="btn btn-lg btn-success">Cadastrar</button>
+									<button type="submit" id="enviarCadastro" ></button>
 								</div>
 							</form>																				
 						</div>
@@ -125,16 +126,16 @@
 					?>
 
 					<script type="text/javascript">
-						
+						$("#enviarCadastro").hide();
 						function verificarSenhas(){
 							var senha1 = document.getElementById("senha1").value;
-							var senha2 = document.getElementById("senha2").value;
+							var senha2 = document.getElementById("senha2").value;	
 							if (senha1 != senha2){
 								alert("As senhas não coincidem! Por favor, digite senhas iguais.");
 								document.getElementById("senha2").value = "";
 								document.getElementById("senha2").focus();
-							} else {
-								document.getElementById("form").submit();
+							} else {						
+								document.getElementById("enviarCadastro").click();								
 							}
 						}						
 

@@ -24,50 +24,50 @@
 									} else {
 										echo '<div class="item">';
 									}
-										echo '<div class="row">';
-								    		echo '<div class="col-md-12 col-xs-12">';
-								    			$grafemaDividido = explode("_", $grafema);
-								    			$tamanho = count($grafemaDividido);								    			
-								    			echo '<h3>Complete com ';
-								    				for ($j =0 ; $j<$tamanho; $j++){
-								    					echo $grafemaDividido[$j];
-								    					if ($j == $tamanho - 1){
-								    						echo ":";
-								    					} else {
-								    						if ($j == $tamanho - 2) {
-									    						echo " ou ";
-									    					} else{
-									    						echo ", ";
-								    						}
-								    					}
-								    				}
-								    			echo '</h3>';
-								    		echo '</div>';
-								    	echo '</div>';														   	
-										echo '<div class="row centered">';
-											if ($p->imagem != NULL){
-												echo '<div class="col-md-4 col-xs-12">';
-													echo "<img src=".base_url('assets/img/palavra-fake.png');">";
-												echo '</div>';
-												echo '<div class="col-md-8 col-xs-12">';
-											} else {
-												echo '<div class="col-md-12 col-xs-12">';
-													echo "<h4>". $p->enunciado."</h4>";		
-											}
-												echo '</div>';
-										echo '</div>';
+											echo '<div class="row">';
+									    		echo '<div class="col-md-12 col-xs-12">';
+									    			$grafemaDividido = explode("_", $grafema);
+									    			$tamanho = count($grafemaDividido);								    			
+									    			echo '<h3>Complete com ';
+									    				for ($j =0 ; $j<$tamanho; $j++){
+									    					echo $grafemaDividido[$j];
+									    					if ($j == $tamanho - 1){
+									    						echo ":";
+									    					} else {
+									    						if ($j == $tamanho - 2) {
+										    						echo " ou ";
+										    					} else{
+										    						echo ", ";
+									    						}
+									    					}
+									    				}
+									    			echo '</h3>';
+										    	echo '</div>';
+									    	echo '</div>';														   	
+											echo '<div class="row centered">';
+												if ($p->imagem != NULL){
+													echo '<div class="col-md-4 col-xs-12">';
+														echo "<img src=".base_url('assets/img/palavra-fake.png');">";
+													echo '</div>';
+													echo '<div class="col-md-8 col-xs-12">';
+												} else {
+													echo '<div class="col-md-12 col-xs-12">';
+														echo "<h4>". $p->enunciado."</h4>";		
+												}
+													echo '</div>';
+											echo '</div>';
 
-										echo '<div class="row centered">';
-											echo '<div class="col-md-12 col-xs-12">';
-												$palavraDividida = explode("_", $p->palavraIncompleta);
-												echo '<h3 id="palavraIncompleta">';
-													echo $palavraDividida[0];
-													echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" name="inputLetra'.$i.'" required">';
-													echo $palavraDividida[1];
-												echo '</h3>';
+											echo '<div class="row centered">';
+												echo '<div class="col-md-12 col-xs-12">';
+													$palavraDividida = explode("_", $p->palavraIncompleta);
+													echo '<h3 id="palavraIncompleta">';
+														echo $palavraDividida[0];
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" name="inputLetra'.$i.'" required">';
+														echo $palavraDividida[1];
+													echo '</h3>';
+												echo '</div>';
 											echo '</div>';
 										echo '</div>';
-									echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$p->letraGabarito.'" >';
 									echo '<input type="hidden" name="justificativa'.$i.'" value="'.$p->justificativa.'">';
 									$i++;									
@@ -108,54 +108,57 @@
 		</div>
 
 
-<!-- Modal da história-->
-  	<div class="modal fade" id="modalPalavra" role="dialog">
+<!-- Modal da Regra-->
+  	<div class="modal fade" id="modalRegra" role="dialog">
 	    <div class="modal-dialog modal-lg">
-	      <div class="modal-content">
+	      <div class="modal-content" id="conteudoModalRegra">
 	        <div class="modal-header">
 	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>	          
 	        </div>
 	        <input type="hidden" id="inputs" name="inputs" value=""/>
 	        
-	        <div class="modal-body">          
+	        <div id="corpoModal" class="modal-body">          
 							
-	        	<div id="carroselRegra" class="carousel slide" data-ride="carousel" data-interval="false">
+	        	<div id="carrosselRegra" class="carousel slide"  data-ride="carousel" data-interval="false">
 
 				    <!-- Wrapper for slides -->
-				    <div class="carousel-inner" role="listbox">
+				    <div class="carousel-inner" role="listbox" >				    
+					    <?php 
+				    	
+					    	$array[] = $regra[0]->regra;
+					    	$array[] = $regra[0]->excecoes;
+					    	$array[] = $regra[0]->homonimoParonimo;				    					    	
+					    					    	
+					    	$tamanhoArray = count($array);				    	
+					    	for($l = 0; $l < $tamanhoArray; $l++) {
+					    		$item = $array[$l];
 
-				      <div class="item active">
-				        <img src="" alt="Chania" width="460" height="345">
-				        <div class="carousel-caption">
-				          <h3>Chania</h3>
-				          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-				        </div>
-				      </div>
-
-				      <div class="item">
-				        <img src="img_chania2.jpg" alt="Chania" width="460" height="345">
-				        <div class="carousel-caption">
-				          <h3>Chania</h3>
-				          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-				        </div>
-				      </div>
-				    
-				      <div class="item">
-				        <img src="img_flower.jpg" alt="Flower" width="460" height="345">
-				        <div class="carousel-caption">
-				          <h3>Flowers</h3>
-				          <p>Beatiful flowers in Kolymbari, Crete.</p>
-				        </div>
-				      </div>
-
-				      <div class="item">
-				        <img src="img_flower2.jpg" alt="Flower" width="460" height="345">
-				        <div class="carousel-caption">
-				          <h3>Flowers</h3>
-				          <p>Beatiful flowers in Kolymbari, Crete.</p>
-				        </div>
-				      </div>
-				  
+					    		if ($item != NULL){
+					    			if ($l == 0){
+					    				echo '<div class="item active">';
+					    			} else {
+					    				echo '<div class="item">';
+					    			}					    				
+					    				echo '<p class="regra">';
+							    			$tamanhoItem = strlen($item);
+							    			for($m = 0; $m < $tamanhoItem; $m++){
+							    				if (strcmp($item[$m], ":") == 0 ){
+							    					echo $item[$m].'<br />';				    					
+							    				} elseif (strcmp($item[$m], "|") == 0) {
+							    					echo '<br />';
+							    				} elseif (strcmp($item[$m], "[") == 0){
+							    					echo '<h3 class="titulo">';
+							    				} elseif (strcmp($item[$m], "]") == 0){
+							    					echo '</h3><br /><br />';
+							    				} else {
+							    					echo $item[$m];
+							    				}				    				
+							    			}
+							    		echo '</p>';
+					    			echo '</div>';
+					    		}
+					    	}					    
+					    ?>		    
 				    </div>
 
 				    <!-- Left and right controls -->
@@ -231,7 +234,7 @@
 	mostrarRegra();	
 
 	function mostrarRegra(){		
-		$("#modalPalavra").modal();		
+		$("#modalRegra").modal();		
 	}
 	
 </script>
@@ -239,26 +242,3 @@
 
 </form>
 
-
-
-
-<?php											
-	/*echo '<table class="centered tabela-gabarito" border="1%">';
-		echo '<tr>';
-			echo '<th> Sua resposta </th>';
-			echo '<th> Gabarito </th>';
-			echo '<th> Explicação </th>';
-		echo '<tr>';
-		$i = 0;
-		foreach ($inputJogador as $input => $value) {
-			echo '<tr>';
-				echo '<td>'.$value.'</td>';	
-				echo '<td>'.$gabarito[$i].'</td>';	
-				echo '<td>'.$justificativa[$i].'</td>';	
-			echo '</tr>';
-		$i++;
-		}
-	echo '</table>';
-	echo '<p class="centered" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
-	*/
-?>	

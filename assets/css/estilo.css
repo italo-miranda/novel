@@ -29,6 +29,19 @@
 	float: left;	
 }
 
+#conteudoModalRegra{	
+	background: url('../img/cenario4.jpg') no-repeat;
+	background-size: cover;
+	background-position: all;	
+	overflow: hidden;
+	font-weight: bold;
+	text-align: left;
+}
+
+#avatarNav{
+	max-width: 25%;
+}
+
 .tabela-gabarito{
 	padding: 1%
 	border-spacing: 2%;
@@ -36,6 +49,11 @@
 
 .modal-footer{
 	text-align: center;
+}
+
+.regra{
+	text-align: left;
+	font-weight: bold;
 }
 
 .form-group{
@@ -59,8 +77,10 @@
 	text-decoration: none;
 }
 
-.titulo-menu{
+.titulo{
 	font-weight: bold;
+	text-align: center;
+
 }
 
 

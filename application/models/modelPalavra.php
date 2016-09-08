@@ -15,12 +15,8 @@ class modelPalavra extends CI_Model {
 
         $retorno = NULL;
         
-        //Busca do código do grafema pelo tipo do Grafema
-    	$this->db->select('codGrafema');
-    	$this->db->from('Grafema');
-    	$this->db->where('tipoGrafema', $tipoGrafema);
-    	$this->db->limit(1);
-    	$codigo = $this->db->get()->result();
+            	
+    	$codigo = $this->buscarCodigoPeloTipo($tipoGrafema);
 
         if ($codigo){
             $codGrafema = $codigo[0]->codGrafema;                           
@@ -111,5 +107,24 @@ class modelPalavra extends CI_Model {
         $this->db->where('codPalavra', $codPalavra);                            
         $palavra = $this->db->get()->result(); 
         return $palavra;
+    }
+
+    //Busca do código do grafema pelo tipo do Grafema
+    public function buscarCodigoPeloTipo($tipoGrafema){
+        $this->db->select('codGrafema');
+        $this->db->from('Grafema');
+        $this->db->where('tipoGrafema', $tipoGrafema);
+        $this->db->limit(1);
+        $codigo = $this->db->get()->result();
+        return $codigo;
+    }
+
+    public function buscarRegraPeloTipo($tipoGrafema){
+        $this->db->select('regra, homonimoParonimo, excecoes');
+        $this->db->from('Grafema');
+        $this->db->where('tipoGrafema', $tipoGrafema);
+        $this->db->limit(1);
+        $grafema = $this->db->get()->result();
+        return $grafema;
     }
 }

@@ -38,7 +38,8 @@ class Palavra extends CI_Controller {
         	$grafema = $this->uri->segment(3);
         	$grafema = urldecode($grafema);
 			$retorno = $this->modelPalavra->sortearPalavras($grafema);
-			
+			$regra = $this->modelPalavra->buscarRegraPeloTipo($grafema);
+
 			if($retorno){
 
 				$palavrasSorteadas = $retorno[0];
@@ -58,6 +59,7 @@ class Palavra extends CI_Controller {
 					'grafema'=> $grafema, 
 					'codGrafema' => $codGrafema,
 					'abrirModal' => $abrirModal,
+					'regra' => $regra,
 					);
 
 				$this->load->view('construtor', $pagina);
