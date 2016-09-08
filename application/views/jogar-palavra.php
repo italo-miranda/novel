@@ -12,7 +12,7 @@
 								<p><span class="glyphicon glyphicon-time"></span>
 								<input type="text" id="tempo" name="tempo" disabled=""></p>
 								<input type="hidden" id="duracao" name="duracao" value="0">
-								<input type="hidden" id="abrirModal" value="<?php echo ($abrirModal); ?>">
+								<input type="hidden" id="abrirModalRegra" value="<?php echo ($abrirModalRegra); ?>">
 							</div>							
 							<div class="carousel-inner" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DAS PALAVRAS-->

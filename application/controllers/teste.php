@@ -1,22 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Palavra extends CI_Controller {
+class Teste extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
         $this->load->helper('array');
-        $this->load->model('modelPalavra');
+        $this->load->model('modelTeste');
     }
 
-	public function index()	{
+
+
+    public function index()	{
 		
 		if ($this->session->userdata('logged_in')) {
 			$erro = $this->uri->segment(3);
         	$erro = urldecode($erro);
             $inputJogador = array('null'=> 'nulo');
 			$pagina = array(
-				'tela' => 'menu-palavra', 
+				'tela' => 'menu-teste', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
 				'abrirModal' => "FALSE",
@@ -32,46 +34,45 @@ class Palavra extends CI_Controller {
 		}
 	}
 
-	public function jogarPalavra() 	{
+	public function jogarTeste() 	{
 			
 		if ($this->session->userdata('logged_in')) {
         	$grafema = $this->uri->segment(3);
         	$grafema = urldecode($grafema);
-			$retorno = $this->modelPalavra->sortearPalavras($grafema);
-			$regra = $this->modelPalavra->buscarRegraPeloTipo($grafema);
+			$retorno = $this->modelTeste->sortearTestes($grafema);			
 
 			if($retorno){
 
-				$palavrasSorteadas = $retorno[0];
-				$codGrafema = $retorno[1];				
+				$testesSorteados = $retorno[0];
+				$codGrafema = $retorno[1];
+				$alternativas = $retorno[2];				
 
-				foreach ($palavrasSorteadas as $key) {			 			
-					$palavras[] = $key[0];					
+				foreach ($testesSorteados as $key) {			 			
+					$testes[] = $key[0];					
 				}
 
 				//fazer função para mostrar a historia
-				$abrirModal = FALSE;
+				$abrirModalHistoria = FALSE;
 
-				$pagina = array('tela' => 'jogar-palavra', 
+				$pagina = array('tela' => 'jogar-teste', 
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
-					'palavras'=> $palavras,
-					'grafema'=> $grafema, 
+					'testes'=> $testes,
 					'codGrafema' => $codGrafema,
-					'abrirModal' => $abrirModal,
-					'regra' => $regra,
+					'abrirModalHistoria' => $abrirModalHistoria,
+					'alternativas' => $alternativas
 					);
 
 				$this->load->view('construtor', $pagina);
 			} else {
-				redirect('palavra/index/0');
+				redirect('teste/index/0');
 			}
         } else {
 			redirect('principal/index');
 		}		
 	}
 
-	public function inserirRodadaPalavra(){
+	public function inserirRodadaTeste(){
 		if ($this->session->userdata('logged_in')) {
 
 			$erro = $this->uri->segment(3);
@@ -80,7 +81,7 @@ class Palavra extends CI_Controller {
 			$dados = $this->input->post();
 
 			for ($i = 0; $i<5; $i++){
-				$inputJogador[] = $dados['inputLetra'.$i];
+				$inputJogador[] = $dados['inputJogador'.$i];
 			}
 
 			for ($i = 0; $i<5; $i++){
@@ -91,12 +92,12 @@ class Palavra extends CI_Controller {
 				$justificativa[] = $dados['justificativa'.$i];
 			}
 
-			$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
+			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito);
 
-			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
+			$inseriu = $this->modelTeste->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
 
 			$pagina = array(
-				'tela' => 'menu-palavra',
+				'tela' => 'menu-teste',
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
 				'inputJogador' => $inputJogador,
