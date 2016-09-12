@@ -7,24 +7,36 @@ class Palavra extends CI_Controller {
         parent::__construct();
         $this->load->helper('array');
         $this->load->model('modelPalavra');
+        $this->load->model('modelJogador');  
+        $this->load->model('modelHistoria');     
     }
 
 	public function index()	{
 		
 		if ($this->session->userdata('logged_in')) {
-			$erro = $this->uri->segment(3);
-        	$erro = urldecode($erro);
+			$erro = $this->uri->segment(3);        	
             $inputJogador = array('null'=> 'nulo');
+            $nivel = $this->session->userdata('nivel');
+            
+			$cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
+						
 			$pagina = array(
 				'tela' => 'menu-palavra', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
-				'abrirModal' => "FALSE",
+				'abrirModalGabarito' => FALSE,
 				'inputJogador' => $inputJogador,
+				'abrirModalHistoria'=> $abrirModalHistoria,
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
 				'erro' => $erro,
-				'inseriu' => TRUE,
+				'inseriu' => TRUE,				
 				);
 			$this->load->view('construtor', $pagina);
         } else {
@@ -49,16 +61,14 @@ class Palavra extends CI_Controller {
 					$palavras[] = $key[0];					
 				}
 
-				//fazer função para mostrar a historia
-				$abrirModal = FALSE;
-
 				$pagina = array('tela' => 'jogar-palavra', 
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
 					'palavras'=> $palavras,
 					'grafema'=> $grafema, 
 					'codGrafema' => $codGrafema,
-					'abrirModal' => $abrirModal,
+					'abrirModalRegra' => TRUE,
+					'abrirModalHistoria'=> FALSE,
 					'regra' => $regra,
 					);
 
@@ -74,9 +84,6 @@ class Palavra extends CI_Controller {
 	public function inserirRodadaPalavra(){
 		if ($this->session->userdata('logged_in')) {
 
-			$erro = $this->uri->segment(3);
-        	$erro = urldecode($erro);
-
 			$dados = $this->input->post();
 
 			for ($i = 0; $i<5; $i++){
@@ -91,10 +98,26 @@ class Palavra extends CI_Controller {
 				$justificativa[] = $dados['justificativa'.$i];
 			}
 
+			$codGrafema = $dados['codGrafema'];
 			$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
+			$nivelAntigo = $this->session->userdata('nivel');
+			$tipoRodada = 'palavra';
+			$codJogador = $this->session->userdata('codJogador');						
+			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada);				
+			if($nivelNovo){
+				$this->session->set_userdata('nivel', $nivelAntigo + 1);
+			}
 
 			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
 
+			$cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
+			
 			$pagina = array(
 				'tela' => 'menu-palavra',
 				'linkNovel'=> 'principal/menu', 
@@ -103,12 +126,12 @@ class Palavra extends CI_Controller {
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
 				'justificativa' => $justificativa,
-				'abrirModal' => "TRUE",
+				'abrirModalGabarito' => TRUE,
+				'abrirModalHistoria'=> $abrirModalHistoria,
 				'inseriu' => $inseriu,
-				'erro' => $erro,
+				'erro' => NULL,
 				);
-			$this->load->view('construtor', $pagina);
-		
+			$this->load->view('construtor', $pagina);		
         } else {
         	redirect('principal/index');
 		}	

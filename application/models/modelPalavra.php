@@ -66,7 +66,7 @@ class modelPalavra extends CI_Model {
     public function calcularPontuacao($inputJogador, $gabarito){
     	$pontuacao = 0;
     	for ($i = 0; $i < 5 ; $i++){
-    		if (strcmp($inputJogador[$i], $gabarito[$i]) == 0){
+    		if (strcasecmp($inputJogador[$i], $gabarito[$i]) == 0){
     			$pontuacao = $pontuacao + 10;    		
     		}
     	}

@@ -16,11 +16,11 @@
 <!--ÁREA DO LOGIN -->
 
   <!-- Modal -->
-  	<div class="modal fade" id="pop" role="dialog">
+  	<div class="modal fade" id="modalLogin" role="dialog">
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
 	        <div class="modal-header" style="text-align: center">
-	          	<button type="submit" class="close">&times;</button>
+	          	<button type="submit" data-dismiss="modal" class="close">&times;</button>
 	          <h4 class="modal-title">Painel de login</h4>
 	        </div>
 	        <div class="modal-body">          
@@ -60,11 +60,23 @@
 	  </div>
 	</div>
 
+			<!--Mostrar mensagem de erro se o login ou senha forem inválidos-->
+					<?php
+						if ($erro){
+							echo '<script language="javascript">';							
+								echo 'onload=mensagemErro();';								
+							echo '</script>';						
+						}
+					?>	
+
 
 <script type="text/javascript">
 
 	function mostrarLogin(){		
-		$("#pop").modal();		
+		$("#modalLogin").modal();		
 	}
 
+	function mensagemErro(){
+		alert("Login ou senha inválidos. Tente novamente!");
+	}
 </script>

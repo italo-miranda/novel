@@ -7,6 +7,8 @@ class Teste extends CI_Controller {
         parent::__construct();
         $this->load->helper('array');
         $this->load->model('modelTeste');
+        $this->load->model('modelJogador');
+        $this->load->model('modelHistoria');
     }
 
 
@@ -17,15 +19,26 @@ class Teste extends CI_Controller {
 			$erro = $this->uri->segment(3);
         	$erro = urldecode($erro);
             $inputJogador = array('null'=> 'nulo');
+
+            $nivel = $this->session->userdata('nivel');
+            $cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
+			
 			$pagina = array(
 				'tela' => 'menu-teste', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
-				'abrirModal' => "FALSE",
+				'abrirModalGabarito' => FALSE,
+				'abrirModalHistoria' => $abrirModalHistoria,
 				'inputJogador' => $inputJogador,
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
-				'erro' => $erro,
+				'erro' => $erro,				
 				'inseriu' => TRUE,
 				);
 			$this->load->view('construtor', $pagina);
@@ -51,16 +64,14 @@ class Teste extends CI_Controller {
 					$testes[] = $key[0];					
 				}
 
-				//fazer função para mostrar a historia
-				$abrirModalHistoria = FALSE;
 
 				$pagina = array('tela' => 'jogar-teste', 
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
 					'testes'=> $testes,
-					'codGrafema' => $codGrafema,
-					'abrirModalHistoria' => $abrirModalHistoria,
-					'alternativas' => $alternativas
+					'codGrafema' => $codGrafema,					
+					'alternativas' => $alternativas,
+					'abrirModalHistoria'=> FALSE,
 					);
 
 				$this->load->view('construtor', $pagina);
@@ -88,13 +99,28 @@ class Teste extends CI_Controller {
 				$gabarito[] = $dados['gabarito'.$i];
 			}
 
-			for ($i = 0; $i<5; $i++){
-				$justificativa[] = $dados['justificativa'.$i];
-			}
-
+			$codGrafema = $dados['codGrafema'];
+			$codJogador = $this->session->userdata('codJogador');
+			$tipoRodada = 'teste';			
 			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito);
 
-			$inseriu = $this->modelTeste->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
+			$nivelAntigo = $this->session->userdata('nivel');
+
+			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada);	
+
+			if($nivelNovo){
+				$this->session->set_userdata('nivel', $nivelAntigo + 1);
+			}
+
+			$inseriu = $this->modelTeste->inserirRodadaTeste($dados['codGrafema'], $codJogador, $dados['duracao'], $pontuacao);
+			
+            $cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
 
 			$pagina = array(
 				'tela' => 'menu-teste',
@@ -103,10 +129,9 @@ class Teste extends CI_Controller {
 				'inputJogador' => $inputJogador,
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
-				'justificativa' => $justificativa,
-				'abrirModal' => "TRUE",
-				'inseriu' => $inseriu,
-				'erro' => $erro,
+				'abrirModalGabarito' => TRUE,				
+				'abrirModalHistoria'=> $abrirModalHistoria,
+				'erro' => $erro,				
 				);
 			$this->load->view('construtor', $pagina);
 		

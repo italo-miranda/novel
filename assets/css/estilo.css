@@ -30,7 +30,7 @@
 }
 
 #conteudoModalRegra{	
-	background: url('../img/cenario4.jpg') no-repeat;
+	background: url('../img/cenario4.jpg')  no-repeat;	
 	background-size: cover;
 	background-position: all;	
 	overflow: hidden;
@@ -69,6 +69,10 @@
 	text-align: left;
 }
 
+.historia{
+	max-width: 100%;	
+}
+
 .link-sem-linha{
 	text-decoration: none;
 }
@@ -83,6 +87,9 @@
 
 }
 
+.alternativasTeste{
+	text-align: left;
+}
 
 .afastado-1pc{
 	padding: 1%;

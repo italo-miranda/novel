@@ -123,6 +123,16 @@
 								echo 'onload=mensagemErro();';
 							echo '</script>';
 						}
+
+						if ($existe){
+							echo '<script language="javascript">';
+								echo 'function mensagemExiste(){';
+									echo 'alert("Já existe um usuário cadastrado com esse email!");';
+								echo '}';
+								echo 'onload=mensagemExiste();';
+							echo '</script>';
+						}
+
 					?>
 
 					<script type="text/javascript">

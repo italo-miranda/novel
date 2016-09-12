@@ -8,8 +8,7 @@
 			  				<div class="centered col-md-12 col-xs-12">
 								<p><span class="glyphicon glyphicon-time"></span>
 								<input type="text" id="tempo" name="tempo" disabled=""></p>
-								<input type="hidden" id="duracao" name="duracao" value="0">
-								<input type="hidden" id="abrirModalHistoria" value="<?php echo ($abrirModalHistoria); ?>">
+								<input type="hidden" id="duracao" name="duracao" value="0">								
 							</div>							
 							<div class="carousel-inner" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DOS TESTES-->
@@ -23,20 +22,34 @@
 									}
 											echo '<div class="row">';
 									    		echo '<div class="col-md-12 col-xs-12">';
-									    			echo "<h4>". $t->enunciado."</h4>";
+									    			echo "<h4>"; 
+									    			$tamanho = strlen($t->enunciado);
+									    			$enun = $t->enunciado;
+									    			for ($j=0; $j < $tamanho; $j++) { 
+									    				if((strcmp($enun[$j], ':') == 0)){
+									    					echo $enun[$j].'<br />';
+									    				} elseif (strcmp($enun[$j], '|') == 0) {
+									    					echo '<br />';
+									    				} else {
+									    					echo $enun[$j]; 
+									    				}
+									    			}									    				
+									    			echo "</h4>";
 										    	echo '</div>';
 									    	echo '</div>';														   	
 											echo '<div class="row">';
-													echo '<div class="col-md-12 col-xs-12">';
-														$embaralhadas = array_rand($alternativas, 5);
-														echo '<ul class="centered">';
-														for ($j=0; $j < 5 ; $j++) {			
-															echo '<li><input required type="radio" name="inputJogador'.$i.'" value="'.$alternativas[$embaralhadas[$j]][$i]->alternativa.'">';
-															echo $alternativas[$embaralhadas[$j]][$i]->alternativa.'</li><br />';	
-															echo '<input type="hidden" name="justificativa'.$i.'" value="'.$alternativas[$embaralhadas[$j]][$i]->justificativa.'">';	
-														}
-														echo '</ul>';
-													echo '</div>';
+												echo '<div class="col-md-5 col-xs-12">';	
+												echo '</div>';
+												echo '<div class="col-md-7 col-xs-12 alternativasTeste">';
+													$alt = $alternativas[$i];
+													$tamanho = count($alt);
+													$embaralhadas = array_rand($alt, $tamanho);
+													for ($k=0; $k < $tamanho; $k++) {		
+														echo '<input required type="radio" name="inputJogador'.$i.'" value="'.$alt[$embaralhadas[$k]]->alternativa.'">';			
+														echo ($alt[$embaralhadas[$k]]->alternativa);
+														echo '<br />';
+													}													
+												echo '</div>';
 											echo '</div>';											
 										echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$t->gabarito.'" >';									
@@ -52,6 +65,7 @@
 								<div class="row">
 									<div class="col-md-12 col-xs-12">
 										<h3>Clique em Responder para enviar as respostas!</h3>
+										<h5>Tenha certeza de que não deixou nenhum campo em branco!</h5>
 									</div>
 								</div>
 								<div class="row centered">
@@ -88,6 +102,7 @@
 	var start = startTime.getSeconds();
 
 	$("#enviarRespostas").hide();
+
 	iniciarCronometro();
 
 	function iniciarCronometro() {

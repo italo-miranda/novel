@@ -14,12 +14,17 @@
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
+					
+					<a href="<?php echo base_url("palavra/jogarPalavra/ss_s_ç_z");?>">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+					</a>
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
+					<a href="<?php echo base_url("palavra/jogarPalavra/rr_r");?>">
 						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+					</a>
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
@@ -52,13 +57,14 @@
 				</div>				
 			</div>
 		</div>
-		<input type="hidden" id="abrirModal" value="<?php echo ($abrirModal); ?>">
+		<input type="hidden" id="abrirModalGabarito" value="<?php echo ($abrirModalGabarito); ?>">
+		<input type="hidden" id="abrirModalHistoria" value="<?php echo ($abrirModalHistoria[0]); ?>">
 		<input type="hidden" id="inseriu" value="<?php echo ($inseriu); ?>">
 		<input type="hidden" id="erro" value="<?php echo ($erro); ?>">
-
+		
 
   <!-- Modal -->
-  	<div class="modal fade" id="pop" role="dialog">
+  	<div class="modal fade" id="modalGabarito" role="dialog">
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
 	        <div class="modal-header">
@@ -89,7 +95,7 @@
 	        </div>
 		    <div class="row centered">
 		    	<div class="modal-footer">
-		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>		    		
+		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>
 		        </div>
 		    </div>
 	      </div>
@@ -98,7 +104,7 @@
 	</div>
 
 <?php
-	if ($erro != NULL){
+	if ($erro){
 		echo '<script language="javascript">';
 			echo 'function mensagemErro(){';
 				echo 'alert("Ops! Moncoso provocou um distúrbio nas palavras... \nTente novamente!");';
@@ -111,15 +117,14 @@
 
 <script type="text/javascript">
 
-	var abrir = document.getElementById("abrirModal").value;
-		if(abrir.localeCompare("TRUE") == 0){
+	var abrir = document.getElementById("abrirModalGabarito").value;
+		if(abrir){
 				mostrarGabarito();	
 		} 
 
 	function mostrarGabarito(){		
-		$("#pop").modal();		
+		$("#modalGabarito").modal();		
 	}
-
-
+	
 
 </script>

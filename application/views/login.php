@@ -3,7 +3,7 @@
 		<div id="conteudo" class="col-md-4 col-xs-12 centered well" >
 			<div class="row">
 				<div id="painel-login" class="centered col-md-12 col-xs-12">
-					<h1>Painel de login</h1>
+					<h2>Entre e torne-se um novel!</h2>
 					<form class="form-inline" role="form" method="post" action="<?php echo base_url('principal/fazerLogin');?>">
 					  	<div class="form-group">
 					    	<label for="login">Login:</label>
@@ -35,10 +35,16 @@
 						if ($erro){
 							echo '<script language="javascript">';							
 								echo 'function mensagemErro(){';
-									echo 'alert("Login ou senha inválidos. Tente novamente!");';
+									echo 'alert("Não foi possível realizar seu cadastro. Por favor, tente novamente.");';
 								echo '}';
-								echo 'onload=mensagemErro();';
-								echo 'alert("Cadastro efetuado! Entre com seu login e senha para começar.");';
+								echo 'onload=mensagemErro();';								
+							echo '</script>';
+						} else {
+							echo '<script language="javascript">';							
+								echo 'function mensagemErro(){';
+									echo 'alert("Cadastro efetuado! Faça login para jogar.");';
+								echo '}';
+								echo 'onload=mensagemErro();';								
 							echo '</script>';
 						}
 					?>		

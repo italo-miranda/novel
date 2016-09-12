@@ -68,7 +68,7 @@ class modelTeste extends CI_Model {
     public function calcularPontuacao($inputJogador, $gabarito){
     	$pontuacao = 0;
     	for ($i = 0; $i < 5 ; $i++){
-    		if (strcmp($inputJogador[$i], $gabarito[$i]) == 0){
+    		if (strcasecmp($inputJogador[$i], $gabarito[$i]) == 0){
     			$pontuacao = $pontuacao + 30;    		
     		}
     	}
@@ -122,7 +122,7 @@ class modelTeste extends CI_Model {
     }
 
     public function buscarAlternativasPeloCodigoTeste($codTeste){
-        $this->db->select('*');
+        $this->db->select('alternativa');
         $this->db->from('Alternativas');
         $this->db->where('codTeste', $codTeste);        
         $alternativas = $this->db->get()->result();

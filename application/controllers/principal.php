@@ -15,7 +15,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
             redirect('principal/menu');
         } else {        	
-			$pagina = array('tela' => 'index');
+			$pagina = array('tela' => 'index', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);
 		}
 	}
@@ -27,7 +27,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
             redirect('principal/menu');
         } else{ 			       			
-			$pagina = array('tela' => 'index', 'erro'=> FALSE,);
+			$pagina = array('tela' => 'index', 'erro'=> FALSE, 'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);
 		}
 	}
@@ -49,12 +49,14 @@ class Principal extends CI_Controller {
 	                    'codJogador' => $login['codJogador'],
 	                    'avatar' => $login['avatar'],
 	                    'nome' => $login['nome'],	                    
-	                    'logged_in' => TRUE,                   
+	                    'logged_in' => TRUE,
+	                    'nivel' => $login['nivel'],
+	                    'experiencia' => $login['experiencia'],
 	                ));
 		    	redirect('principal/menu');
 		    } else {
-		    	$pagina = array('tela' => 'login', 'erro'=> TRUE,);
-			$this->load->view('construtor', $pagina);
+		    	$pagina = array('tela' => 'index', 'erro'=> TRUE, 'abrirModalHistoria'=> FALSE,);
+				$this->load->view('construtor', $pagina);
 		    }
 		} 		
 	}
@@ -71,7 +73,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
             redirect('principal/index');
         } else {			
-			$pagina = array('tela' => 'recuperar-senha');
+			$pagina = array('tela' => 'recuperar-senha', 'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);	
 		}
 	}
@@ -79,7 +81,7 @@ class Principal extends CI_Controller {
 	public function menu()
 	{		
 		if ($this->session->userdata('logged_in')) {		
-        	$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff',);
+        	$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff', 'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);    
         } else {
 			redirect('principal/index');
@@ -97,7 +99,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
         	redirect('principal/menu');    
         } else {
-			$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE);
+			$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);
 		}
 	}
@@ -107,14 +109,21 @@ class Principal extends CI_Controller {
         	redirect('principal/menu');    
         } else {
         	$dados = $this->input->post();
-			$retorno = $this->modelJogador->cadastrarJogador($dados);			
-			if($retorno){
-				$pagina = array('tela' => 'login', 'erro' => FALSE);
+        	$existe = $this->modelJogador->verificarEmailCadastrado($dados['email']);
+
+        	if ($existe){
+        		$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE, 'existe'=> TRUE, 'abrirModalHistoria'=> FALSE,);
 				$this->load->view('construtor', $pagina);
-			} else {
-				$pagina = array('tela' => 'cadastrar-jogador', 'erro' => $retorno);
-				$this->load->view('construtor', $pagina);		
-			}			
+        	} else {
+        		$retorno = $this->modelJogador->cadastrarJogador($dados);			
+				if($retorno){
+					$pagina = array('tela' => 'login', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE);
+					$this->load->view('construtor', $pagina);
+				} else {
+					$pagina = array('tela' => 'cadastrar-jogador', 'erro' => TRUE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE,);
+					$this->load->view('construtor', $pagina);		
+				}
+        	}
 		}		
 	}
 }

@@ -7,12 +7,30 @@ class Texto extends CI_Controller {
         parent::__construct();
         $this->load->helper('array');
         $this->load->model('modelTexto');
+           $this->load->model('modelJogador');
+           $this->load->model('modelHistoria');
     }
 
 	public function index()
-	{
+	{		
 		if ($this->session->userdata('logged_in')) {
-			$pagina = array('tela' => 'menu-texto', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff');
+			
+			$nivel = $this->session->userdata('nivel');
+            $cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
+			
+			$pagina = array('tela' => 'menu-texto', 
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff', 
+				'abrirModalHistoria'=> $abrirModalHistoria, 
+				'abrirModalGabarito' => FALSE, 
+				'erro' =>FALSE);
+
 			$this->load->view('construtor', $pagina);            
         } else {
 			redirect('principal/menu');
@@ -36,11 +54,19 @@ class Texto extends CI_Controller {
 				'linkLogoff'=>'principal/logoff',
 				'texto' => $texto,
 				'grafemas' => $grafemas,
+				'abrirModalHistoria' => FALSE,
 				);
 			
 			$this->load->view('construtor', $pagina); 
-			} else{
-				echo "Não encontrado!";
+			} else{				
+				$pagina = array('tela' => 'menu-texto', 
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'abrirModalHistoria'=> FALSE, 
+					'abrirModalGabarito' => FALSE,	
+					'erro' => TRUE,
+				);
+			$this->load->view('construtor', $pagina); 
 			}			          
         } else {	
 			redirect('principal/index');
@@ -73,6 +99,10 @@ class Texto extends CI_Controller {
 			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);
 			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $this->session->userdata('codJogador'), $duracao, $pontuacao);
 
+			$nivel = $this->session->userdata('nivel');
+			//fazer função para mostrar a historia
+			$abrirModalHistoria = FALSE;
+
 			$pagina = array(
 				'tela' => 'menu-texto',
 				'linkNovel'=> 'principal/menu', 
@@ -80,8 +110,10 @@ class Texto extends CI_Controller {
 				'inputJogador' => $inputJogador,
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
-				'abrirModal' => "TRUE",
+				'abrirModalGabarito' => TRUE,
 				'inseriu' => $inseriu,
+				'abrirModalHistoria' => $abrirModalHistoria,
+				'erro' => FALSE,
 				);
 			$this->load->view('construtor', $pagina);
 

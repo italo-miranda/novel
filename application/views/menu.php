@@ -4,11 +4,14 @@
 			<h3 class="titulo-menu">Escolha o nível</h3>
 		</div>
 		<div id="imagens-menu" class="row centered">
-			<div class="col-md-6 col-xs-6">
+			<div class="col-md-4 col-xs-12">
 				<a href="<?php echo base_url('palavra'); ?>"><img src="<?php echo base_url('assets/img/palavra-fake.png'); ?>"></a>
 			</div>
-			<div class="col-md-6 col-xs-6">
+			<div class="col-md-4 col-xs-12">
 				<a href="<?php echo base_url('texto'); ?>"><img src="<?php echo base_url('assets/img/texto-fake.png'); ?>"></a>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<a href="<?php echo base_url('teste'); ?>"><img src="<?php echo base_url('assets/img/teste-fake.png'); ?>"></a>
 			</div>
 		</div>	
 	

@@ -14,7 +14,7 @@ class modelTexto extends CI_Model {
     //e sortear 1 texto, que irão compor uma rodada
     public function sortearTexto($grafemas){
 
-    	$tiposGrafemas = $this->separarGrafemas($grafemas);
+    	$tiposGrafemas = $this->separarGrafemas($grafemas);        
 
     	$jogadorApto = $this->verificarJogadorGrafemas($tiposGrafemas);
 
@@ -36,7 +36,7 @@ class modelTexto extends CI_Model {
     		$this->db->join('Grafema as b', 'a.codGrafema = b.codGrafema');
     		$this->db->where($where);
     		$this->db->group_by('a.codTexto');
-    		$this->db->having('COUNT(a.codGrafema) = 3');
+    		$this->db->having('COUNT(a.codGrafema)', $tamanho);
     		$textos = $this->db->get()->result();
 
 			//Se a consulta não for nula
@@ -89,15 +89,16 @@ class modelTexto extends CI_Model {
     	$codJogador = $this->session->userdata('codJogador');
 
 
-    	$this->db->select('COUNT(DISTINCT r.codGrafema)');
+    	$this->db->select('COUNT(DISTINCT r.codGrafema) as qtd');
     	$this->db->from('Rodada as r');
     	$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
     	$this->db->where('tipoRodada = "palavra"');
     	$this->db->where($where);
     	$this->db->where('codJogador', $codJogador);
     	$this->db->limit(1);
-    	$resultado = $this->db->get()->result();
-    	if($resultado > 0){
+    	$resultado = $this->db->get()->result();        
+        
+    	if($resultado[0]->qtd == $tamanho){
     		return TRUE;
     	} else {
     		return FALSE;
@@ -123,7 +124,7 @@ class modelTexto extends CI_Model {
     	for ($i = 0; $i < $tamanho ; $i++){
     		$posicao = $gabarito[$i]->posicao;
     		$letraGabarito = $gabarito[$i]->letraGabarito;
-    		if ((strcmp($inputJogador[$i], $letraGabarito) == 0) && ($posicao == $i +1)){
+    		if ((strcasecmp($inputJogador[$i], $letraGabarito) == 0) && ($posicao == $i +1)){
     			$pontuacao = $pontuacao + 20;    		
     		}
     	}  
@@ -163,5 +164,6 @@ class modelTexto extends CI_Model {
     	$this->db->where('tipoGrafema', $grafema);
     	$codGrafema = $this->db->get()->result();
     	return $codGrafema;
-    }
+    }    
+
 }
