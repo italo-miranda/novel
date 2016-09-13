@@ -58,28 +58,30 @@
 
 <!-- Modal -->
   	<div class="modal fade" id="modalGabarito" role="dialog">
-	    <div class="modal-dialog modal-sm">
+	    <div class="modal-dialog modal-lg">
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>
 	          <h4 class="modal-title">Veja seu desempenho!</h4>
 	        </div>	        
 	        <div class="modal-body">          
-					<?php																	
-						echo '<table class="centered tabela-gabarito" border="1%">';
-							echo '<tr>';
-								echo '<th> Sua resposta </th>';
-								echo '<th> Gabarito </th>';
-							echo '<tr>';
-							$i = 0;
-							foreach ($inputJogador as $input => $value) {
+					<?php		
+						echo '<div class="table-responsive">';															
+							echo '<table class="centered tabela-gabarito table-bordered table-striped">';
 								echo '<tr>';
-									echo '<td>'.$value.'</td>';	
-									echo '<td>'.$gabarito[$i]->letraGabarito.'</td>';	
-								echo '</tr>';
-							$i++;
-							}
-						echo '</table>';
+									echo '<th class="titulo"> Sua resposta </th>';
+									echo '<th class="titulo"> Gabarito </th>';
+								echo '<tr>';
+								$i = 0;
+								foreach ($inputJogador as $input => $value) {
+									echo '<tr>';
+										echo '<td>'.$value.'</td>';	
+										echo '<td>'.$gabarito[$i]->letraGabarito.'</td>';	
+									echo '</tr>';
+								$i++;
+								}
+							echo '</table>';
+						echo '</div>';
 						echo '<p class="centered" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
 					?>			
 	        </div>
@@ -113,20 +115,6 @@ var abrir = document.getElementById("abrirModalGabarito").value;
 
 	function mostrarGabarito(){		
 		$("#modalGabarito").modal();		
-	}
-
-	function mostrarErro(){
-		//var tamanho = document.getElementById("tamanho").value;
-		mensagem = ;		
-		/*for (j=0; j < tamanho; j++) { 
-			var grafema = "grafema" + j;
-			if(j == tamanho - 1){								
-				mensagem = mensagem + "e " + document.getElementById(grafema).value;	
-			} else {
-				mensagem = mensagem + document.getElementById(grafema).value + ", ";					
-			}			
-		} */
-		alert(mensagem);
 	}
 
 </script>

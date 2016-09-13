@@ -43,8 +43,10 @@
 }
 
 .tabela-gabarito{
-	padding: 1%
+	width: 80%;
+	padding: 1%;
 	border-spacing: 2%;
+	text-align: center;
 }
 
 .modal-footer{

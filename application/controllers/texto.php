@@ -15,6 +15,7 @@ class Texto extends CI_Controller {
 	{		
 		if ($this->session->userdata('logged_in')) {
 			
+			
 			$nivel = $this->session->userdata('nivel');
             $cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
 			if($cenas){
@@ -29,7 +30,8 @@ class Texto extends CI_Controller {
 				'linkLogoff'=>'principal/logoff', 
 				'abrirModalHistoria'=> $abrirModalHistoria, 
 				'abrirModalGabarito' => FALSE, 
-				'erro' =>FALSE);
+				'erro' =>FALSE,
+				);
 
 			$this->load->view('construtor', $pagina);            
         } else {

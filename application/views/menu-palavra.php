@@ -4,59 +4,40 @@
 				<h3 class="titulo-menu">Nível Palavra</h3>
 		</div>		
 		<div id="imagens-menu" class="centered" >
-			<div class="row afastado-1pc">
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<a href="<?php echo base_url("palavra/jogarPalavra/ch_x");?>">
-							<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-						</a>						
-					</div>			
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-					
-					<a href="<?php echo base_url("palavra/jogarPalavra/ss_s_ç_z");?>">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</a>
-					</div>					
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-					<a href="<?php echo base_url("palavra/jogarPalavra/rr_r");?>">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</a>
-					</div>					
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>				
-			</div>
 
-			<div class="row afastado-1pc">
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>					
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>				
-			</div>
-		</div>
+			<?php
+				$tamGrafemasBD = count($grafemasCadastrados);
+				$tamGrafemasJogados = count($grafemasJogados);
+
+				echo '<div class="row afastado-1pc">';
+
+				for($i = 0; $i<$tamGrafemasBD; $i++) {
+					if ($i == 4){
+						echo '</div>';
+						echo '<div class="row afastado-1pc">';
+					}
+
+					echo '<div class="col-md-3 col-xs-6">';
+						echo '<div class="row">';
+							$url = 'palavra/jogarPalavra/'.$grafemasCadastrados[$i]->tipoGrafema;
+							echo '<a href="'.base_url($url).'">';
+								$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+								echo '<img src="'.base_url($url).'">';		
+							echo '</a>';
+						echo '</div>';
+						echo '<div class="row">';
+							for ($j=0; $j < $tamGrafemasJogados; $j++) { 
+								if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 20){
+									echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
+								}								
+							}
+							
+						echo '</div>';
+					echo '</div>';
+				}
+				echo '</div>';
+			?>
+		
 		<input type="hidden" id="abrirModalGabarito" value="<?php echo ($abrirModalGabarito); ?>">
 		<input type="hidden" id="abrirModalHistoria" value="<?php echo ($abrirModalHistoria[0]); ?>">
 		<input type="hidden" id="inseriu" value="<?php echo ($inseriu); ?>">
@@ -65,7 +46,7 @@
 
   <!-- Modal -->
   	<div class="modal fade" id="modalGabarito" role="dialog">
-	    <div class="modal-dialog modal-sm">
+	    <div class="modal-dialog modal-lg">
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>
@@ -73,23 +54,25 @@
 	        </div>
 	        <input type="hidden" id="inputs" name="inputs" value=""/>
 	        <div class="modal-body">          
-					<?php											
-						echo '<table class="centered tabela-gabarito" border="1%">';
-							echo '<tr>';
-								echo '<th> Sua resposta </th>';
-								echo '<th> Gabarito </th>';
-								echo '<th> Explicação </th>';
-							echo '<tr>';
-							$i = 0;
-							foreach ($inputJogador as $input => $value) {
+					<?php
+						echo '<div class="table-responsive">';									
+							echo '<table class="centered tabela-gabarito table-bordered table-striped">';
 								echo '<tr>';
-									echo '<td>'.$value.'</td>';	
-									echo '<td>'.$gabarito[$i].'</td>';	
-									echo '<td>'.$justificativa[$i].'</td>';	
-								echo '</tr>';
-							$i++;
-							}
-						echo '</table>';
+									echo '<th class="titulo"> Sua resposta </th>';
+									echo '<th class="titulo"> Gabarito </th>';
+									echo '<th class="titulo"> Explicação </th>';
+								echo '<tr>';
+								$i = 0;
+								foreach ($inputJogador as $input => $value) {
+									echo '<tr>';
+										echo '<td>'.$value.'</td>';	
+										echo '<td>'.$gabarito[$i].'</td>';	
+										echo '<td>'.$justificativa[$i].'</td>';	
+									echo '</tr>';
+								$i++;
+								}
+							echo '</table>';
+						echo '</div>';
 						echo '<p class="centered" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
 					?>			
 	        </div>
@@ -113,6 +96,7 @@
 		echo '</script>';
 	}
 ?>
+
 
 
 <script type="text/javascript">

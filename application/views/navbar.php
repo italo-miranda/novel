@@ -10,10 +10,23 @@
     <div class="collapse navbar-collapse" id="myNavbar">
 		<ul class="nav navbar-nav navbar-right">
 			<li class="active" ><img id="avatarNav" src="<?php echo base_url('assets/img/'.$this->session->userdata('avatar').'.jpg'); ?>"></li>
-		    <li><a href="#"><?php  echo("Olá, " . $this->session->userdata('nome') . "!"); ?></a></li>
-		    <li><a href="#">Minha conta</a></li>
-			<li><a href="#">Meus pontos</a></li> 
-			<li><a href="<?php echo base_url($linkLogoff);?>"><span class="glyphicon glyphicon-log-out"></span>Sair</a></li>
+		    <li>
+		    	<a href="#"><?php  echo("Olá, " . $this->session->userdata('nome') . "!"); ?></a>
+		    </li>
+		    <li>
+		    	<a href="<?php echo base_url('principal/minhaConta'); ?>">
+		    		<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Minha conta
+		    	</a>
+		    </li>
+			<li>
+				<a href="<?php echo base_url('principal/meusPontos'); ?>">
+					<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Meus pontos
+				</a>
+			</li> 
+			<li>
+				<a href="<?php echo base_url($linkLogoff);?>">
+				<span class="glyphicon glyphicon-log-out"></span> Sair</a>
+			</li>
 	    </ul> 
 	</div> 
 </nav>

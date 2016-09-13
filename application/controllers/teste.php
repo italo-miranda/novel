@@ -28,6 +28,11 @@ class Teste extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
+
+			$codJogador = $this->session->userdata('codJogador');
+
+			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
+			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 			
 			$pagina = array(
 				'tela' => 'menu-teste', 
@@ -40,6 +45,8 @@ class Teste extends CI_Controller {
 				'pontuacao' => NULL,
 				'erro' => $erro,				
 				'inseriu' => TRUE,
+				'grafemasJogados' => $grafemasJogados,
+				'grafemasCadastrados' => $grafemasCadastrados,
 				);
 			$this->load->view('construtor', $pagina);
         } else {
@@ -76,7 +83,7 @@ class Teste extends CI_Controller {
 
 				$this->load->view('construtor', $pagina);
 			} else {
-				redirect('teste/index/0');
+				redirect('teste/index/TRUE');
 			}
         } else {
 			redirect('principal/index');
@@ -113,7 +120,7 @@ class Teste extends CI_Controller {
 			}
 
 			$inseriu = $this->modelTeste->inserirRodadaTeste($dados['codGrafema'], $codJogador, $dados['duracao'], $pontuacao);
-			
+
             $cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
 			if($cenas){
 				$abrirModalHistoria[] = $cenas[0]->nomeCena;
@@ -121,6 +128,9 @@ class Teste extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
+
+			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
+			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 
 			$pagina = array(
 				'tela' => 'menu-teste',
@@ -131,7 +141,9 @@ class Teste extends CI_Controller {
 				'pontuacao' => $pontuacao,
 				'abrirModalGabarito' => TRUE,				
 				'abrirModalHistoria'=> $abrirModalHistoria,
-				'erro' => $erro,				
+				'erro' => $erro,
+				'grafemasJogados' => $grafemasJogados,
+				'grafemasCadastrados' => $grafemasCadastrados,			
 				);
 			$this->load->view('construtor', $pagina);
 		

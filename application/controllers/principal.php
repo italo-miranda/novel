@@ -126,4 +126,53 @@ class Principal extends CI_Controller {
         	}
 		}		
 	}
+
+	public function meusPontos(){
+
+		if ($this->session->userdata('logged_in')){
+			
+			$codJogador = $this->session->userdata('codJogador');
+			$dadosPalavras = $this->modelJogador->buscarHistoricoPalavra($codJogador);
+			$dadosTestes = $this->modelJogador->buscarHistoricoTeste($codJogador);
+			$tempoTotal = $this->modelJogador->buscarTempoTotal($codJogador);
+			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
+			$conquistas = $this->modelJogador->buscarConquistasJogador($codJogador);
+
+
+			$pagina = array('tela' => 'meus-pontos', 
+				'erro' => FALSE,
+				'abrirModalHistoria'=> FALSE,
+				'dadosPalavras' => $dadosPalavras,
+				'dadosTestes' =>$dadosTestes,
+				'tempoTotal' =>$tempoTotal,
+				'experiencia' =>$experiencia,
+				'conquistas' =>$conquistas,
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff'
+				);
+			
+			$this->load->view('construtor', $pagina);
+		} else {
+			redirect('principal/index');
+		}
+	}
+
+	public function minhaConta(){
+		if ($this->session->userdata('logged_in')){
+			$codJogador = $this->session->userdata('codJogador');
+			$jogador = $this->modelJogador->buscarDadosJogador($codJogador);
+
+			$pagina = array('tela' => 'minha-conta', 
+				'erro' => FALSE,
+				'abrirModalHistoria'=> FALSE,
+				'jogador' => $jogador,
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff'
+				);
+			
+			$this->load->view('construtor', $pagina);
+		} else {
+			redirect('principal/index');
+		}
+	}
 }

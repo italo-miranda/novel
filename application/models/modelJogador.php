@@ -21,9 +21,6 @@ class modelJogador extends CI_Model {
 
 		if ($query != NULL){
 
-			$palavrasJogadas = $this->buscarGrafemasJogadosPalavra($query[0]->codJogador);
-			$testesJogados = $this->buscarGrafemasJogadosTeste($query[0]->codJogador);
-
 			//Se a consulta não for vazia, então é preciso setar os atributos de $jogador
 			foreach ($query as $q) {
 				$dados = array(
@@ -32,8 +29,6 @@ class modelJogador extends CI_Model {
 					'codJogador' => $q->codJogador,
 					'nivel' => $q->nivel,
 					'experiencia' => $q->experiencia,
-					'palavrasJogadas' => $palavrasJogadas,
-					'testesJogados'=> $testesJogados,
 				 );
 				return $dados;
 			}
@@ -174,26 +169,129 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function buscarGrafemasJogadosPalavra($codJogador){		
-		$this->db->select('g.tipoGrafema, r.pontuacao');
-		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 't.codGrafema  = g.codGrafema');
-		$this->db->where('tipoRodada = palavra');
+	public function subirExperiencia($codJogador, $pontuacao){
+		$experienciaAntiga = $this->buscarExperienciaJogador($codJogador);
+		$experienciaNova = $eperienciaAntiga + $pontuacao;
+		$codConquistaNova = $this->buscarConquistaPelaExperiencia($experienciaAntiga, $experienciaNova);
+		$this->db->set('experiencia', $experiencia);
 		$this->db->where('codJogador', $codJogador);
+		$this->db->update('Jogador');
+	}
+
+	public function adquirirConquista($codJogador){
+		$experiencia = $this->buscarExperienciaJogador($codJogador);
+		$this->db->select('c.nomeConquista');
+		$this->db->from('ConquistaJogador as j');
+		$this->db->join('Conquistas as c', 'j.codJogador = c.codJogador');
+		$retorno = $this->db->get()->result();
+		return $retorno;
+
+	}
+
+	public function buscarGrafemasJogadosPalavra($codJogador){		
+		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
+		$this->db->from('Rodada as r');
+		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
+		$this->db->where('tipoRodada', 'palavra');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('tipoGrafema');
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
 
 	public function buscarGrafemasJogadosTeste($codJogador){		
-		$this->db->select('g.tipoGrafema, r.pontuacao');
+		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 't.codGrafema  = g.codGrafema');
-		$this->db->where('tipoRodada = teste');
+		$this->db->join('Grafema as g', 'r.codGrafema  = g.codGrafema');
+		$this->db->where('tipoRodada', 'teste');
 		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('tipoGrafema');
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
 	
+	public function buscarListaGrafemas(){
+		$this->db->select('tipoGrafema');
+		$this->db->from('Grafema');
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+	//select g.tipoGrafema, SUM(r.pontuacao) from rodada as r join grafema as g on r.codGrafema = g.codGrafema where codJogador=1 group by tipoGrafema;
+
+	public function buscarHistoricoPalavra($codJogador){
+		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
+		$this->db->from('Rodada as r');
+		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
+		$this->db->where('tipoRodada', 'palavra');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('g.tipoGrafema');
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+	public function buscarHistoricoTeste($codJogador){
+		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
+		$this->db->from('Rodada as r');
+		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
+		$this->db->where('tipoRodada', 'teste');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('g.tipoGrafema');		
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+
+	public function buscarTempoTotal($codJogador){
+		$this->db->select('SUM(duracao) as tempoTotal');
+    	$this->db->from('Rodada');    	
+    	$this->db->where('codJogador', $codJogador);
+    	$retorno = $this->db->get()->result();
+
+    	return $retorno;
+	}
+
+	public function buscarExperienciaJogador($codJogador){
+		$this->db->select('experiencia');
+		$this->db->from('Jogador');
+		$this->db->where('codJogador', $codJogador);
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+	public function buscarConquistasJogador($codJogador){
+		$this->db->select('c.nomeConquista');
+		$this->db->from('ConquistaJogador as j');
+		$this->db->join('Conquistas as c', 'j.codConquista = c.codConquista');
+		$this->db->where('j.codJogador', $codJogador);
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+//	select c.codConquista from conquistajogador as j join conquistas as c on j.codConquista = c.codConquista;
+
+	public function buscarConquistaPelaExperiencia($minimo, $maximo, $codJogador){
+		$this->db->select('c.codConquista');
+		$this->db->from('ConquistaJogador as j');
+		$this->db->join('Conquistas as c', 'j.codConquista = c.codConquista');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->where("experienciaDesbloqueio BETWEEN $minimo AND $maximo");
+		$retorno = $this->db->get()->result();
+		if ($retorno){
+			return $retorno;
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function buscarDadosJogador($codJogador){
+		$this->db->select('nome, email, login');
+		$this->db->from('Jogador');
+		$this->db->where('codJogador', $codJogador);
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
 }
+
 
 

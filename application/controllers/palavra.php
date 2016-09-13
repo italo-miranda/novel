@@ -17,6 +17,11 @@ class Palavra extends CI_Controller {
 			$erro = $this->uri->segment(3);        	
             $inputJogador = array('null'=> 'nulo');
             $nivel = $this->session->userdata('nivel');
+
+            $codJogador = $this->session->userdata('codJogador');
+
+			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
+			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();		
             
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
 			if($cenas){
@@ -36,7 +41,9 @@ class Palavra extends CI_Controller {
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
 				'erro' => $erro,
-				'inseriu' => TRUE,				
+				'inseriu' => TRUE,
+				'grafemasJogados' => $grafemasJogados,
+				'grafemasCadastrados' =>$grafemasCadastrados,
 				);
 			$this->load->view('construtor', $pagina);
         } else {
@@ -74,7 +81,7 @@ class Palavra extends CI_Controller {
 
 				$this->load->view('construtor', $pagina);
 			} else {
-				redirect('palavra/index/0');
+				redirect('palavra/index/TRUE');
 			}
         } else {
 			redirect('principal/index');
@@ -117,7 +124,9 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-			
+
+			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
+			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 			$pagina = array(
 				'tela' => 'menu-palavra',
 				'linkNovel'=> 'principal/menu', 
@@ -130,6 +139,8 @@ class Palavra extends CI_Controller {
 				'abrirModalHistoria'=> $abrirModalHistoria,
 				'inseriu' => $inseriu,
 				'erro' => NULL,
+				'grafemasJogados' => $grafemasJogados,
+				'grafemasCadastrados' => $grafemasCadastrados,
 				);
 			$this->load->view('construtor', $pagina);		
         } else {
