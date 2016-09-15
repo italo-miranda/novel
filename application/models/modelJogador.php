@@ -8,7 +8,8 @@ class modelJogador extends CI_Model {
         parent::__construct();
     }
 
-	
+//LOGIN E FUNÇÕES ADMINISTRATIVAS
+
 	public function fazerLogin($login, $senha)
 	{
 		
@@ -57,6 +58,26 @@ class modelJogador extends CI_Model {
 		$retorno = $this->db->insert('Jogador', $string);
 		} 
 		return $retorno;	
+	}
+
+
+	public function verificarEmailCadastrado($email){
+		$this->db->select('codJogador');
+		$this->db->from('Jogador');
+		$this->db->where('email', $email);
+		$retorno = $this->db->get()->result();
+		return $retorno;
+	}
+
+//MUDANÇA DE NÍVEL E EXPERIÊNCIA
+
+
+	public function buscarNivelJogador($codJogador){
+		$this->db->select('nivel');
+		$this->db->from('Jogador');
+		$this->db->where('codJogador', $codJogador);
+		$retorno = $this->db->get()->result();
+		return $retorno;
 	}
 
 	public function subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada){
@@ -157,34 +178,6 @@ class modelJogador extends CI_Model {
     	}
     }
 
-    //Esta função deve verificar qual foi a pontuação máxima
-    //do jogador em um nível. $tipoRodada pode ser de palavra, texto ou teste
-    public function verificarPontuacaoMaxima($tipoRodada, $codJogador){
-    	$this->db->select('MAX(pontuacao)');
-    	$this->db->from('Rodada');
-    	$this->db->where('tipoRodada', $tipoRodada);
-    	$this->db->where('codJogador', $codJogador);
-    	$retorno = $this->db->get()->result();
-
-    	return $retorno;
-    }
-
-	public function buscarNivelJogador($codJogador){
-		$this->db->select('nivel');
-		$this->db->from('Jogador');
-		$this->db->where('codJogador', $codJogador);
-		$retorno = $this->db->get()->result();
-		return $retorno;
-	}
-
-	public function verificarEmailCadastrado($email){
-		$this->db->select('codJogador');
-		$this->db->from('Jogador');
-		$this->db->where('email', $email);
-		$retorno = $this->db->get()->result();
-		return $retorno;
-	}
-
 	public function subirExperiencia($codJogador, $pontuacao){
 		$experienciaAntiga = $this->buscarExperienciaJogador($codJogador);
 		$experienciaNova = $eperienciaAntiga + $pontuacao;
@@ -203,6 +196,22 @@ class modelJogador extends CI_Model {
 		return $retorno;
 
 	}
+
+
+//ESTATÍSTICAS
+
+    //Esta função deve verificar qual foi a pontuação máxima
+    //do jogador em um nível. $tipoRodada pode ser de palavra, texto ou teste
+    public function verificarPontuacaoMaxima($tipoRodada, $codJogador){
+    	$this->db->select('MAX(pontuacao)');
+    	$this->db->from('Rodada');
+    	$this->db->where('tipoRodada', $tipoRodada);
+    	$this->db->where('codJogador', $codJogador);
+    	$retorno = $this->db->get()->result();
+
+    	return $retorno;
+    }
+
 
 	public function buscarGrafemasJogadosPalavra($codJogador){		
 		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
@@ -225,6 +234,20 @@ class modelJogador extends CI_Model {
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
+
+	public function buscarGrafemasJogadosTexto($codJogador){
+		$this->db->select('MAX(r.pontuacao) as pontuacao, gt.codTexto');
+		$this->db->from('Rodada r');
+		$this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
+		$this->db->join('Grafema g', 'gt.codgrafema = g.codgrafema');
+		$this->db->where('r.tipoRodada', "texto");
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('gt.codTexto');
+		$this->db->order_by('r.codRodada');
+		$listaTextos = $this->db->get()->result();
+
+
+	}	
 	
 	public function buscarListaGrafemas(){
 		$this->db->select('tipoGrafema');
@@ -255,6 +278,10 @@ class modelJogador extends CI_Model {
 		$this->db->group_by('g.tipoGrafema');		
 		$retorno = $this->db->get()->result();
 		return $retorno;
+	}
+
+	public function buscarHistoricoTexto($codJogador){
+		$this->db->select('');
 	}
 
 
@@ -306,6 +333,21 @@ class modelJogador extends CI_Model {
 		$this->db->where('codJogador', $codJogador);
 		$retorno = $this->db->get()->result();
 		return $retorno;
+	}
+
+	public function juntarGrafemas($listaTextos){
+		foreach ($listaTextos as $key) {
+			$codTexto = $key->pontuacao;
+			//$grafemas = 
+		}
+	}
+
+	public function buscarGrafemasTexto($codTexto){
+		$this->db->select('g.tipoGrafema');
+		$this->db->from('Grafema g');
+		$this->db->join('GrafemaTexto gt', 'g.codgrafema = gt.codgrafema');
+		$this->db->where('gt.codTexto', $codTexto);
+		$retorno = $this->db->get()->result();
 	}
 }
 

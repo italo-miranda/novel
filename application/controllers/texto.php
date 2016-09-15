@@ -99,11 +99,26 @@ class Texto extends CI_Controller {
 			$gabarito = $this->modelTexto->encontrarGabarito($codTexto);
 			
 			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);
+			
+
+			$nivelAntigo = $this->session->userdata('nivel');
+			$tipoRodada = 'texto';
+			$codJogador = $this->session->userdata('codJogador');						
+			$nivelNovo = $this->modelJogador->subirNivelTexto($codJogador, $pontuacao, $codGrafema, $tipoRodada);				
+			if($nivelNovo){
+				$this->session->set_userdata('nivel', $nivelAntigo + 1);
+			}
+
 			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $this->session->userdata('codJogador'), $duracao, $pontuacao);
 
-			$nivel = $this->session->userdata('nivel');
-			//fazer função para mostrar a historia
-			$abrirModalHistoria = FALSE;
+			$cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
+			if($cenas){
+				$abrirModalHistoria[] = $cenas[0]->nomeCena;
+				$abrirModalHistoria[] = $cenas[0]->quadros;
+			} else {
+				$abrirModalHistoria = FALSE;
+			}
+
 
 			$pagina = array(
 				'tela' => 'menu-texto',
