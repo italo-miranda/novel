@@ -16,14 +16,13 @@
 				    <!-- Wrapper for slides -->
 				    <div class="carousel-inner" role="listbox" >	
 
-				    	<div class="item active">
-	        				<img class="historia centered" src="<?php echo base_url('assets/img/historia/'.$abrirModalHistoria[0].'-1.jpg'); ?>">
+				    	<div class="item active historia">
+	        				<img class="historia centered img-responsive" src="<?php echo base_url('assets/img/historia/'.$abrirModalHistoria[0].'-1.jpg'); ?>">
 	        			</div>			    
 					    <?php 				    	
 					    	for ($i=2; $i <= $abrirModalHistoria[1]; $i++) { 					    					    
-					    		echo '<div class="item">';
-	        					echo 	'<img class="historia centered" src="'.base_url('assets/img/historia/'.$abrirModalHistoria[0].'-'.$i.'.jpg').'">';
-	        					echo $i;
+					    		echo '<div class="item historia">';
+	        					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/historia/'.$abrirModalHistoria[0].'-'.$i.'.jpg').'">';	        					
 	        					echo '</div>';
 					    	}  
 					    ?>		    

@@ -8,23 +8,23 @@
 				<div class="col-md-3 col-xs-6">				
 					<div class="row">
 						<a href="<?php echo base_url("texto/jogarTexto/ch_x&ss_s_ç_z&rr_r");?>">
-							<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+							<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 						</a>	
 					</div>			
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>			
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>				
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>					
 				</div>				
 			</div>
@@ -32,22 +32,22 @@
 			<div class="row afastado-1pc">
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>			
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>					
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>				
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="row">
-						<img class="img-texto" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
+						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
 					</div>				
 				</div>				
 			</div>

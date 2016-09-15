@@ -1,5 +1,6 @@
-#logo-inicial{
-	float: left;	
+#pagina-inicial {
+	background: url('../img/logo.png')  no-repeat center fixed;
+	background-size: 70%;	
 }
 
 #conteudo{
@@ -18,6 +19,10 @@
 	font-size: 100%;
 }
 
+.input-sm{	
+	width: 10%;
+}
+
 #tempo{
 	border: none;
 	text-align-last: center;
@@ -25,21 +30,23 @@
 	background-color: transparent;
 }
 
-#botao-admin{
-	float: left;	
+#corpoModal {
+	min-height: 400px;
 }
 
 #conteudoModalRegra{	
-	background: url('../img/cenario4.jpg')  no-repeat;	
-	background-size: cover;
-	background-position: all;	
-	overflow: hidden;
+	background: url('../img/regra.png')  no-repeat center fixed;	
+	background-size: 70%;	
 	font-weight: bold;
 	text-align: left;
 }
 
 #avatarNav{
 	max-width: 25%;
+}
+
+#paragrafoTexto{
+	text-align: left;
 }
 
 .tabela-gabarito{
@@ -49,13 +56,17 @@
 	text-align: center;
 }
 
+.historia {
+	min-height: 500px;
+}
+
+
 .modal-footer{
 	text-align: center;
 }
 
 .regra{
-	text-align: left;
-	font-weight: bold;
+	min-height: 300px;
 }
 
 .form-group{
@@ -67,9 +78,7 @@
     float: none !important;
 }
 
-#paragrafoTexto{
-	text-align: left;
-}
+
 
 .historia{
 	max-width: 100%;	
@@ -85,7 +94,7 @@
 
 .titulo{
 	font-weight: bold;
-	text-align: center;
+//	text-align: center;
 
 }
 

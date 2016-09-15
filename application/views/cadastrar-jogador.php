@@ -65,7 +65,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/cecilia.jpg'); ?>">
+								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/cecilia.png'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" required type="radio" name="avatar" value="cecilia"/>
@@ -75,7 +75,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/graciliano.jpg'); ?>">
+								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/graciliano.png'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" type="radio" name="avatar" value="graciliano"/>
@@ -85,7 +85,7 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/clarice.jpg'); ?>">
+								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/clarice.png'); ?>">
 								   				</div>
 								   				<div class="row">
 								   					<input class="centered" type="radio" name="avatar" value="clarice"/>
@@ -95,10 +95,10 @@
 								   		<div class="col-md-3 col-xs-6">
 								   			<label class="centered">
 								   				<div class="row">
-								   					<img class="centered" src="<?php echo base_url('assets/img/joao.jpg'); ?>">
+								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/verissimo.png'); ?>">
 								   				</div>
 								   				<div class="row">
-								   					<input class="centered" type="radio" name="avatar" value="joao"/>
+								   					<input class="centered" type="radio" name="avatar" value="verissimo"/>
 								   				</div>								   											   	
 	   							 			</label>								
 								   		</div>

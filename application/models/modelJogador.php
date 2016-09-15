@@ -93,12 +93,27 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function subirNivelTexto($codJogador, $pontuacao, $Grafemas){
+	public function subirNivelTexto($codJogador, $pontuacao, $grafemas){
 		$retorno = NULL;
-		if ($pontuacao > 100){
-
+		if ($pontuacao > 120){
+			$jogou = $this->verificarNivelAlcandadoTexto($grafemas, $codJogador);
+			$nivel = $this->buscarNivelJogador($codJogador);
+			$nivel = $nivel[0]->nivel;
+			if(!$jogou || $jogou[0]->pontuacao < 140){
+				$nivel++;				
+				$this->db->set('nivel', $nivel);
+				$this->db->where('codJogador', $codJogador);
+				$this->db->update('Jogador');
+				$retorno = TRUE;
+			} else {
+				$retorno = FALSE;
+			}
+		} else {
+			$retorno = FALSE;
 		}
+		return $retorno;
 	}
+
 
 	public function verificarNivelAlcancado($codGrafema, $codJogador, $tipoRodada){		
 			$this->db->select('MAX(pontuacao) AS pontuacao');
@@ -125,14 +140,15 @@ class modelJogador extends CI_Model {
     		}
     	} 
           
-		$this->db->select('MAX(r.pontuacao)');
+		$this->db->select('MAX(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
 		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
 		$this->db->where($where);
+		$this->db->where('r.tipoRodada', 'texto');
 		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('r.codTexto');
+		$this->db->group_by('r.codJogador');
 		$this->db->having('COUNT(r.codGrafema)', $tamanho);
-		$codTexto = $this->db->get()->result();
+		$resultado = $this->db->get()->result();
         
     	if($resultado){
     		return $codTexto;

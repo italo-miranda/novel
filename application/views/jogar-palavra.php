@@ -47,14 +47,16 @@
 											echo '<div class="row centered">';
 												if ($p->imagem != NULL){
 													echo '<div class="col-md-4 col-xs-12">';
-														echo "<img src=".base_url('assets/img/palavra-fake.png');">";
+														echo "<img class="."img-responsive"." src=".base_url('assets/img/palavra-fake.png');">";
 													echo '</div>';
 													echo '<div class="col-md-8 col-xs-12">';
 												} else {
-													echo '<div class="col-md-12 col-xs-12">';
-														echo "<h4>". $p->enunciado."</h4>";		
+													echo '<div class="col-md-2 col-xs-2"></div>';
+													echo '<div class="col-md-8 col-xs-8">';
+														echo "<p id="."enunciado"."><h4>". $p->enunciado."</h4></p>";		
 												}
 													echo '</div>';
+													echo '<div class="col-md-2 col-xs-2"></div>';
 											echo '</div>';
 
 											echo '<div class="row centered">';
@@ -62,7 +64,7 @@
 													$palavraDividida = explode("_", $p->palavraIncompleta);
 													echo '<h3 id="palavraIncompleta">';
 														echo $palavraDividida[0];
-														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" name="inputLetra'.$i.'" required">';
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" size="12" name="inputLetra'.$i.'" required">';
 														echo $palavraDividida[1];
 													echo '</h3>';
 												echo '</div>';
@@ -95,6 +97,9 @@
 						</div>	
 
 						<!-- Controles -->
+						<a class="left carousel-control" href="#carrosselPalavras" role="button" data-slide="prev">
+				      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				      <span class="sr-only">Previous</span>
 
 			  			<div class="row">
 							<a class="right carousel-control" href="#carrosselPalavras" role="button" data-slide="next">
@@ -135,26 +140,32 @@
 
 					    		if ($item != NULL){
 					    			if ($l == 0){
-					    				echo '<div class="item active">';
+					    				echo '<div class="item regra active">';
 					    			} else {
-					    				echo '<div class="item">';
-					    			}					    				
-					    				echo '<p class="regra">';
-							    			$tamanhoItem = strlen($item);
-							    			for($m = 0; $m < $tamanhoItem; $m++){
-							    				if (strcmp($item[$m], ":") == 0 ){
-							    					echo $item[$m].'<br />';				    					
-							    				} elseif (strcmp($item[$m], "|") == 0) {
-							    					echo '<br />';
-							    				} elseif (strcmp($item[$m], "[") == 0){
-							    					echo '<h3 class="titulo">';
-							    				} elseif (strcmp($item[$m], "]") == 0){
-							    					echo '</h3><br /><br />';
-							    				} else {
-							    					echo $item[$m];
-							    				}				    				
-							    			}
-							    		echo '</p>';
+					    				echo '<div class="item regra">';
+					    			}					    			
+					    			    echo '<div class="col-md-2">';
+					    			    echo '</div>';
+					    				echo '<div class="col-md-8 col-xs-12">';
+						    				echo '<p class="textoRegra">';
+								    			$tamanhoItem = strlen($item);
+								    			for($m = 0; $m < $tamanhoItem; $m++){
+								    				if (strcmp($item[$m], ":") == 0 ){
+								    					echo $item[$m].'<br />';				    					
+								    				} elseif (strcmp($item[$m], "|") == 0) {
+								    					echo '<br />';
+								    				} elseif (strcmp($item[$m], "[") == 0){
+								    					echo '<h3 class="titulo centered">';
+								    				} elseif (strcmp($item[$m], "]") == 0){
+								    					echo '</h3><br />';
+								    				} else {
+								    					echo $item[$m];
+								    				}				    				
+								    			}
+								    		echo '</p>';
+								    	echo '</div>';
+								    	echo '<div class="col-md-2">';
+					    			    echo '</div>';
 					    			echo '</div>';
 					    		}
 					    	}					    

@@ -1,13 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Novel</title>
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/estilo.css"); ?>" />
+</head>
+
+<body id="pagina-inicial">
+<script type="text/javascript" src="<?php echo base_url("assets/js/jquery-3.1.0.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.js"); ?>"></script>
+
+
+<!-- Aqui começa o conteudo -->
+<div role="main">
+	<div class="col-md-12 col-xs-12" >
+
 	<!-- Aqui e a area do conteudo -->
-	<div class="col-md-12 col-xs-12 vertical-center">
-		<div id="conteudo" class="col-md-12 col-xs-12 well">
+	<div class="col-md-12 col-xs-12" id="pagina-inicial">
+		<div id="conteudo" class="col-md-12 col-xs-12">
 			<div class="row">
-				<div class="col-md-12 col-xs-12 centered">
-					<img src="<?php echo base_url('assets/img/logo-fake.png'); ?>">
+				<div class="col-md-12 col-xs-12 centered">					
+						<img class="img-responsive centered" src="">					
 				</div>			
 			</div>
 			<div class="row">
-				<div class="col-md-4 col-xs-8 centered afastado-1pc">
+				<div class="col-md-4 col-xs-8 centered vertical-center afastado-1pc">
 					<button type="button" class="btn btn-success btn-lg btn-block" onclick="mostrarLogin()">Jogar</button>
 				</div>
 			</div>
@@ -80,3 +97,12 @@
 		alert("Login ou senha inválidos. Tente novamente!");
 	}
 </script>
+
+
+<!-- Fechamentos das divs principais. Não apagar!-->
+	</div>
+</div>
+<!-- Fim do conteudo -->
+
+</body>
+</html>

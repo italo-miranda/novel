@@ -134,6 +134,7 @@ class Principal extends CI_Controller {
 			$codJogador = $this->session->userdata('codJogador');
 			$dadosPalavras = $this->modelJogador->buscarHistoricoPalavra($codJogador);
 			$dadosTestes = $this->modelJogador->buscarHistoricoTeste($codJogador);
+			$dadosTextos = FALSE;
 			$tempoTotal = $this->modelJogador->buscarTempoTotal($codJogador);
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 			$conquistas = $this->modelJogador->buscarConquistasJogador($codJogador);
@@ -144,6 +145,7 @@ class Principal extends CI_Controller {
 				'abrirModalHistoria'=> FALSE,
 				'dadosPalavras' => $dadosPalavras,
 				'dadosTestes' =>$dadosTestes,
+				'dadosTextos' => $dadosTextos,
 				'tempoTotal' =>$tempoTotal,
 				'experiencia' =>$experiencia,
 				'conquistas' =>$conquistas,

@@ -9,7 +9,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active" ><img id="avatarNav" src="<?php echo base_url('assets/img/'.$this->session->userdata('avatar').'.jpg'); ?>"></li>
+			<li class="active" ><img class="img-responsive" id="avatarNav" src="<?php echo base_url('assets/img/'.$this->session->userdata('avatar').'.png'); ?>"></li>
 		    <li>
 		    	<a href="#"><?php  echo("Olá, " . $this->session->userdata('nome') . "!"); ?></a>
 		    </li>

@@ -1,14 +1,16 @@
 <?php
-if($tela =='controle'):
+if($tela =='controle'){
 	$this->load->view('controle');
-else:
-	$this->load->view('header');
-		if ($tela != 'index' && $tela != 'login' && $tela != 'recuperar-senha' && $tela != 'login-administrador' && $tela != 'cadastrar-jogador'):
+}elseif ($tela == 'index') {
+		$this->load->view($tela);
+	} else {
+		$this->load->view('header');
+		if ($tela != 'login' && $tela != 'recuperar-senha' && $tela != 'login-administrador' && $tela != 'cadastrar-jogador'){
 		 	$this->load->view('navbar');
 	     	$this->load->view($tela);
-		else :
+		} else {			
 	    	$this->load->view($tela);
-		endif;
+		}	
 	$this->load->view('footer');
-endif;
+	}
 ?>

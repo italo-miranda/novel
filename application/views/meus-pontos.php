@@ -1,18 +1,20 @@
 ﻿<!-- Aqui é a área do conteúdo -->
 <div id="conteudo" class="col-md-12 col-xs-12 well">
 
-<div class="row">
-	<h2 class="centered afastado-1pc">Estatísticas do nível Palavra</h2>	
-	<div class="col-md-8 col-xs-12">		
-		<table class="columns col-md-12 col-xs-12">
-      		<tr>
-	        	<td><div id="graficoPalavras"></div></td>	        	
-	        	<td><div id="graficoPontuacaoPalavras"></div></td>
-	      	</tr>
-	    </table>
-	</div>
-	<div class="col-md-4 col-xs-12 dadosPalavras">
-		<?php			
+<?php
+if($dadosPalavras){
+	echo '<div class="row">';
+		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Palavra</h2>';
+		echo '<div class="col-md-8 col-xs-12 centered">';
+			echo '<table class="columns col-md-12 col-xs-12">';
+	      		echo '<tr>';
+		        	echo '<td><div id="graficoPalavras"></div></td>';
+		        	echo '<td><div id="graficoPontuacaoPalavras"></div></td>';
+		      	echo '</tr>';
+		    echo '</table>';
+		echo '</div>';
+		echo '<div class="col-md-4 col-xs-12 dadosPalavras">';
+		
 			$tamanhoPalavras = count($dadosPalavras);							
 			echo '<input type="hidden" id="tamanhoPalavras" value="'.$tamanhoPalavras.'"/>';
 			for ($i = 0; $i < $tamanhoPalavras; $i++){
@@ -20,52 +22,58 @@
 				echo '<input type="hidden" id="pontuacaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->pontuacao.'"/>';
 				echo '<input type="hidden" id="duracaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->duracao.'"/>';
 			}
-		?>
 
-	</div>
-</div>
-<div class="row">
-<h2 class="centered afastado-1pc">Estatísticas do nível Texto</h2>	
-	<div class="col-md-8 col-xs-12 graficoTextos">
-		
-	</div>
-	<div class="col-md-4 col-xs-12 dadosTextos">
-		<?php
-		/*
-		$tamanhoTestos = count($dadosTextos);
-		echo '<input type="hidden" id="tamanhoTextos" value="'.$tamanhoPalavras.'"/>';
-			for ($i = 0; $i < $tamanho; $i++){
-				echo '<input type="hidden" id="grafemasTextos'.$i.'" value="'.$dadosTextos[$i]->grafemas.'"/>';
-				echo '<input type="hidden" id="pontuacaoTextos'.$i.'" value="'.$dadosTextos[$i]->pontuacao.'"/>';
-				echo '<input type="hidden" id="duracaoTextos'.$i.'" value="'.$dadosTextos[$i]->duracao.'"/>';
-			}
-			*/
-		?>
-	</div>
-</div>
-<div class="row">
-<h2 class="centered afastado-1pc">Estatísticas do nível Teste</h2>	
-	<div class="col-md-8 col-xs-12">
-		<table class="columns col-md-12 col-xs-12">
-      		<tr>
-	        	<td><div id="graficoTestes"></div></td>
-	        	<td><div id="graficoPontuacaoTestes"></div></td>
-	      	</tr>
-	    </table>
-	</div>
-	<div class="col-md-4 col-xs-12 dadosTestes">
-		<?php
-			$tamanhoTestes = count($dadosTestes);
-			echo '<input type="hidden" id="tamanhoTestes" value="'.$tamanhoTestes.'"/>';			
-			for ($i = 0; $i < $tamanhoTestes; $i++){
-				echo '<input type="hidden" id="grafemaTestes'.$i.'" value="'.$dadosTestes[$i]->tipoGrafema.'"/>';
-				echo '<input type="hidden" id="pontuacaoTestes'.$i.'" value="'.$dadosTestes[$i]->pontuacao.'"/>';
-				echo '<input type="hidden" id="duracaoTestes'.$i.'" value="'.$dadosTestes[$i]->duracao.'"/>';
-			}
-		?>
-	</div>
-</div>
+		echo '</div>';
+	echo '</div>';
+}
 
+if($dadosTextos){
+	echo '<div class="row">';
+		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Texto</h2>';
+			echo '<div class="col-md-8 col-xs-12 centered">';
+				
+			echo '</div>';
+			echo '<div class="col-md-4 col-xs-12 dadosTextos">';
+
+				/*
+				$tamanhoTestos = count($dadosTextos);
+				echo '<input type="hidden" id="tamanhoTextos" value="'.$tamanhoPalavras.'"/>';
+					for ($i = 0; $i < $tamanho; $i++){
+						echo '<input type="hidden" id="grafemasTextos'.$i.'" value="'.$dadosTextos[$i]->grafemas.'"/>';
+						echo '<input type="hidden" id="pontuacaoTextos'.$i.'" value="'.$dadosTextos[$i]->pontuacao.'"/>';
+						echo '<input type="hidden" id="duracaoTextos'.$i.'" value="'.$dadosTextos[$i]->duracao.'"/>';
+					}
+					*/
+		echo '</div>';
+	echo '</div>';
+}
+
+if($dadosTestes){	
+	echo '<div class="row">';
+		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Teste</h2>';
+			echo '<div class="col-md-8 col-xs-12 centered">';
+				echo '<table class="columns col-md-12 col-xs-12">';
+		      		echo '<tr>';
+			        	echo '<td><div id="graficoTestes"></div></td>';
+			        	echo '<td><div id="graficoPontuacaoTestes"></div></td>';
+			      	echo '</tr>';
+			    echo '</table>';
+			echo '</div>';
+			echo '<div class="col-md-4 col-xs-12 dadosTestes">';
+				
+				$tamanhoTestes = count($dadosTestes);
+				echo '<input type="hidden" id="tamanhoTestes" value="'.$tamanhoTestes.'"/>';			
+				for ($i = 0; $i < $tamanhoTestes; $i++){
+					echo '<input type="hidden" id="grafemaTestes'.$i.'" value="'.$dadosTestes[$i]->tipoGrafema.'"/>';
+					echo '<input type="hidden" id="pontuacaoTestes'.$i.'" value="'.$dadosTestes[$i]->pontuacao.'"/>';
+					echo '<input type="hidden" id="duracaoTestes'.$i.'" value="'.$dadosTestes[$i]->duracao.'"/>';
+				}
+		echo '</div>';
+	echo '</div>';
+}
+
+
+?>
 <script type="text/javascript">
 
  	//Para desenhar os gráficos, utiliza-se aqui
