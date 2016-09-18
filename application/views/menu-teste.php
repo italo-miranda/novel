@@ -12,7 +12,7 @@
 				echo '<div class="row afastado-1pc">';
 
 				for($i = 0; $i<$tamGrafemasBD; $i++) {
-					if ($i == 4){
+					if (($i%4)==0){
 						echo '</div>';
 						echo '<div class="row afastado-1pc">';
 					}

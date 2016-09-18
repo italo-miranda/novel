@@ -114,6 +114,7 @@ class Teste extends CI_Controller {
 			$nivelAntigo = $this->session->userdata('nivel');
 
 			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada);	
+			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
 			if($nivelNovo){
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);

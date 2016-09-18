@@ -70,6 +70,19 @@ class modelTexto extends CI_Model {
 	    }         	    	        
     }
 
+    public function adicionarTempo($codJogador, $tempo){
+        $this->db->select('tempoTotal');
+        $this->db->from('Jogador');
+        $this->db->where('codJogador', $codJogador);
+        
+        $tempoAntigo = $this->db->get()->result();
+        $tempoNovo = $tempoAntigo[0]->tempoTotal + $tempo;
+        
+        $this->db->set('tempoTotal', $tempoNovo);        
+        $this->db->where('codJogador', $codJogador);
+        $this->db->update('Jogador');
+    }
+
     //Esta função verifica se o jogador já passou pelos grafemas
     //que são pré-requisitos para um determinado texto.
     //Os parâmetros de entrada são os grafemas pertencentes ao texto
@@ -104,7 +117,6 @@ class modelTexto extends CI_Model {
     		return FALSE;
     	}
     }
-
 
     //Esta função recebe um codTexto e encontra seu gabarito
     public function encontrarGabarito($codTexto){
@@ -147,11 +159,14 @@ class modelTexto extends CI_Model {
     			);    		
 
     		$this->db->insert('rodada', $dados);
+
+            $this->adicionarTempo($codJogador, $duracao);
     		} 
     	} else{
             return FALSE;
         }
     }
+
 
     public function separarGrafemas($grafemas){
     	$tiposGrafemas = explode("&", $grafemas);
@@ -165,5 +180,30 @@ class modelTexto extends CI_Model {
     	$codGrafema = $this->db->get()->result();
     	return $codGrafema;
     }    
+
+    public function buscarListaGrafemasTexto(){        
+        $retorno = NULL;
+        $codigos = $this->buscarListaCodigosTexto();         
+        foreach ($codigos as $key) { 
+           $retorno[] =  $this->buscarGrafemaPeloCodigoTexto($key->codTexto);
+        }
+        return $retorno;
+    }
+
+    public function buscarGrafemaPeloCodigoTexto($codTexto){        
+        $this->db->select('g.tipoGrafema, gt.codTexto');
+        $this->db->from('Grafema g');
+        $this->db->join('GrafemaTexto gt', 'g.codGrafema = gt.codGrafema');        
+        $this->db->where('gt.codTexto', $codTexto);
+        $retorno = $this->db->get()->result();
+        return $retorno;
+    }
+
+    public function buscarListaCodigosTexto(){
+        $this->db->select('codTexto');
+        $this->db->from('Texto');
+        $retorno = $this->db->get()->result();
+        return $retorno;
+    }
 
 }

@@ -148,7 +148,7 @@ class modelJogador extends CI_Model {
 
 	//Esta função verifica se o jogador já jogou um texto que possui
     //determinados grafemas.
-    public function verificarNivelAlcandadoTexto($Grafemas, $codJogador){
+    public function verificarNivelAlcandadoTexto($grafemas, $codJogador){
 
     	$tiposGrafemas = explode("&", $grafemas);
     	$where = '';
@@ -180,21 +180,23 @@ class modelJogador extends CI_Model {
 
 	public function subirExperiencia($codJogador, $pontuacao){
 		$experienciaAntiga = $this->buscarExperienciaJogador($codJogador);
-		$experienciaNova = $eperienciaAntiga + $pontuacao;
-		$codConquistaNova = $this->buscarConquistaPelaExperiencia($experienciaAntiga, $experienciaNova);
-		$this->db->set('experiencia', $experiencia);
+		$experienciaNova = $experienciaAntiga[0]->experiencia + $pontuacao;		
+		$this->db->set('experiencia', $experienciaNova);
 		$this->db->where('codJogador', $codJogador);
 		$this->db->update('Jogador');
 	}
 
-	public function adquirirConquista($codJogador){
+	//Esta função retorna todas as conquistas que exigem uma experiência
+	//menor ou igual a que o jogador possui. Isso garante que só retorne
+	//as conquistas que o jogador alcançou
+	public function buscarConquistasJogador($codJogador){	
 		$experiencia = $this->buscarExperienciaJogador($codJogador);
-		$this->db->select('c.nomeConquista');
-		$this->db->from('ConquistaJogador as j');
-		$this->db->join('Conquistas as c', 'j.codJogador = c.codJogador');
+		$where = "experienciaDesbloqueio <= ".$experiencia[0]->experiencia;
+		$this->db->select('nomeConquista, codConquista');
+		$this->db->from('Conquistas');
+		$this->db->where($where);
 		$retorno = $this->db->get()->result();
 		return $retorno;
-
 	}
 
 
@@ -256,6 +258,7 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
+
 	//select g.tipoGrafema, SUM(r.pontuacao) from rodada as r join grafema as g on r.codGrafema = g.codGrafema where codJogador=1 group by tipoGrafema;
 
 	public function buscarHistoricoPalavra($codJogador){
@@ -281,13 +284,20 @@ class modelJogador extends CI_Model {
 	}
 
 	public function buscarHistoricoTexto($codJogador){
-		$this->db->select('');
+		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
+		$this->db->from('Rodada as r');
+		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
+		$this->db->where('tipoRodada', 'texto');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('g.tipoGrafema');		
+		$retorno = $this->db->get()->result();
+		return $retorno;
 	}
 
 
 	public function buscarTempoTotal($codJogador){
-		$this->db->select('SUM(duracao) as tempoTotal');
-    	$this->db->from('Rodada');    	
+		$this->db->select('tempoTotal');
+    	$this->db->from('Jogador');    	
     	$this->db->where('codJogador', $codJogador);
     	$retorno = $this->db->get()->result();
 
@@ -302,31 +312,6 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function buscarConquistasJogador($codJogador){
-		$this->db->select('c.nomeConquista');
-		$this->db->from('ConquistaJogador as j');
-		$this->db->join('Conquistas as c', 'j.codConquista = c.codConquista');
-		$this->db->where('j.codJogador', $codJogador);
-		$retorno = $this->db->get()->result();
-		return $retorno;
-	}
-
-//	select c.codConquista from conquistajogador as j join conquistas as c on j.codConquista = c.codConquista;
-
-	public function buscarConquistaPelaExperiencia($minimo, $maximo, $codJogador){
-		$this->db->select('c.codConquista');
-		$this->db->from('ConquistaJogador as j');
-		$this->db->join('Conquistas as c', 'j.codConquista = c.codConquista');
-		$this->db->where('codJogador', $codJogador);
-		$this->db->where("experienciaDesbloqueio BETWEEN $minimo AND $maximo");
-		$retorno = $this->db->get()->result();
-		if ($retorno){
-			return $retorno;
-		} else {
-			return FALSE;
-		}
-	}
-
 	public function buscarDadosJogador($codJogador){
 		$this->db->select('nome, email, login');
 		$this->db->from('Jogador');
@@ -335,12 +320,6 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function juntarGrafemas($listaTextos){
-		foreach ($listaTextos as $key) {
-			$codTexto = $key->pontuacao;
-			//$grafemas = 
-		}
-	}
 
 	public function buscarGrafemasTexto($codTexto){
 		$this->db->select('g.tipoGrafema');

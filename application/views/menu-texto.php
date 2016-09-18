@@ -3,6 +3,39 @@
 		<div class="row">
 				<h3 class="titulo-menu">Nível Texto</h3>
 		</div>
+
+		<?php
+				$tamGrafemasBD = count($grafemasTextos);
+				echo '<div class="row afastado-1pc">';
+
+				for($i = 0; $i<$tamGrafemasBD; $i++) {
+					if (($i%4)==0){
+						echo '</div>';
+						echo '<div class="row afastado-1pc">';
+					}
+
+					echo '<div class="col-md-3 col-xs-6">';
+						echo '<div class="row">';
+							$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
+							echo '<a href="'.base_url($url).'">';
+								$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+								echo '<img src="'.base_url($url).'">';		
+							echo '</a>';
+						echo '</div>';
+						echo '<div class="row">';
+							for ($j=0; $j < $tamGrafemasJogados; $j++) { 
+								if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 60){
+									echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
+								}								
+							}
+							
+						echo '</div>';
+					echo '</div>';
+				}
+				echo '</div>';
+
+				
+		?>
 		<div id="imagens-menu" class="centered" >		
 			<div class="row afastado-1pc">
 				<div class="col-md-3 col-xs-6">				

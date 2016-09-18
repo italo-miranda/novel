@@ -117,6 +117,8 @@ class Palavra extends CI_Controller {
 
 			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
 
+			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
+
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
 			if($cenas){
 				$abrirModalHistoria[] = $cenas[0]->nomeCena;

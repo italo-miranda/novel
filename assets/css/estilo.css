@@ -23,6 +23,13 @@
 	width: 10%;
 }
 
+//Fazer as tabelas do google ficarem responsivas
+
+.chart {
+	width: 80%;
+	min-height: 400px;
+}
+
 #tempo{
 	border: none;
 	text-align-last: center;
@@ -84,12 +91,26 @@
 	max-width: 100%;	
 }
 
-.link-sem-linha{
+.link-sem-linha:link{
 	text-decoration: none;
+	color: #000;
+}
+
+
+
+.link-sem-linha:visited{
+	text-decoration: none;
+	color: #000;
 }
 
 .link-sem-linha:hover{
 	text-decoration: none;
+	color: #000;
+}
+
+.link-sem-linha:active{
+	text-decoration: none;
+	color: #000;
 }
 
 .titulo{

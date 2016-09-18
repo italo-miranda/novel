@@ -117,14 +117,32 @@ class Principal extends CI_Controller {
         	} else {
         		$retorno = $this->modelJogador->cadastrarJogador($dados);			
 				if($retorno){
-					$pagina = array('tela' => 'login', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE);
-					$this->load->view('construtor', $pagina);
+					$this->loginCadastro($dados['login'], $dados['senha1']);
 				} else {
 					$pagina = array('tela' => 'cadastrar-jogador', 'erro' => TRUE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE,);
 					$this->load->view('construtor', $pagina);		
 				}
         	}
 		}		
+	}
+
+	public function loginCadastro($login, $senha){
+		$logou = $this->modelJogador->fazerLogin($login, $senha);
+		    	        
+		    if($logou){	        	
+		    	$this->session->set_userdata(array(
+	                    'codJogador' => $logou['codJogador'],
+	                    'avatar' => $logou['avatar'],
+	                    'nome' => $logou['nome'],	                    
+	                    'logged_in' => TRUE,
+	                    'nivel' => $logou['nivel'],
+	                    'experiencia' => $logou['experiencia'],
+	                ));
+		    	redirect('principal/menu');
+		    } else {
+		    	$pagina = array('tela' => 'index', 'erro'=> TRUE, 'abrirModalHistoria'=> FALSE,);
+				$this->load->view('construtor', $pagina);
+		    }
 	}
 
 	public function meusPontos(){
@@ -134,7 +152,7 @@ class Principal extends CI_Controller {
 			$codJogador = $this->session->userdata('codJogador');
 			$dadosPalavras = $this->modelJogador->buscarHistoricoPalavra($codJogador);
 			$dadosTestes = $this->modelJogador->buscarHistoricoTeste($codJogador);
-			$dadosTextos = FALSE;
+			$dadosTextos = $this->modelJogador->buscarHistoricoTexto($codJogador);
 			$tempoTotal = $this->modelJogador->buscarTempoTotal($codJogador);
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 			$conquistas = $this->modelJogador->buscarConquistasJogador($codJogador);

@@ -85,10 +85,24 @@ class modelPalavra extends CI_Model {
     			);
 
     		$this->db->insert('rodada', $dados);
+            $this->adicionarTempo($codJogador, $duracao);
             return TRUE;
     	} else{
             return FALSE;
         }
+    }
+
+    public function adicionarTempo($codJogador, $tempo){
+        $this->db->select('tempoTotal');
+        $this->db->from('Jogador');
+        $this->db->where('codJogador', $codJogador);
+        
+        $tempoAntigo = $this->db->get()->result();
+        $tempoNovo = $tempoAntigo[0]->tempoTotal + $tempo;
+        
+        $this->db->set('tempoTotal', $tempoNovo);        
+        $this->db->where('codJogador', $codJogador);
+        $this->db->update('Jogador');
     }
 
     //Busca todos os códigos das palavras referentes ao código do grafema

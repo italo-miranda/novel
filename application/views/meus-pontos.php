@@ -1,79 +1,124 @@
 ﻿<!-- Aqui é a área do conteúdo -->
 <div id="conteudo" class="col-md-12 col-xs-12 well">
+	<div class="row">
+		<div class="col-md-8 coluna-tabelas"">			
+			<?php
+				if($dadosPalavras){
+					echo '<div class="row">';
+						echo '<h2 class="centered afastado-1pc">Estatísticas do nível Palavra</h2>';						
+							echo '<table class="columns col-md-12 col-xs-12">';
+					      		echo '<tr>';
+						        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoPalavras"></div></td>';
+						        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoPontuacaoPalavras"></div></td>';
+						      	echo '</tr>';
+						    echo '</table>';						
+						echo '<div class="dadosPalavras">';
+						
+							$tamanhoPalavras = count($dadosPalavras);							
+							echo '<input type="hidden" id="tamanhoPalavras" value="'.$tamanhoPalavras.'"/>';
+							for ($i = 0; $i < $tamanhoPalavras; $i++){
+								echo '<input type="hidden" id="grafemaPalavras'.$i.'" value="'.$dadosPalavras[$i]->tipoGrafema.'"/>';
+								echo '<input type="hidden" id="pontuacaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->pontuacao.'"/>';
+								echo '<input type="hidden" id="duracaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->duracao.'"/>';
+							}
 
-<?php
-if($dadosPalavras){
-	echo '<div class="row">';
-		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Palavra</h2>';
-		echo '<div class="col-md-8 col-xs-12 centered">';
-			echo '<table class="columns col-md-12 col-xs-12">';
-	      		echo '<tr>';
-		        	echo '<td><div id="graficoPalavras"></div></td>';
-		        	echo '<td><div id="graficoPontuacaoPalavras"></div></td>';
-		      	echo '</tr>';
-		    echo '</table>';
-		echo '</div>';
-		echo '<div class="col-md-4 col-xs-12 dadosPalavras">';
+						echo '</div>';
+					echo '</div>';
+				}
+
+				if($dadosTextos){
+					echo '<div class="row">';
+						echo '<h2 class="centered afastado-1pc">Estatísticas do nível Texto</h2>';
+							echo '<table class="columns col-md-12 col-xs-12">';
+					      		echo '<tr>';
+						        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoTextos"></div></td>';
+						        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoPontuacaoTextos"></div></td>';
+						      	echo '</tr>';
+					    	echo '</table>';
+							echo '<div class="dadosTextos">';								
+								$tamanhoTextos = count($dadosTextos);
+								echo '<input type="hidden" id="tamanhoTextos" value="'.$tamanhoTextos.'"/>';
+									for ($i = 0; $i < $tamanhoTextos; $i++){
+										echo '<input type="hidden" id="grafemaTextos'.$i.'" value="'.$dadosTextos[$i]->tipoGrafema.'"/>';
+										echo '<input type="hidden" id="pontuacaoTextos'.$i.'" value="'.$dadosTextos[$i]->pontuacao.'"/>';
+										echo '<input type="hidden" id="duracaoTextos'.$i.'" value="'.$dadosTextos[$i]->duracao.'"/>';
+									}
+						echo '</div>';
+					echo '</div>';
+				}
+
+				if($dadosTestes){	
+					echo '<div class="row">';
+						echo '<h2 class="centered afastado-1pc">Estatísticas do nível Teste</h2>';
+								echo '<table class="columns col-md-12 col-xs-12">';
+						      		echo '<tr>';
+							        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoTestes"></div></td>';
+							        	echo '<td><div class="col-md-6 col-xs-12 chart" id="graficoPontuacaoTestes"></div></td>';
+							      	echo '</tr>';
+							    echo '</table>';
+							echo '<div class="dadosTestes">';
+								
+								$tamanhoTestes = count($dadosTestes);
+								echo '<input type="hidden" id="tamanhoTestes" value="'.$tamanhoTestes.'"/>';			
+								for ($i = 0; $i < $tamanhoTestes; $i++){
+									echo '<input type="hidden" id="grafemaTestes'.$i.'" value="'.$dadosTestes[$i]->tipoGrafema.'"/>';
+									echo '<input type="hidden" id="pontuacaoTestes'.$i.'" value="'.$dadosTestes[$i]->pontuacao.'"/>';
+									echo '<input type="hidden" id="duracaoTestes'.$i.'" value="'.$dadosTestes[$i]->duracao.'"/>';
+								}
+						echo '</div>';
+					echo '</div>';
+				}
+
+
+			?>
+		</div>
 		
-			$tamanhoPalavras = count($dadosPalavras);							
-			echo '<input type="hidden" id="tamanhoPalavras" value="'.$tamanhoPalavras.'"/>';
-			for ($i = 0; $i < $tamanhoPalavras; $i++){
-				echo '<input type="hidden" id="grafemaPalavras'.$i.'" value="'.$dadosPalavras[$i]->tipoGrafema.'"/>';
-				echo '<input type="hidden" id="pontuacaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->pontuacao.'"/>';
-				echo '<input type="hidden" id="duracaoPalavras'.$i.'" value="'.$dadosPalavras[$i]->duracao.'"/>';
+		<div class="col-md-4 coluna-conquistas">
+			<?php
+			$horas = 0;
+			$segundos = $tempoTotal[0]->tempoTotal%60;
+			$minutos = round($tempoTotal[0]->tempoTotal/60);
+			if($minutos > 60){
+				$horas = floor($minutos/60);
+			}
+			if($minutos < 10){
+				$minutos = '0'.$minutos;
+			}
+			if($segundos < 10){
+				$segundos = '0'.$segundos;
+			}
+			if($horas < 10){
+				$horas = '0'.$horas;
 			}
 
-		echo '</div>';
-	echo '</div>';
-}
-
-if($dadosTextos){
-	echo '<div class="row">';
-		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Texto</h2>';
-			echo '<div class="col-md-8 col-xs-12 centered">';
-				
+			echo '<div class="row">';
+				echo '<h2 class="centered afastado-1pc">Dados do jogador</h2>';								
 			echo '</div>';
-			echo '<div class="col-md-4 col-xs-12 dadosTextos">';
-
-				/*
-				$tamanhoTestos = count($dadosTextos);
-				echo '<input type="hidden" id="tamanhoTextos" value="'.$tamanhoPalavras.'"/>';
-					for ($i = 0; $i < $tamanho; $i++){
-						echo '<input type="hidden" id="grafemasTextos'.$i.'" value="'.$dadosTextos[$i]->grafemas.'"/>';
-						echo '<input type="hidden" id="pontuacaoTextos'.$i.'" value="'.$dadosTextos[$i]->pontuacao.'"/>';
-						echo '<input type="hidden" id="duracaoTextos'.$i.'" value="'.$dadosTextos[$i]->duracao.'"/>';
-					}
-					*/
-		echo '</div>';
-	echo '</div>';
-}
-
-if($dadosTestes){	
-	echo '<div class="row">';
-		echo '<h2 class="centered afastado-1pc">Estatísticas do nível Teste</h2>';
-			echo '<div class="col-md-8 col-xs-12 centered">';
-				echo '<table class="columns col-md-12 col-xs-12">';
-		      		echo '<tr>';
-			        	echo '<td><div id="graficoTestes"></div></td>';
-			        	echo '<td><div id="graficoPontuacaoTestes"></div></td>';
-			      	echo '</tr>';
-			    echo '</table>';
+			
+			echo '<div class="row">';
+				echo '<h5>Tempo de jogo: '.$horas.':'.$minutos.':'.$segundos.'</h5>';
 			echo '</div>';
-			echo '<div class="col-md-4 col-xs-12 dadosTestes">';
-				
-				$tamanhoTestes = count($dadosTestes);
-				echo '<input type="hidden" id="tamanhoTestes" value="'.$tamanhoTestes.'"/>';			
-				for ($i = 0; $i < $tamanhoTestes; $i++){
-					echo '<input type="hidden" id="grafemaTestes'.$i.'" value="'.$dadosTestes[$i]->tipoGrafema.'"/>';
-					echo '<input type="hidden" id="pontuacaoTestes'.$i.'" value="'.$dadosTestes[$i]->pontuacao.'"/>';
-					echo '<input type="hidden" id="duracaoTestes'.$i.'" value="'.$dadosTestes[$i]->duracao.'"/>';
-				}
-		echo '</div>';
-	echo '</div>';
-}
 
+			echo '<div class="row">';						
+				echo '<h5>Experiência: '.$experiencia[0]->experiencia.' pontos</h5>';
+			echo '</div>';
 
-?>
+			echo '<div class="row">';						
+					echo '<h3 class="centered afastado-1pc">Conquistas do jogador</h3>';
+				echo '</div>';
+			$i = 0;
+			foreach ($conquistas as $key) {
+				echo '<div class="row">';	
+					echo '<a href="#" class="link-sem-linha">';
+						echo '<h5>'.$key->nomeConquista.'</h5>';
+					echo '</a>';
+				echo '</div>';
+				$i++;
+			}
+			?>
+		</div>
+	</div>
+
 <script type="text/javascript">
 
  	//Para desenhar os gráficos, utiliza-se aqui
@@ -87,6 +132,8 @@ if($dadosTestes){
       google.charts.setOnLoadCallback(desenharTabelaPontuacaoPalavras);
       google.charts.setOnLoadCallback(desenharTabelaTestes);
       google.charts.setOnLoadCallback(desenharTabelaPontuacaoTestes);     
+      google.charts.setOnLoadCallback(desenharTabelaTextos);
+      google.charts.setOnLoadCallback(desenharTabelaPontuacaoTextos); 
           
 
       // Callback that creates and populates a data table,
@@ -210,5 +257,68 @@ if($dadosTestes){
 		chart.draw(data, options);                
 
 	}
+
+	 //GRÁFICOS DOS TEXTOS
+      
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+	function desenharTabelaTextos() {
+
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Grafema');
+		data.addColumn('number', 'Duração');
+		data.addColumn('number', 'Pontuação');
+		var tamanho = document.getElementById('tamanhoTextos').value;        		
+		for (var i = 0; i < tamanho; i++) {
+			var string = "grafemaTextos"+i;
+		  	var grafema = document.getElementById(string).value;	    	      		      	
+		  	string = "pontuacaoTextos"+i;
+		  	var pontuacao = parseInt(document.getElementById(string).value);
+		  	string = "duracaoTextos"+i;	      	
+		  	var duracao = parseInt(document.getElementById(string).value);		      	
+		  	data.addRow([''+grafema+'', duracao, pontuacao]);         
+
+		}
+
+		// Set chart options
+		var options = {'title':'Pontuação e duração por grafema jogado',
+		               'width':450,
+		               'height':400};
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.BarChart(document.getElementById('graficoTextos'));
+		chart.draw(data, options);                
+
+	}
+
+	function desenharTabelaPontuacaoTextos() {
+
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Grafema');
+		data.addColumn('number', 'Pontuação');
+		var tamanho = document.getElementById('tamanhoTextos').value;        
+		for (var i = 0; i < tamanho; i++) {
+			var string = "grafemaTextos"+i;
+		  	var grafema = document.getElementById(string).value;	    	      		      	
+		  	string = "pontuacaoTextos"+i;
+		  	var pontuacao = parseInt(document.getElementById(string).value);	      	
+		  	data.addRow([''+grafema+'', pontuacao]);         
+		}
+
+		// Set chart options
+		var options = {'title':'Pontuação por grafema jogado',
+		               'width':400,
+		               'height':400};
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoTextos'));
+		chart.draw(data, options);                
+
+	}
+
+
 
 </script>	
