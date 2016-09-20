@@ -33,6 +33,7 @@ class Texto extends CI_Controller {
 				'abrirModalHistoria'=> $abrirModalHistoria, 
 				'abrirModalGabarito' => FALSE, 
 				'erro' =>FALSE,
+				'conquista' => 0,
 				'grafemasTextos' => $grafemasTextos,
 				'grafemasJogados' => $grafemasJogados
 				);
@@ -76,6 +77,7 @@ class Texto extends CI_Controller {
 					'abrirModalHistoria'=> FALSE, 
 					'abrirModalGabarito' => FALSE,	
 					'erro' => TRUE,
+					'conquista' => 0,
 					'grafemasTextos' => $grafemasTextos,
 					'grafemasJogados' => $grafemasJogados
 				);
@@ -135,6 +137,9 @@ class Texto extends CI_Controller {
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
+			$experiencia = $this->session->userdata('experiencia');
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
+
 			$pagina = array(
 				'tela' => 'menu-texto',
 				'linkNovel'=> 'principal/menu', 
@@ -144,6 +149,7 @@ class Texto extends CI_Controller {
 				'pontuacao' => $pontuacao,
 				'abrirModalGabarito' => TRUE,
 				'inseriu' => $inseriu,
+				'conquista' => $conquista,
 				'abrirModalHistoria' => $abrirModalHistoria,
 				'erro' => FALSE,
 				'grafemasTextos' => $grafemasTextos,

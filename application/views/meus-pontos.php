@@ -118,6 +118,8 @@
 		</div>
 	</div>
 
+
+
 <script type="text/javascript">
 
  	//Para desenhar os gráficos, utiliza-se aqui
@@ -311,4 +313,4 @@
 
 	}
 
-</script>	
+</script>

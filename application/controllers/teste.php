@@ -43,6 +43,7 @@ class Teste extends CI_Controller {
 				'inputJogador' => $inputJogador,
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
+				'conquista' => 0,
 				'erro' => $erro,				
 				'inseriu' => TRUE,
 				'grafemasJogados' => $grafemasJogados,
@@ -76,7 +77,8 @@ class Teste extends CI_Controller {
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
 					'testes'=> $testes,
-					'codGrafema' => $codGrafema,					
+					'codGrafema' => $codGrafema,
+					'conquista' => 0,					
 					'alternativas' => $alternativas,
 					'abrirModalHistoria'=> FALSE,
 					);
@@ -133,6 +135,9 @@ class Teste extends CI_Controller {
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 
+			$experiencia = $this->session->userdata('experiencia');
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
+			
 			$pagina = array(
 				'tela' => 'menu-teste',
 				'linkNovel'=> 'principal/menu', 
@@ -140,6 +145,7 @@ class Teste extends CI_Controller {
 				'inputJogador' => $inputJogador,
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
+				'conquista' => $conquista,
 				'abrirModalGabarito' => TRUE,				
 				'abrirModalHistoria'=> $abrirModalHistoria,
 				'erro' => $erro,

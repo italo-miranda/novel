@@ -72,6 +72,7 @@
 										echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$p->letraGabarito.'" >';
 									echo '<input type="hidden" name="justificativa'.$i.'" value="'.$p->justificativa.'">';
+									echo '<input type="hidden" name="palavraCompleta'.$i.'" value="'.$p->palavraCompleta.'">';
 									$i++;									
 								endforeach;	
 								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';			

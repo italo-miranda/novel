@@ -234,7 +234,7 @@ class modelJogador extends CI_Model {
 		$experiencia = $this->buscarExperienciaJogador($codJogador);
 		$where = "experienciaDesbloqueio <= ".$experiencia[0]->experiencia;
 		$this->db->select('nomeConquista, codConquista');
-		$this->db->from('Conquistas');
+		$this->db->from('Conquista');
 		$this->db->where($where);
 		$retorno = $this->db->get()->result();
 		return $retorno;

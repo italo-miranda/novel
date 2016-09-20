@@ -13,6 +13,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
+
 <!-- Aqui começa o conteudo -->
 <div role="main">
 	<div class="col-md-12 col-xs-12">

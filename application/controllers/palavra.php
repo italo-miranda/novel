@@ -16,7 +16,7 @@ class Palavra extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
 			$erro = $this->uri->segment(3);        	
             $inputJogador = array('null'=> 'nulo');
-            $nivel = $this->session->userdata('nivel');
+            $nivel = $this->session->userdata('nivel');            
 
             $codJogador = $this->session->userdata('codJogador');
 
@@ -30,7 +30,7 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-						
+				
 			$pagina = array(
 				'tela' => 'menu-palavra', 
 				'linkNovel'=> 'principal/menu', 
@@ -40,6 +40,8 @@ class Palavra extends CI_Controller {
 				'abrirModalHistoria'=> $abrirModalHistoria,
 				'gabarito' => NULL,
 				'pontuacao' => NULL,
+				'palavraCompleta' => NULL,
+				'conquista' => 0,
 				'erro' => $erro,
 				'inseriu' => TRUE,
 				'grafemasJogados' => $grafemasJogados,
@@ -76,6 +78,7 @@ class Palavra extends CI_Controller {
 					'codGrafema' => $codGrafema,
 					'abrirModalRegra' => TRUE,
 					'abrirModalHistoria'=> FALSE,
+					'conquista' => 0,
 					'regra' => $regra,
 					);
 
@@ -105,6 +108,11 @@ class Palavra extends CI_Controller {
 				$justificativa[] = $dados['justificativa'.$i];
 			}
 
+			for ($i = 0; $i<5; $i++){
+				$palavraCompleta[] = $dados['palavraCompleta'.$i];
+			}
+
+
 			$codGrafema = $dados['codGrafema'];
 			$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
 			$nivelAntigo = $this->session->userdata('nivel');
@@ -126,6 +134,8 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
+			$experiencia = $this->session->userdata('experiencia');
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
@@ -137,10 +147,12 @@ class Palavra extends CI_Controller {
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
 				'justificativa' => $justificativa,
+				'palavraCompleta' => $palavraCompleta,
 				'abrirModalGabarito' => TRUE,
 				'abrirModalHistoria'=> $abrirModalHistoria,
 				'inseriu' => $inseriu,
 				'erro' => NULL,
+				'conquista' => $conquista,
 				'grafemasJogados' => $grafemasJogados,
 				'grafemasCadastrados' => $grafemasCadastrados,
 				);

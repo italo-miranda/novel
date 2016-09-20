@@ -60,20 +60,22 @@
 								echo '<tr>';
 									echo '<th class="titulo"> Sua resposta </th>';
 									echo '<th class="titulo"> Gabarito </th>';
+									echo '<th class="titulo"> Resposta correta</th>';									
 									echo '<th class="titulo"> Explicação </th>';
 								echo '<tr>';
 								$i = 0;
 								foreach ($inputJogador as $input => $value) {
 									echo '<tr>';
 										echo '<td>'.$value.'</td>';	
-										echo '<td>'.$gabarito[$i].'</td>';	
+										echo '<td>'.$gabarito[$i].'</td>';
+										echo '<td>'.$palavraCompleta[$i].'</td>';											
 										echo '<td>'.$justificativa[$i].'</td>';	
 									echo '</tr>';
 								$i++;
 								}
 							echo '</table>';
 						echo '</div>';
-						echo '<p class="centered" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
+						echo '<p class="centered afastado-1pc" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
 					?>			
 	        </div>
 		    <div class="row centered">
