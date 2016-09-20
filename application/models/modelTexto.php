@@ -185,17 +185,21 @@ class modelTexto extends CI_Model {
         $retorno = NULL;
         $codigos = $this->buscarListaCodigosTexto();         
         foreach ($codigos as $key) { 
-           $retorno[] =  $this->buscarGrafemaPeloCodigoTexto($key->codTexto);
-        }
+           $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);
+           $retorno[] = $this->juntarGrafemas($separados);
+            
+        }        
         return $retorno;
     }
 
     public function buscarGrafemaPeloCodigoTexto($codTexto){        
-        $this->db->select('g.tipoGrafema, gt.codTexto');
+        $this->db->select('g.tipoGrafema');
         $this->db->from('Grafema g');
         $this->db->join('GrafemaTexto gt', 'g.codGrafema = gt.codGrafema');        
         $this->db->where('gt.codTexto', $codTexto);
-        $retorno = $this->db->get()->result();
+        $this->db->order_by('g.tipoGrafema', 'ASC');
+        $retorno= $this->db->get()->result();
+
         return $retorno;
     }
 
@@ -203,6 +207,48 @@ class modelTexto extends CI_Model {
         $this->db->select('codTexto');
         $this->db->from('Texto');
         $retorno = $this->db->get()->result();
+        return $retorno;
+    }
+
+    public function juntarGrafemas($separados){
+        $retorno = NULL;
+        $tamanho = count($separados);
+        for ($i=0; $i < $tamanho; $i++) { 
+            if($i == 0){
+                $retorno = $retorno.$separados[$i]->tipoGrafema; 
+            } else{
+                $retorno = $retorno.'&'.$separados[$i]->tipoGrafema; 
+            }
+        }        
+        return $retorno;
+    }
+
+    public function buscarGrafemasJogadosTexto($codJogador){ 
+        $this->db->select('gt.codTexto');
+        $this->db->from('Rodada r');
+        $this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
+        $this->db->where('r.codJogador', $codJogador);
+        $this->db->where('r.pontuacao >=', '140');
+        $this->db->group_by('gt.codTexto');
+        $listaCodigos = $this->db->get()->result();   
+        $juntos = NULL;      
+        foreach ($listaCodigos as $key) {            
+            $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);                                 
+            $juntos[] = $this->juntarGrafemas($separados);            
+        }
+
+        $unicos = $this->coletarGrafemasUnicosTexto($juntos);        
+        return $unicos;
+    }
+
+    public function coletarGrafemasUnicosTexto($listaGrafemas){
+        $retorno = array();        
+        $tamListaGrafemas = count($listaGrafemas);        
+        for ($i=1; $i < $tamListaGrafemas; $i++) { 
+            if(!array_search($listaGrafemas[$i], $retorno)){
+                $retorno[] = $listaGrafemas[$i];
+            }                                                               
+        }
         return $retorno;
     }
 

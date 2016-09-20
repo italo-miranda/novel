@@ -3,88 +3,45 @@
 		<div class="row">
 				<h3 class="titulo-menu">Nível Texto</h3>
 		</div>
-
-		<?php
-				$tamGrafemasBD = count($grafemasTextos);
-				echo '<div class="row afastado-1pc">';
-
-				for($i = 0; $i<$tamGrafemasBD; $i++) {
-					if (($i%4)==0){
-						echo '</div>';
-						echo '<div class="row afastado-1pc">';
-					}
-
-					echo '<div class="col-md-3 col-xs-6">';
-						echo '<div class="row">';
-							$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
-							echo '<a href="'.base_url($url).'">';
-								$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
-								echo '<img src="'.base_url($url).'">';		
-							echo '</a>';
-						echo '</div>';
-						echo '<div class="row">';
-							for ($j=0; $j < $tamGrafemasJogados; $j++) { 
-								if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 60){
-									echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
-								}								
+		<div id="imagens-menu" class="centered" >
+			<?php
+					$tamGrafemasBD = count($grafemasTextos);
+					$grafemas = array();
+					for ($i=1; $i < $tamGrafemasBD; $i++) { 
+						if(!array_search($grafemasTextos[$i], $grafemas)){
+							$grafemas[] = $grafemasTextos[$i];
+						}																
+					}																
+					echo '<div class="row afastado-1pc">';
+						$tamGrafemasUnicos = count($grafemas);
+						for($i = 0; $i<$tamGrafemasUnicos; $i++) {
+							if ($i==4){
+								echo '</div>';
+								echo '<div class="row afastado-1pc">';
 							}
-							
+
+							echo '<div class="col-md-3 col-xs-6">';
+								echo '<div class="row centered">';
+									$url = 'texto/jogarTexto/'.$grafemas[$i];
+									echo '<a href="'.base_url($url).'">';
+										$url = 'assets/img/grafemasTextos/'.$grafemas[$i].'.png';
+										echo '<img class="img-texto img-responsive centered" src="'.base_url($url).'">';
+									echo '</a>';
+								echo '</div>';												
+							echo '<div class="row">';
+								$tamGrafemasJogados = count($grafemasJogados);
+								for ($j=0; $j < $tamGrafemasJogados; $j++) { 
+									if (($grafemasJogados[$j] == $grafemas[$i])){
+										echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
+									}								
+								}							
+							echo '</div>';		
 						echo '</div>';
-					echo '</div>';
-				}
-				echo '</div>';
-
-				
-		?>
-		<div id="imagens-menu" class="centered" >		
-			<div class="row afastado-1pc">
-				<div class="col-md-3 col-xs-6">				
-					<div class="row">
-						<a href="<?php echo base_url("texto/jogarTexto/ch_x&ss_s_ç_z&rr_r");?>">
-							<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-						</a>	
-					</div>			
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>			
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>					
-				</div>				
-			</div>
-
-			<div class="row afastado-1pc">
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>			
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>					
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div class="row">
-						<img class="img-texto img-responsive" src="<?php echo base_url('assets/img/grafema-fake.png'); ?>">
-					</div>				
-				</div>				
-			</div>
+						}
+					echo '</div>';									
+			?>
 		</div>
+
 		<input type="hidden" id="abrirModalGabarito" value="<?php echo ($abrirModalGabarito); ?>">		
 		<input type="hidden" id="erro" value="<?php echo ($erro); ?>">			
 		<input type="hidden" id="abrirModalHistoria" value="<?php echo ($abrirModalHistoria[0]); ?>">

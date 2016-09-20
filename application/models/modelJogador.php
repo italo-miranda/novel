@@ -11,8 +11,7 @@ class modelJogador extends CI_Model {
 //LOGIN E FUNÇÕES ADMINISTRATIVAS
 
 	public function fazerLogin($login, $senha)
-	{
-		
+	{		
 		$this->db->select('*');
 		$this->db->from('Jogador');
 		$this->db->where('login', $login);
@@ -68,6 +67,48 @@ class modelJogador extends CI_Model {
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
+
+	public function editarCadastroJogador($dados, $codJogador){
+		$mudou = $this->verificarEmailCadastrado($dados['email']);		
+		if($mudou == $codJogador){
+			$query = array('nome' => $dados['nome'],
+				'login'=> $dados['login'],
+				'senha'=> $dados['senha1'],				
+				);			
+			$this->db->where('codJogador', $codJogador);
+			$retorno = $this->db->update('Jogador', $query);
+		} else {
+			$query = array('nome' => $dados['nome'],
+				'login'=> $dados['login'],
+				'senha'=> $dados['senha1'],				
+				'email' => $dados['email'],
+			);
+			$this->db->where('codJogador', $codJogador);
+			$retorno = $this->db->update('Jogador', $query);	
+		}
+		return $retorno;
+	}
+
+
+	public function recuperarSenha($email){
+		$senhaNova = $this->gerarNovaSenha();
+		$this->db->set('senha', $senhaNova);		
+		$this->db->where('email', $email);
+		$this->db->update('Jogador');		
+		return $senhaNova;
+	}
+
+	function gerarNovaSenha(){
+        
+        $padrao = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        $retorno = "";
+
+        for($i= 0; $i < 8; $i++){            
+            $retorno.= $padrao[rand(0, strlen($padrao) - 1)];
+        }
+        return $retorno;
+    }
 
 //MUDANÇA DE NÍVEL E EXPERIÊNCIA
 
@@ -237,19 +278,32 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function buscarGrafemasJogadosTexto($codJogador){
-		$this->db->select('MAX(r.pontuacao) as pontuacao, gt.codTexto');
+	public function buscarGrafemasJogadosTexto($codJogador, $grafemas){
+		var_dump($grafemas);
+		$this->db->select('r.pontuacao as pontuacao, g.tipoGrafema');
 		$this->db->from('Rodada r');
 		$this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
 		$this->db->join('Grafema g', 'gt.codgrafema = g.codgrafema');
 		$this->db->where('r.tipoRodada', "texto");
 		$this->db->where('codJogador', $codJogador);
 		$this->db->group_by('gt.codTexto');
-		$this->db->order_by('r.codRodada');
+		//$this->db->order_by('r.codRodada');
 		$listaTextos = $this->db->get()->result();
-
-
+		return $listaTextos;
 	}	
+
+	public function verificarConjuntoGrafemasJogados($codJogador, $grafemas){
+		$where = NULL;
+		$tamanho = count($grafemas);
+		for ($i=0; $i < $tamanho; $i++) { 
+			if($i< $tamanho-1){
+				$where = $where.$grafemas[$i].' OR ';
+			} else {
+				$where = $where.$grafemas[$i];
+			}
+		//$this->db->select('MAX(a.pontuacao) as pontuacao')
+		}
+	}
 	
 	public function buscarListaGrafemas(){
 		$this->db->select('tipoGrafema');

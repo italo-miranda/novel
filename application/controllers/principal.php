@@ -15,7 +15,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
             redirect('principal/menu');
         } else {        	
-			$pagina = array('tela' => 'index', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE,);
+			$pagina = array('tela' => 'index', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE, 'enviou' =>  TRUE, 'email'=>NULL);
 			$this->load->view('construtor', $pagina);
 		}
 	}
@@ -27,7 +27,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
             redirect('principal/menu');
         } else{ 			       			
-			$pagina = array('tela' => 'index', 'erro'=> FALSE, 'abrirModalHistoria'=> FALSE,);
+			$pagina = array('tela' => 'index', 'erro'=> FALSE, 'abrirModalHistoria'=> FALSE, 'enviou' =>  TRUE, 'email'=>NULL);
 			$this->load->view('construtor', $pagina);
 		}
 	}
@@ -55,7 +55,7 @@ class Principal extends CI_Controller {
 	                ));
 		    	redirect('principal/menu');
 		    } else {
-		    	$pagina = array('tela' => 'index', 'erro'=> TRUE, 'abrirModalHistoria'=> FALSE,);
+		    	$pagina = array('tela' => 'index', 'erro'=> TRUE, 'abrirModalHistoria'=> FALSE, 'enviou' => TRUE, 'email'=>NULL);
 				$this->load->view('construtor', $pagina);
 		    }
 		} 		
@@ -69,14 +69,29 @@ class Principal extends CI_Controller {
 
 	public function recuperarSenha()
 	{
-
 		if ($this->session->userdata('logged_in')) {
-            redirect('principal/index');
-        } else {			
-			$pagina = array('tela' => 'recuperar-senha', 'abrirModalHistoria'=> FALSE,);
-			$this->load->view('construtor', $pagina);	
+            redirect('principal/menu');
+        } else {	
+        	$email = $this->input->post();
+
+        	$existe = $this->modelJogador->verificarEmailCadastrado($email['email']);
+
+        	if($existe){
+	        	$senha = $this->modelJogador->recuperarSenha($email['email']);
+
+	        	$this->load->library('email');		
+	        	$this->email->from("novel.noreply@gmail.com", 'Novel');
+				$this->email->subject("Esqueceu a senha?");			
+				$this->email->to($email['email']); 
+				$this->email->message("Reenvio de senha. <br/><br/>Sua nova senha é ".$senha.".<br/><br/>Você pode alterar a sua senha após fazer o login, clicando em Minha Conta.<br/><br/>Atenciosamente, <br/><br/>Equipe Novel.");
+				$enviou  = $this->email->send();											
+				$pagina = array('tela' => 'index', 'erro'=> FALSE, 'abrirModalHistoria'=> FALSE, 'enviou' => $enviou, 'email'=>$email['email']);
+					$this->load->view('construtor', $pagina);				
+        	}
 		}
 	}
+
+
 
 	public function menu()
 	{		
@@ -168,7 +183,7 @@ class Principal extends CI_Controller {
 				'experiencia' =>$experiencia,
 				'conquistas' =>$conquistas,
 				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff'
+				'linkLogoff'=>'principal/logoff',				
 				);
 			
 			$this->load->view('construtor', $pagina);
@@ -187,12 +202,30 @@ class Principal extends CI_Controller {
 				'abrirModalHistoria'=> FALSE,
 				'jogador' => $jogador,
 				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff'
+				'linkLogoff'=>'principal/logoff',
+				'existe' => FALSE
 				);
 			
 			$this->load->view('construtor', $pagina);
 		} else {
 			redirect('principal/index');
+		}
+	}
+
+	public function editarCadastro(){
+
+		$dados = $this->input->post();
+		$codJogador = $this->session->userdata('codJogador');
+		$editou = $this->modelJogador->editarCadastroJogador($dados, $codJogador);
+		if ($editou){
+			echo '<script>alert("Seus dados foram alterados!");';
+			echo 'window.location="'.base_url('principal/menu').'";';
+			echo '</script>';
+			
+		} else {
+			echo '<script>alert("Seus dados não foram alterados. Por favor, tente novamente!");';
+			echo 'window.location="'.base_url('principal/menu').'";';
+			echo '</script>';			
 		}
 	}
 }

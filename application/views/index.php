@@ -38,7 +38,7 @@
 	      <div class="modal-content">
 	        <div class="modal-header" style="text-align: center">
 	          	<button type="submit" data-dismiss="modal" class="close">&times;</button>
-	          <h4 class="modal-title">Painel de login</h4>
+	          <h4 class="modal-title">Entre nessa aventura ortográfica!</h4>
 	        </div>
 	        <div class="modal-body">          
 				<div class="row">
@@ -55,9 +55,23 @@
 							<div class="centered afastado-1pc col-md-8 col-xs-12">
 								<button type="submit" id="btn-login"  name="btn-login" class="btn btn-lg btn-block btn-success">Começar</button>								
 							</div>							
-						</form>								
+						</form>														
 					</div>
-				</div>
+					<div class="row" id="recuperarSenha" style="text-align: center;">
+						<div class="col-md-10 col-xs-10 centered">				
+							<h4>Informe o e-mail para receber sua nova senha</h4>	
+							<form class="form-horizontal" role="form" method="post" action="<?php echo base_url('principal/recuperarSenha');?>">
+								<div class="form-group">
+								   	<label for="email">E-mail:</label>
+								   	<input type="email" class="form-control afastado-1pc" id="email" name="email">
+								   	<div class="row afastado-1pc">
+								   		<button type="submit" class="btn btn-warning">Enviar</button>
+								   	</div>
+								</div>
+							</form>
+						</div>
+					</div>					
+				</div>				
 	        </div>
 		    <div class="row centered">
 		    	<div class="modal-footer">
@@ -66,10 +80,9 @@
 					</div>
 					<div class="row">
 						<div id="botao-esqueciSenha" class="col-md-6 col-xs-6 centered">
-							<a href="<?php echo base_url('principal/recuperarSenha'); ?>" class="btn btn-link" role="button">Esqueci a senha</a>
+							<button type="button" class="btn btn-link" role="button" onclick="mostrarRecuperarSenha()">Esqueci a senha</a>
 						</div>
-					</div>
-					</div>
+					</div>					
 		        </div>
 		    </div>
 	      </div>
@@ -78,24 +91,37 @@
 	</div>
 
 			<!--Mostrar mensagem de erro se o login ou senha forem inválidos-->
-					<?php
+					<?php					
 						if ($erro){
 							echo '<script language="javascript">';							
-								echo 'onload=mensagemErro();';								
+								echo 'alert("Login ou senha inválidos. Tente novamente!");';									
+							echo '</script>';						
+						}						
+						if ($email == TRUE){
+							echo '<script language="javascript">';							
+								echo 'alert("Sua nova senha foi enviada para o email '.$email.'");';			
+							echo '</script>';						
+						}
+						if ($enviou == FALSE){
+							echo '<script language="javascript">';							
+								echo 'alert("Senha não enviada. Tente novamente!");';			
 							echo '</script>';						
 						}
 					?>	
 
 
 <script type="text/javascript">
+	$("#recuperarSenha").hide();
+
+	function mostrarRecuperarSenha(){
+		$("#painel-login").hide();
+		$("#recuperarSenha").show();
+	}
 
 	function mostrarLogin(){		
 		$("#modalLogin").modal();		
 	}
 
-	function mensagemErro(){
-		alert("Login ou senha inválidos. Tente novamente!");
-	}
 </script>
 
 

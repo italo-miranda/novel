@@ -24,16 +24,17 @@ class Texto extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-
-			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();				
-			
+			$codJogador = $this->session->userdata('codJogador');
+			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);		
 			$pagina = array('tela' => 'menu-texto', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
 				'abrirModalHistoria'=> $abrirModalHistoria, 
 				'abrirModalGabarito' => FALSE, 
 				'erro' =>FALSE,
-				'grafemasTextos' => $grafemasTextos
+				'grafemasTextos' => $grafemasTextos,
+				'grafemasJogados' => $grafemasJogados
 				);
 
 			$this->load->view('construtor', $pagina);            
@@ -50,6 +51,9 @@ class Texto extends CI_Controller {
 			$grafemas = urldecode($grafemas);
 
 			$texto = $this->modelTexto->sortearTexto($grafemas);
+			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
+			$codJogador = $this->session->userdata('codJogador');
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
 			if($texto){
 				$codTexto = $texto[0]->codTexto;				
@@ -60,6 +64,8 @@ class Texto extends CI_Controller {
 				'texto' => $texto,
 				'grafemas' => $grafemas,
 				'abrirModalHistoria' => FALSE,
+				'grafemasTextos' => $grafemasTextos,
+				'grafemasJogados' => $grafemasJogados
 				);
 			
 			$this->load->view('construtor', $pagina); 
@@ -70,6 +76,8 @@ class Texto extends CI_Controller {
 					'abrirModalHistoria'=> FALSE, 
 					'abrirModalGabarito' => FALSE,	
 					'erro' => TRUE,
+					'grafemasTextos' => $grafemasTextos,
+					'grafemasJogados' => $grafemasJogados
 				);
 			$this->load->view('construtor', $pagina); 
 			}			          
@@ -102,6 +110,7 @@ class Texto extends CI_Controller {
 			$codTexto = $dados['codTexto'];
 			$gabarito = $this->modelTexto->encontrarGabarito($codTexto);
 			
+			$codJogador = $this->session->userdata('codJogador');						
 			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
@@ -123,6 +132,8 @@ class Texto extends CI_Controller {
 				$abrirModalHistoria = FALSE;
 			}
 
+			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
 			$pagina = array(
 				'tela' => 'menu-texto',
@@ -135,6 +146,8 @@ class Texto extends CI_Controller {
 				'inseriu' => $inseriu,
 				'abrirModalHistoria' => $abrirModalHistoria,
 				'erro' => FALSE,
+				'grafemasTextos' => $grafemasTextos,
+				'grafemasJogados' => $grafemasJogados			
 				);
 			$this->load->view('construtor', $pagina);
 
