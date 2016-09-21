@@ -64,6 +64,7 @@ class Texto extends CI_Controller {
 				'linkLogoff'=>'principal/logoff',
 				'texto' => $texto,
 				'grafemas' => $grafemas,
+				'conquista' => 0,
 				'abrirModalHistoria' => FALSE,
 				'grafemasTextos' => $grafemasTextos,
 				'grafemasJogados' => $grafemasJogados

@@ -131,7 +131,7 @@ class Principal extends CI_Controller {
 				$this->load->view('construtor', $pagina);
         	} else {
         		$retorno = $this->modelJogador->cadastrarJogador($dados);			
-				if($retorno){
+				if($retorno){					
 					$this->loginCadastro($dados['login'], $dados['senha1']);
 				} else {
 					$pagina = array('tela' => 'cadastrar-jogador', 'erro' => TRUE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE, 'conquista' => 0,);
@@ -153,6 +153,7 @@ class Principal extends CI_Controller {
 	                    'nivel' => $logou['nivel'],
 	                    'experiencia' => $logou['experiencia'],
 	                ));
+		    	$this->modelJogador->conquistarEntrada($logou['codJogador']);
 		    	redirect('principal/menu');
 		    } else {
 		    	$pagina = array('tela' => 'index', 'erro'=> TRUE, 'abrirModalHistoria'=> FALSE, 'conquista' => 0,);

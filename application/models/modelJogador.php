@@ -59,6 +59,11 @@ class modelJogador extends CI_Model {
 		return $retorno;	
 	}
 
+	public function conquistarEntrada($codJogador){
+		$string = array('codConquista'=>1, 'codJogador'=>$codJogador);
+		$this->db->insert('ConquistaJogador', $string);
+	}
+
 
 	public function verificarEmailCadastrado($email){
 		$this->db->select('codJogador');
