@@ -135,8 +135,11 @@ class Teste extends CI_Controller {
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 
-			$experiencia = $this->session->userdata('experiencia');
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
+			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
+
+			$this->session->set_userdata('experiencia', $experiencia);			
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
+			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);
 			
 			$pagina = array(
 				'tela' => 'menu-teste',
@@ -146,6 +149,7 @@ class Teste extends CI_Controller {
 				'gabarito' => $gabarito,
 				'pontuacao' => $pontuacao,
 				'conquista' => $conquista,
+				'nomeConquista'=> $nomeConquista,
 				'abrirModalGabarito' => TRUE,				
 				'abrirModalHistoria'=> $abrirModalHistoria,
 				'erro' => $erro,

@@ -138,9 +138,11 @@ class Texto extends CI_Controller {
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
-			$experiencia = $this->session->userdata('experiencia');
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
+			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 
+			$this->session->set_userdata('experiencia', $experiencia);			
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
+			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);			
 			$pagina = array(
 				'tela' => 'menu-texto',
 				'linkNovel'=> 'principal/menu', 
@@ -151,6 +153,7 @@ class Texto extends CI_Controller {
 				'abrirModalGabarito' => TRUE,
 				'inseriu' => $inseriu,
 				'conquista' => $conquista,
+				'nomeConquista'=> $nomeConquista,
 				'abrirModalHistoria' => $abrirModalHistoria,
 				'erro' => FALSE,
 				'grafemasTextos' => $grafemasTextos,

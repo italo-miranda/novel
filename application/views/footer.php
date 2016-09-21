@@ -55,17 +55,18 @@
 
  <!-- Modal -->
   <div class="modal fade" id="modalConquista" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Parabéns pela sua bravura!</h4>
+          <h4 class="modal-title titulo">Nova conquista alcançada:</h4>
         </div>
         <div class="modal-body">
-          <p class="titulo">Nova conquista alcançada</p>
-
-         <?php 				    		    	
-	    		echo '<div class="item conquista">';
+         <?php            	
+         		echo '<div class="row conquista">';
+					echo '<h4 class="titulo">'.$nomeConquista[0]->nomeConquista.'</h4>';	        					
+				echo '</div>';				    		    	
+	    		echo '<div class="row conquista">';
 					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/conquistas/conquista-'.$conquista.'.png').'">';	        					
 				echo '</div>';	   
 	    ?>		

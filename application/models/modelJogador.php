@@ -241,7 +241,7 @@ class modelJogador extends CI_Model {
 		$this->db->select('nomeConquista, codConquista');
 		$this->db->from('Conquista');
 		$this->db->where($where);
-		$retorno = $this->db->get()->result();
+		$retorno = $this->db->get()->result();		
 		return $retorno;
 	}
 

@@ -106,11 +106,9 @@
 					echo '<h3 class="centered afastado-1pc">Conquistas do jogador</h3>';
 				echo '</div>';
 			$i = 0;
-			foreach ($conquistas as $key) {
-				echo '<div class="row">';	
-					echo '<a href="#" class="link-sem-linha">';
-						echo '<h5>'.$key->nomeConquista.'</h5>';
-					echo '</a>';
+			foreach ($conquistas as $key) {				
+				echo '<div class="row">';						
+						echo '<h5 onclick="abrirModalConquistaAlcancada('.$key->codConquista.')">'.$key->nomeConquista.'</h5>';
 				echo '</div>';
 				$i++;
 			}
@@ -118,8 +116,33 @@
 		</div>
 	</div>
 
+<!-- MODAL DA CONQUISTA -->
 
-
+ <!-- Modal -->
+<div class="modal fade" id="modalConquista" role="dialog">
+	    <div class="modal-dialog modal-lg">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Veja seu desempenho!</h4>
+	        </div>	        
+	        <div class="modal-body">          
+				<?php             		    	
+					echo '<div class="item conquista">';
+						echo '<img id="imagemConquista" class="centered img-responsive" src="">';	        					
+					echo '</div>';	   
+				?>
+	        </div>
+		    <div class="row centered">
+		    	<div class="modal-footer">
+		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>		    		
+		        </div>
+		    </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 <script type="text/javascript">
 
  	//Para desenhar os gráficos, utiliza-se aqui
@@ -313,4 +336,11 @@
 
 	}
 
+	function abrirModalConquistaAlcancada(numero){
+		var url = "<?php echo base_url('assets/img/conquistas/conquista-');?>"+numero+".png";		
+		document.getElementById("imagemConquista").scr = url;	
+		$("#modalConquista").modal();	
+	}
+
+	
 </script>

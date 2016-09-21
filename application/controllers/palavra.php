@@ -134,8 +134,13 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-			$experiencia = $this->session->userdata('experiencia');
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
+
+
+			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
+
+			$this->session->set_userdata('experiencia', $experiencia);			
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);	
+			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);			
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
@@ -153,6 +158,7 @@ class Palavra extends CI_Controller {
 				'inseriu' => $inseriu,
 				'erro' => NULL,
 				'conquista' => $conquista,
+				'nomeConquista'=> $nomeConquista,
 				'grafemasJogados' => $grafemasJogados,
 				'grafemasCadastrados' => $grafemasCadastrados,
 				);

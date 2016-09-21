@@ -19,15 +19,20 @@ class modelHistoria extends CI_Model {
 
     public function buscarNovaConquista($experiencia, $codJogador){
         $ultimaConquista = $this->buscarUltimaConquistaJogador($codJogador);        
-        $novaConquista = $ultimaConquista[0]->codConquista + 1;
-        $experienciaNecessaria = $this->buscarExperienciaNecessaria($novaConquista);
-        if ($experiencia >= $experienciaNecessaria){
-            $string = array('codConquista'=> $novaConquista, 'codJogador'=>$codJogador);
-            $this->db->insert('ConquistaJogador', $string);
-            return $novaConquista;
+        $novaConquista = $ultimaConquista[0]->codConquista + 1;        
+        $experienciaNecessaria = $this->buscarExperienciaNecessaria($novaConquista);         
+        if ($experienciaNecessaria){
+            if ($experiencia >= $experienciaNecessaria[0]->experienciaDesbloqueio){
+                $string = array('codConquista'=> $novaConquista, 'codJogador'=>$codJogador);
+                $this->db->insert('ConquistaJogador', $string);            
+                return $novaConquista;
+            } else {
+                return 0;
+            } 
         } else {
             return 0;
-        }        
+        }
+               
     }
 
     public function buscarUltimaConquistaJogador($codJogador){
@@ -40,6 +45,14 @@ class modelHistoria extends CI_Model {
 
     public function buscarExperienciaNecessaria($codConquista){
         $this->db->select('experienciaDesbloqueio');
+        $this->db->from('Conquista');
+        $this->db->where('codConquista', $codConquista);
+        $retorno = $this->db->get()->result();
+        return $retorno;
+    }
+
+    public function buscarNomeConquista($codConquista){
+        $this->db->select('nomeConquista');
         $this->db->from('Conquista');
         $this->db->where('codConquista', $codConquista);
         $retorno = $this->db->get()->result();
