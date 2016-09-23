@@ -19,11 +19,6 @@
 	<div class="col-md-12 col-xs-12" id="pagina-inicial">
 		<div id="conteudo" class="col-md-12 col-xs-12">
 			<div class="row">
-				<div class="col-md-12 col-xs-12 centered">					
-						<img class="img-responsive centered" src="">					
-				</div>			
-			</div>
-			<div class="row">
 				<div class="col-md-4 col-xs-8 centered vertical-center afastado-1pc">
 					<button type="button" class="btn btn-success btn-lg btn-block" onclick="mostrarLogin()">Jogar</button>
 				</div>
@@ -34,7 +29,7 @@
 
   <!-- Modal -->
   	<div class="modal fade" id="modalLogin" role="dialog">
-	    <div class="modal-dialog modal-sm">
+	    <div class="modal-dialog">
 	      <div class="modal-content">
 	        <div class="modal-header" style="text-align: center">
 	          	<button type="submit" data-dismiss="modal" class="close">&times;</button>

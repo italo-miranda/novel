@@ -108,7 +108,16 @@
 			$i = 0;
 			foreach ($conquistas as $key) {				
 				echo '<div class="row">';						
-						echo '<h5 onclick="abrirModalConquistaAlcancada('.$key->codConquista.')">'.$key->nomeConquista.'</h5>';
+						echo '<h5 class="btn" onclick="abrirConquista'.$key->codConquista.'()">'.$key->nomeConquista.'</h5>';
+				echo '</div>';
+				echo '<div class="row">';	
+						echo '<img id="conquista'.$key->codConquista.'" src="'.base_url('assets/img/conquistas/conquista-'.$key->codConquista).'" onclick="abrirConquista'.$key->codConquista.'()">';
+						echo '<script type="text/javascript">';
+							echo '$("#conquista'.$key->codConquista.'").hide();';
+							echo 'function abrirConquista'.$key->codConquista.'(){';
+								echo '$("#conquista'.$key->codConquista.'").toggle();';
+							echo '}';
+						echo '</script>';
 				echo '</div>';
 				$i++;
 			}
@@ -116,32 +125,6 @@
 		</div>
 	</div>
 
-<!-- MODAL DA CONQUISTA -->
-
- <!-- Modal -->
-<div class="modal fade" id="modalConquista" role="dialog">
-	    <div class="modal-dialog modal-lg">
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">Veja seu desempenho!</h4>
-	        </div>	        
-	        <div class="modal-body">          
-				<?php             		    	
-					echo '<div class="item conquista">';
-						echo '<img id="imagemConquista" class="centered img-responsive" src="">';	        					
-					echo '</div>';	   
-				?>
-	        </div>
-		    <div class="row centered">
-		    	<div class="modal-footer">
-		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>		    		
-		        </div>
-		    </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 	
 <script type="text/javascript">
 
@@ -336,11 +319,4 @@
 
 	}
 
-	function abrirModalConquistaAlcancada(numero){
-		var url = "<?php echo base_url('assets/img/conquistas/conquista-');?>"+numero+".png";		
-		document.getElementById("imagemConquista").scr = url;	
-		$("#modalConquista").modal();	
-	}
-
-	
 </script>

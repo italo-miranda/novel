@@ -20,7 +20,7 @@
 								echo '<div class="row afastado-1pc">';
 							}
 
-							echo '<div class="col-md-3 col-xs-6">';
+							echo '<div class="col-md-3 col-xs-3">';
 								echo '<div class="row centered">';
 									$url = 'texto/jogarTexto/'.$grafemas[$i];
 									echo '<a href="'.base_url($url).'">';

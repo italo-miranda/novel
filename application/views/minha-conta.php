@@ -2,7 +2,7 @@
 			<div class="col-md-12 col-xs-12 afastado-1pc vertical-center">
 				<div id="conteudo" class="col-md-6 col-xs-12 centered well" >
 					<div class="row">
-						<div id="painel-login" class="col-md-12 col-xs-12">
+						<div id="painel-dados-usuario" class="col-md-12 col-xs-12">
 							<div class="row">
 								<h1 class="titulo-menu centered">Seus dados</h1>
 							</div>

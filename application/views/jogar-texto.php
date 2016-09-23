@@ -7,7 +7,7 @@
 				<input type="hidden" id="duracao" name="duracao" value="0">
 				<?php 
 					echo '<div class="row">';
-						echo '<h3> Preencha os campos com ';
+						echo '<h1> Preencha os campos com ';
 							$grafemasUnderline = explode('&', $grafemas);
 							$tamanhoUnderline = count($grafemasUnderline);							
 							for ($i = 0; $i < $tamanhoUnderline; $i++) {
@@ -23,9 +23,9 @@
 									}
 								}
 							}
-						echo'</h3>';
+						echo'</h1>';
 					echo '</div>';
-					echo '<p id="paragrafoTexto" ">';	
+					echo '<h2 id="paragrafoTexto">';	
 						$enunciado = explode("_", $texto[0]->textoIncompleto);
 						$tamanho = count($enunciado);
 						for ($i = 0; $i < $tamanho; $i++){
@@ -39,10 +39,10 @@
 								echo $string[$j];
 							}
 							if ($i != $tamanho -1){
-								echo '<input type="text" id="inputLetra'.$i.'" required class="input-sm" name="inputLetra'.$i.'" style="width:8%;">';	
+								echo '<input type="text" id="inputLetra'.$i.'" required class="input-sm input-texto" name="inputLetra'.$i.'">';	
 							}
 						}
-					echo '</p>';
+					echo '</h2>';
 					echo '<input type="hidden" name="grafemas" value="'.$grafemas.'">';								
 					echo '<input type="hidden" name="codTexto" value="'.$texto[0]->codTexto.'">';
 				?>	

@@ -17,7 +17,7 @@
 						echo '<div class="row afastado-1pc">';
 					}
 
-					echo '<div class="col-md-3 col-xs-6">';
+					echo '<div class="col-md-3 col-xs-3">';
 						echo '<div class="row">';
 							$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
 							echo '<a href="'.base_url($url).'">';

@@ -21,8 +21,9 @@
 										echo '<div class="item">';
 									}
 											echo '<div class="row">';
-									    		echo '<div class="col-md-12 col-xs-12">';
-									    			echo "<h4>"; 
+												echo '<div class="col-md-2 col-xs-2"></div>';
+									    		echo '<div class="col-md-8 col-xs-8">';
+									    			echo '<h4 class="enunciadoTeste">'; 
 									    			$tamanho = strlen($t->enunciado);
 									    			$enun = $t->enunciado;
 									    			for ($j=0; $j < $tamanho; $j++) { 
@@ -36,18 +37,19 @@
 									    			}									    				
 									    			echo "</h4>";
 										    	echo '</div>';
+										    	echo '<div class="col-md-2 col-xs-2"></div>';
 									    	echo '</div>';														   	
-											echo '<div class="row">';
-												echo '<div class="col-md-5 col-xs-12">';	
-												echo '</div>';
-												echo '<div class="col-md-7 col-xs-12 alternativasTeste">';
+											echo '<div class="row centered">';
+
+												echo '<div class="col-md-12 col-xs-12 alternativasTeste">';
 													$alt = $alternativas[$i];
 													$tamanho = count($alt);
 													$embaralhadas = array_rand($alt, $tamanho);
 													for ($k=0; $k < $tamanho; $k++) {		
-														echo '<input required type="radio" name="inputJogador'.$i.'" value="'.$alt[$embaralhadas[$k]]->alternativa.'">';			
-														echo ($alt[$embaralhadas[$k]]->alternativa);
-														echo '<br />';
+														echo '<div class"row centered>';
+															echo '<h3><input required type="radio" name="inputJogador'.$i.'" value="'.$alt[$embaralhadas[$k]]->alternativa.'">';			
+															echo ($alt[$embaralhadas[$k]]->alternativa).'</h3>';	
+														echo '</div>';						
 													}													
 												echo '</div>';
 											echo '</div>';											

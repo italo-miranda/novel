@@ -1,6 +1,10 @@
 #pagina-inicial {
 	background: url('../img/logo.png')  no-repeat center fixed;
-	background-size: 70%;	
+	background-size: contain;	
+}
+
+#painel-dados-usuario{
+	min-height: 300px;
 }
 
 #conteudo{
@@ -19,16 +23,27 @@
 	font-size: 100%;
 }
 
-.input-sm{	
-	width: 10%;
+.input-palavra{	
+	width: 8%;
+	height: 50px;
+	font-size: 90%;
 }
-
+.input-texto{	
+	width: 5%;
+	height: 30px;
+	font-size: 100%;
+	font-weight: bold;
+}
 
 //Fazer as tabelas do google ficarem responsivas
 
 .chart {
 	width: 80%;
 	min-height: 400px;
+}
+
+.gliphycon-check{	
+    align-items: center;
 }
 
 #tempo{
@@ -42,11 +57,15 @@
 	min-height: 400px;
 }
 
+#corpoCarrosselPalavras{
+	min-height: 300px;
+}
+
 #conteudoModalRegra{	
 	background: url('../img/regra.png')  no-repeat center fixed;	
-	background-size: 70%;	
+	background-size: 90%;	
 	font-weight: bold;
-	text-align: left;
+	text-align: justify;
 }
 
 #avatarNav{
@@ -55,6 +74,7 @@
 
 #paragrafoTexto{
 	text-align: left;
+	font-size: 100%;
 }
 
 .tabela-gabarito{
@@ -121,7 +141,11 @@
 }
 
 .alternativasTeste{
-	text-align: left;
+	text-align: center;
+}
+
+.enunciadoTeste{
+	text-align: justify;
 }
 
 .afastado-1pc{

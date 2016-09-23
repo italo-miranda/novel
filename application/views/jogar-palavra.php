@@ -14,7 +14,7 @@
 								<input type="hidden" id="duracao" name="duracao" value="0">
 								<input type="hidden" id="abrirModalRegra" value="<?php echo ($abrirModalRegra); ?>">
 							</div>							
-							<div class="carousel-inner" role="listbox">
+							<div class="carousel-inner" id="corpoCarrosselPalavras" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DAS PALAVRAS-->
 							<?php									
 								$i = 0;
@@ -28,7 +28,7 @@
 									    		echo '<div class="col-md-12 col-xs-12">';
 									    			$grafemaDividido = explode("_", $grafema);
 									    			$tamanho = count($grafemaDividido);								    			
-									    			echo '<h3>Complete com ';
+									    			echo '<h2>Complete com ';
 									    				for ($j =0 ; $j<$tamanho; $j++){
 									    					echo $grafemaDividido[$j];
 									    					if ($j == $tamanho - 1){
@@ -41,7 +41,7 @@
 									    						}
 									    					}
 									    				}
-									    			echo '</h3>';
+									    			echo '</h2>';
 										    	echo '</div>';
 									    	echo '</div>';														   	
 											echo '<div class="row centered">';
@@ -53,7 +53,7 @@
 												} else {
 													echo '<div class="col-md-2 col-xs-2"></div>';
 													echo '<div class="col-md-8 col-xs-8">';
-														echo "<p id="."enunciado"."><h4>". $p->enunciado."</h4></p>";		
+														echo "<p id="."enunciado"."><h3>". $p->enunciado."</h3></p>";		
 												}
 													echo '</div>';
 													echo '<div class="col-md-2 col-xs-2"></div>';
@@ -62,11 +62,11 @@
 											echo '<div class="row centered">';
 												echo '<div class="col-md-12 col-xs-12">';
 													$palavraDividida = explode("_", $p->palavraIncompleta);
-													echo '<h3 id="palavraIncompleta">';
+													echo '<h1 id="palavraIncompleta">';
 														echo $palavraDividida[0];
-														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm" size="12" name="inputLetra'.$i.'" required">';
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required">';
 														echo $palavraDividida[1];
-													echo '</h3>';
+													echo '</h1>';
 												echo '</div>';
 											echo '</div>';
 										echo '</div>';
@@ -84,7 +84,7 @@
 
 							<!--Botão responder-->
 							<div class="item">
-								<div class="row">
+								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
 										<h3>Clique em Responder para enviar as respostas!</h3>
 									</div>
@@ -145,9 +145,9 @@
 					    			} else {
 					    				echo '<div class="item regra">';
 					    			}					    			
-					    			    echo '<div class="col-md-2">';
+					    			    echo '<div class="col-md-2 col-xs-2">';
 					    			    echo '</div>';
-					    				echo '<div class="col-md-8 col-xs-12">';
+					    				echo '<div class="col-md-8 col-xs-8">';
 						    				echo '<p class="textoRegra">';
 								    			$tamanhoItem = strlen($item);
 								    			for($m = 0; $m < $tamanhoItem; $m++){
@@ -165,7 +165,7 @@
 								    			}
 								    		echo '</p>';
 								    	echo '</div>';
-								    	echo '<div class="col-md-2">';
+								    	echo '<div class="col-md-2 col-xs-2">';
 					    			    echo '</div>';
 					    			echo '</div>';
 					    		}

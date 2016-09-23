@@ -6,7 +6,7 @@
 							<div class="row">
 								<h1 class="titulo-menu centered">Cadastre-se para jogar!</h1>
 							</div>							
-							<form class="form-vertical" id="form" role="form" method="post" action="<?php echo base_url('principal/realizarCadastro');?>">
+							<form class="form-vertical centered" id="form" role="form" method="post" action="<?php echo base_url('principal/realizarCadastro');?>">
 							  	<div class="row">
 							  		<div class="form-group centered">
 							  			<div class="col-md-4 col-xs-4">
@@ -62,7 +62,7 @@
 								  		<div class="col-md-12 col-xs-12">
 								    		<label for="avatar">Escolha seu avatar:</label>
 								    	</div>
-								   		<div class="col-md-3 col-xs-6">
+								   		<div class="col-md-3 col-xs-3">
 								   			<label class="centered">
 								   				<div class="row">
 								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/cecilia.png'); ?>">
@@ -72,7 +72,7 @@
 								   				</div>								   											   	
 	   							 			</label>					
 								   		</div>
-								   		<div class="col-md-3 col-xs-6">
+								   		<div class="col-md-3 col-xs-3">
 								   			<label class="centered">
 								   				<div class="row">
 								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/graciliano.png'); ?>">
@@ -82,7 +82,7 @@
 								   				</div>								   											   	
 	   							 			</label>	
 								   		</div>
-								   		<div class="col-md-3 col-xs-6">
+								   		<div class="col-md-3 col-xs-3">
 								   			<label class="centered">
 								   				<div class="row">
 								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/clarice.png'); ?>">
@@ -92,7 +92,7 @@
 								   				</div>								   											   	
 	   							 			</label>						
 								   		</div>
-								   		<div class="col-md-3 col-xs-6">
+								   		<div class="col-md-3 col-xs-3">
 								   			<label class="centered">
 								   				<div class="row">
 								   					<img class="centered img-responsive" src="<?php echo base_url('assets/img/verissimo.png'); ?>">

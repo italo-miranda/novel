@@ -17,21 +17,24 @@
 						echo '<div class="row afastado-1pc">';
 					}
 
-					echo '<div class="col-md-3 col-xs-6">';
+					echo '<div class="col-md-3 col-xs-3">';
 						echo '<div class="row">';
-							$url = 'palavra/jogarPalavra/'.$grafemasCadastrados[$i]->tipoGrafema;
-							echo '<a href="'.base_url($url).'">';
-								$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
-								echo '<img src="'.base_url($url).'">';		
-							echo '</a>';
+							echo '<div class="col-md-12 col-xs-12">';								 
+								$url = 'palavra/jogarPalavra/'.$grafemasCadastrados[$i]->tipoGrafema;
+								echo '<a href="'.base_url($url).'">';
+									$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+									echo '<img class="img-responsive" src="'.base_url($url).'">';		
+								echo '</a>';
+							echo '</div>';
 						echo '</div>';
 						echo '<div class="row">';
-							for ($j=0; $j < $tamGrafemasJogados; $j++) { 
-								if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 20){
-									echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
-								}								
-							}
-							
+							echo '<div class="col-md-12 col-xs-12">';
+								for ($j=0; $j < $tamGrafemasJogados; $j++) { 
+									if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 20){
+										echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
+									}								
+								}
+							echo '</div>';	
 						echo '</div>';
 					echo '</div>';
 				}

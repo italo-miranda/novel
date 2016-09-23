@@ -12,8 +12,8 @@ class Principal extends CI_Controller {
 
 	public function index()
 	{		
-		if ($this->session->userdata('logged_in')) {
-            redirect('principal/menu');
+		if ($this->session->userdata('logged_in')) {			
+            $this->logoff();
         } else {        	
 			$pagina = array('tela' => 'index', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE, 'enviou' =>  TRUE, 'email'=>NULL, 'conquista' => 0);
 			$this->load->view('construtor', $pagina);
@@ -114,7 +114,7 @@ class Principal extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
         	redirect('principal/menu');    
         } else {
-			$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE,);
+			$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE, 'existe' => FALSE, 'conquista' => 0,  'abrirModalHistoria'=> FALSE,);
 			$this->load->view('construtor', $pagina);
 		}
 	}
