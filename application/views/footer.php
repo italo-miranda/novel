@@ -15,14 +15,15 @@
 	        		
 				    <!-- Wrapper for slides -->
 				    <div class="carousel-inner" role="listbox" >	
-
+				    	<?php $avatar = $this->session->userdata('avatar'); ?>
 				    	<div class="item active historia">
-	        				<img class="historia centered img-responsive" src="<?php echo base_url('assets/img/historia/'.$abrirModalHistoria[0].'-1.jpg'); ?>">
+	        				<img class="historia centered img-responsive" src="<?php echo base_url('assets/img/historia/'.$avatar.'/'.$abrirModalHistoria[0].'-1.png'); ?>">
 	        			</div>			    
 					    <?php 				    	
+					    	
 					    	for ($i=2; $i <= $abrirModalHistoria[1]; $i++) { 					    					    
 					    		echo '<div class="item historia">';
-	        					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/historia/'.$abrirModalHistoria[0].'-'.$i.'.jpg').'">';	        					
+	        					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/historia/'.$avatar.'/'.$abrirModalHistoria[0].'-'.$i.'.png').'">';	        					
 	        					echo '</div>';
 					    	}  
 					    ?>		    
