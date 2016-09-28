@@ -62,8 +62,8 @@
 }
 
 #conteudoModalRegra{	
-	background: url('../img/regra.png')  no-repeat center fixed;	
-	background-size: 90%;	
+	background: url('../img/regra.png')  no-repeat center;	
+	background-size: cover;	
 	font-weight: bold;
 	text-align: justify;
 }
