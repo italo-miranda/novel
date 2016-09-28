@@ -1,6 +1,7 @@
 <div id="conteudo" class="col-md-12 col-xs-12 well">
 	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('texto/inserirRodadaTexto');?>">	
 		<div class="row">
+			<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair do treinamento</button>
 			<div class="col-md-8 col-xs-12 centered">									
 				<p><span class="glyphicon glyphicon-time"></span>
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
@@ -103,5 +104,12 @@
 		document.getElementById("duracao").value = duracao - 1;		
 		document.getElementById("form").submit();
 	}	
+
+	function mostrarSair(){
+		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
+		if (confirma){
+			window.location.href = "http://192.168.1.109/principal/menu";
+		}
+	}
 	
 </script>

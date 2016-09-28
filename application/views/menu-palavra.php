@@ -22,7 +22,7 @@
 							echo '<div class="col-md-12 col-xs-12">';								 
 								$url = 'palavra/jogarPalavra/'.$grafemasCadastrados[$i]->tipoGrafema;
 								echo '<a href="'.base_url($url).'">';
-									$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+									$url = 'assets/img/grafemas/palavra/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
 									echo '<img class="img-responsive" src="'.base_url($url).'">';		
 								echo '</a>';
 							echo '</div>';

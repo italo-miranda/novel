@@ -19,11 +19,13 @@
 
 					echo '<div class="col-md-3 col-xs-3">';
 						echo '<div class="row">';
-							$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
-							echo '<a href="'.base_url($url).'">';
-								$url = 'assets/img/grafemas/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
-								echo '<img src="'.base_url($url).'">';		
-							echo '</a>';
+							echo '<div class="col-md-12 col-xs-12">';
+								$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
+								echo '<a href="'.base_url($url).'">';
+									$url = 'assets/img/grafemas/teste/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+									echo '<img  class="img img-responsive" src="'.base_url($url).'">';		
+								echo '</a>';
+							echo '</div>';
 						echo '</div>';
 						echo '<div class="row">';
 							for ($j=0; $j < $tamGrafemasJogados; $j++) { 

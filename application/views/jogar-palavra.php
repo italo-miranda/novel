@@ -4,6 +4,7 @@
 			<div class="row">
 				<div>
 					<button type="button" id="botaoMostrarRegra" class="btn btn-primary" onclick="mostrarRegra()">Ver os ensinamentos do mestre Exímio</button>
+					<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair do treinamento</button>
 				</div>
 				<div id="carrosselPalavras" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
 					<div class="row" style="padding: 1%;">
@@ -247,6 +248,13 @@
 
 	function mostrarRegra(){		
 		$("#modalRegra").modal();		
+	}
+
+	function mostrarSair(){
+		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
+		if (confirma){
+			window.location.href = "http://192.168.1.109/principal/menu";
+		}
 	}
 	
 </script>

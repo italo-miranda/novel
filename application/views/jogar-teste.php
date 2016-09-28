@@ -2,6 +2,7 @@
 <div id="conteudo" class="col-md-12 col-xs-12 well">				
 	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('teste/inserirRodadaTeste');?>">		
 			<div class="row">
+				<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair da batalha</button>
 				<div id="carrosselTestes" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
 					<div class="row" style="padding: 1%;">
 						<div class="col-md-10 col-xs-12 centered">			  				
@@ -141,6 +142,11 @@
 		document.getElementById("enviarRespostas").click();			
 	}		
 
-
+	function mostrarSair(){
+		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
+		if (confirma){
+			window.location.href = "http://192.168.1.109/principal/menu";
+		}
+	}
 	
 </script>

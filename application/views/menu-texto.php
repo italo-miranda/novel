@@ -22,11 +22,13 @@
 
 							echo '<div class="col-md-3 col-xs-3">';
 								echo '<div class="row centered">';
-									$url = 'texto/jogarTexto/'.$grafemas[$i];
-									echo '<a href="'.base_url($url).'">';
-										$url = 'assets/img/grafemasTextos/'.$grafemas[$i].'.png';
-										echo '<img class="img-texto img-responsive centered" src="'.base_url($url).'">';
-									echo '</a>';
+									echo '<div class="col-md-12 col-xs-12">';
+										$url = 'texto/jogarTexto/'.$grafemas[$i];
+										echo '<a href="'.base_url($url).'">';
+											$url = 'assets/img/grafemas/texto/'.$grafemas[$i].'.png';
+											echo '<img class="img-texto img-responsive centered" src="'.base_url($url).'">';
+										echo '</a>';
+									echo '</div>';
 								echo '</div>';												
 							echo '<div class="row">';
 								$tamGrafemasJogados = count($grafemasJogados);
