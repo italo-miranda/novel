@@ -126,10 +126,10 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada){
+	public function subirNivelPalavra($codJogador, $pontuacao, $codGrafema){
 		$retorno = NULL;						
-		if (($tipoRodada == 'palavra') && ($pontuacao > 20 )){						
-			$jogou = $this->verificarNivelAlcancado($codGrafema, $codJogador, $tipoRodada);				
+		if ($pontuacao > 20 ){						
+			$jogou = $this->verificarNivelAlcancadoPalavra($codGrafema, $codJogador);				
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;				
 			if ((!$jogou) || ($jogou[0]->pontuacao < 30)) {				
@@ -141,8 +141,15 @@ class modelJogador extends CI_Model {
 			} else {
 				$retorno = FALSE;
 			}
-		} elseif (($tipoRodada == 'teste') && ($pontuacao > 60 )) {
-			$jogou = $this->verificarNivelAlcancado($codGrafema, $codJogador, $tipoRodada);
+		} else {
+			$retorno = FALSE;
+		}
+		return $retorno;
+	}
+
+	public function subirNivelTeste($codJogador, $pontuacao, $grafemas, $quantidade){
+		if ($pontuacao > 60) {
+			$jogou = $this->verificarNivelAlcancadoTeste($grafemas, $codJogador);
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;
 			if ((!$jogou) || ($jogou[0]->pontuacao < 90)) {
@@ -155,12 +162,11 @@ class modelJogador extends CI_Model {
 				$retorno = FALSE;
 			} 
 		}else {
-			$retorno = FALSE;
+			return false;
 		}
-		return $retorno;
 	}
 
-	public function subirNivelTexto($codJogador, $pontuacao, $grafemas){
+	public function subirNivelTexto($codJogador, $pontuacao, $grafemas, $quantidade){
 		$retorno = NULL;
 		if ($pontuacao > 120){
 			$jogou = $this->verificarNivelAlcandadoTexto($grafemas, $codJogador);
@@ -182,10 +188,10 @@ class modelJogador extends CI_Model {
 	}
 
 
-	public function verificarNivelAlcancado($codGrafema, $codJogador, $tipoRodada){		
+	public function verificarNivelAlcancadoPalavra($codGrafema, $codJogador){		
 			$this->db->select('MAX(pontuacao) AS pontuacao');
 			$this->db->from('Rodada');
-			$this->db->where('tipoRodada', $tipoRodada);
+			$this->db->where('tipoRodada', 'palavra');
 			$this->db->where('codJogador', $codJogador);
 			$this->db->where('codGrafema', $codGrafema);
 			$retorno = $this->db->get()->result();
@@ -218,7 +224,38 @@ class modelJogador extends CI_Model {
 		$resultado = $this->db->get()->result();
         
     	if($resultado){
-    		return $codTexto;
+    		return $resultado;
+    	} else {
+    		return FALSE;
+    	}
+    }
+
+
+    public function verificarNivelAlcandadoTeste($grafemas, $codJogador){
+
+    	$tiposGrafemas = explode("&", $grafemas);
+    	$where = '';
+    	$tamanho = count($tiposGrafemas);
+
+    	for($i = 0; $i < $tamanho; $i++) {
+    		$where = $where.'g.tipoGrafema = "'. $tiposGrafemas[$i].'"';
+    		if ($i < $tamanho -1){
+    			$where = $where.' OR ';
+    		}
+    	} 
+          
+		$this->db->select('MAX(r.pontuacao) as pontuacao');
+		$this->db->from('Rodada as r');
+		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
+		$this->db->where($where);
+		$this->db->where('r.tipoRodada', 'teste');
+		$this->db->where('codJogador', $codJogador);
+		$this->db->group_by('r.codJogador');
+		$this->db->having('COUNT(r.codGrafema)', $tamanho);
+		$resultado = $this->db->get()->result();
+        
+    	if($resultado){
+    		return $resultado;
     	} else {
     		return FALSE;
     	}
@@ -271,31 +308,6 @@ class modelJogador extends CI_Model {
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
-
-	public function buscarGrafemasJogadosTeste($codJogador){		
-		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
-		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema  = g.codGrafema');
-		$this->db->where('tipoRodada', 'teste');
-		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('tipoGrafema');
-		$retorno = $this->db->get()->result();
-		return $retorno;
-	}
-
-	public function buscarGrafemasJogadosTexto($codJogador, $grafemas){
-		var_dump($grafemas);
-		$this->db->select('r.pontuacao as pontuacao, g.tipoGrafema');
-		$this->db->from('Rodada r');
-		$this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
-		$this->db->join('Grafema g', 'gt.codgrafema = g.codgrafema');
-		$this->db->where('r.tipoRodada', "texto");
-		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('gt.codTexto');
-		//$this->db->order_by('r.codRodada');
-		$listaTextos = $this->db->get()->result();
-		return $listaTextos;
-	}	
 
 	public function verificarConjuntoGrafemasJogados($codJogador, $grafemas){
 		$where = NULL;

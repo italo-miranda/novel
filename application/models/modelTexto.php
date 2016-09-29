@@ -20,24 +20,7 @@ class modelTexto extends CI_Model {
 
     	if ($jogadorApto){
 
-	    	$where = '';
-	    	$tamanho = count($tiposGrafemas);
-
-	    	for($i = 0; $i < $tamanho; $i++) {
-	    		$where = $where.'b.tipoGrafema = "'. $tiposGrafemas[$i].'"';
-	    		if ($i < $tamanho -1){
-	    			$where = $where.' OR ';
-	    		}
-	    	}    	
-	    	
-
-    		$this->db->select('a.codTexto');
-    		$this->db->from('GrafemaTexto as a');
-    		$this->db->join('Grafema as b', 'a.codGrafema = b.codGrafema');
-    		$this->db->where($where);
-    		$this->db->group_by('a.codTexto');
-    		$this->db->having('COUNT(a.codGrafema)', $tamanho);
-    		$textos = $this->db->get()->result();
+	    	$textos = $this->buscarCodigoTextoPelosGrafemas($tiposGrafemas);
 
 			//Se a consulta não for nula
 			if ($textos) {
@@ -70,6 +53,27 @@ class modelTexto extends CI_Model {
 	    }         	    	        
     }
 
+    public function buscarCodigoTextoPelosGrafemas($tiposGrafemas){
+        $where = '';
+        $tamanho = count($tiposGrafemas);
+
+        for($i = 0; $i < $tamanho; $i++) {
+            $where = $where.'b.tipoGrafema = "'. $tiposGrafemas[$i].'"';
+            if ($i < $tamanho -1){
+                $where = $where.' OR ';
+            }
+        }               
+
+        $this->db->select('a.codTexto');
+        $this->db->from('GrafemaTexto as a');
+        $this->db->join('Grafema as b', 'a.codGrafema = b.codGrafema');
+        $this->db->where($where);
+        $this->db->group_by('a.codTexto');
+        $this->db->having('COUNT(a.codGrafema)', $tamanho);
+        $retorno = $this->db->get()->result();
+        return $retorno;
+    }
+
     public function adicionarTempo($codJogador, $tempo){
         $this->db->select('tempoTotal');
         $this->db->from('Jogador');
@@ -98,9 +102,7 @@ class modelTexto extends CI_Model {
     		}
     	} 
     	
-
     	$codJogador = $this->session->userdata('codJogador');
-
 
     	$this->db->select('COUNT(DISTINCT r.codGrafema) as qtd');
     	$this->db->from('Rodada as r');
@@ -143,7 +145,7 @@ class modelTexto extends CI_Model {
         return $pontuacao;  	    	
     }
 
-    public function inserirRodadaTexto($grafemas, $codJogador, $duracao, $pontuacao){
+    public function inserirRodadaTexto($grafemas, $codJogador, $duracao, $pontuacao, $codTexto){
     	if ($grafemas != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
     		    	
     		$grafemaSeparado = $this->separarGrafemas($grafemas);
@@ -158,10 +160,16 @@ class modelTexto extends CI_Model {
     			'pontuacao' => $pontuacao,
     			);    		
 
-    		$this->db->insert('rodada', $dados);
+    		$this->db->insert('rodada', $dados);                                
+    		} 
 
             $this->adicionarTempo($codJogador, $duracao);
-    		} 
+            $dados = array(
+                'codTexto'=>$codTexto,
+                'codJogador'=>$codJogador
+            );
+
+            $this->db->insert('JogadorTexto', $dados);  
     	} else{
             return FALSE;
         }
@@ -185,12 +193,63 @@ class modelTexto extends CI_Model {
         $retorno = NULL;
         $codigos = $this->buscarListaCodigosTexto();         
         foreach ($codigos as $key) { 
-           $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);
-           $retorno[] = $this->juntarGrafemas($separados);
-            
+           $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);           
+           $retorno[] = $this->juntarGrafemas($separados);                   
         }        
         return $retorno;
     }
+
+    public function buscarGrafemasJogadosTexto($codJogador){
+        $this->db->select('codTexto');
+        $this->db->from('JogadorTexto');
+        $this->db->where('codJogador', $codJogador);
+        $this->db->group_by('codTexto');
+        $listaCodigos = $this->db->get()->result();         
+        $juntos = NULL;      
+        foreach ($listaCodigos as $key) {  
+
+            $pontuacao = $this->buscarPontuacaoPeloCodigoTexto($key->codTexto, $codJogador);
+
+            $passou = $this->verificarPontuacaoSuperiorTexto($key->codTexto, $pontuacao);             
+            if($passou){
+                $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);                                 
+                $juntos[] = $this->juntarGrafemas($separados);            
+            }    
+        }
+
+        $unicos = $this->coletarGrafemasUnicosTexto($juntos);         
+        return $unicos;        
+    }
+
+    public function buscarPontuacaoPeloCodigoTexto($codTexto, $codJogador){
+        $this->db->select('MAX(r.pontuacao) as pontuacao');
+        $this->db->from('Rodada r');
+        $this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
+        $this->db->where('r.codJogador', $codJogador);
+        $this->db->where('gt.codTexto', $codTexto);
+        $retorno = $this->db->get()->result();        
+        return $retorno;
+    }
+
+    public function verificarPontuacaoSuperiorTexto($codTexto, $pontuacao){
+        $retorno = FALSE;
+        if(($codTexto != NULL) && ($pontuacao != NULL)){
+            $qtd = $this->buscarQuantidadeGabaritoTexto($codTexto);
+            $media = floor($qtd[0]->qtd*12); //12 é 0,6*20 (60% de 20 pontos)
+            if ($pontuacao > $media){
+                $retorno = TRUE;
+            }
+        }
+        return $retorno;
+    }
+
+    public function buscarQuantidadeGabaritoTexto($codTexto){
+        $this->db->select('count(codGabarito) as qtd');
+        $this->db->from('Gabarito');
+        $this->db->where('codTexto', $codTexto);
+        $retorno = $this->db->get()->result();
+        return $retorno;
+    }   
 
     public function buscarGrafemaPeloCodigoTexto($codTexto){        
         $this->db->select('g.tipoGrafema');
@@ -220,35 +279,19 @@ class modelTexto extends CI_Model {
                 $retorno = $retorno.'&'.$separados[$i]->tipoGrafema; 
             }
         }        
+
         return $retorno;
-    }
-
-    public function buscarGrafemasJogadosTexto($codJogador){ 
-        $this->db->select('gt.codTexto');
-        $this->db->from('Rodada r');
-        $this->db->join('GrafemaTexto gt', 'r.codGrafema = gt.codGrafema');
-        $this->db->where('r.codJogador', $codJogador);
-        $this->db->where('r.pontuacao >=', '140');
-        $this->db->group_by('gt.codTexto');
-        $listaCodigos = $this->db->get()->result();   
-        $juntos = NULL;      
-        foreach ($listaCodigos as $key) {            
-            $separados = $this->buscarGrafemaPeloCodigoTexto($key->codTexto);                                 
-            $juntos[] = $this->juntarGrafemas($separados);            
-        }
-
-        $unicos = $this->coletarGrafemasUnicosTexto($juntos);        
-        return $unicos;
-    }
+    }  
 
     public function coletarGrafemasUnicosTexto($listaGrafemas){
-        $retorno = array();        
-        $tamListaGrafemas = count($listaGrafemas);        
+        $retorno = array();
+        $tamListaGrafemas = count($listaGrafemas);         
         for ($i=1; $i < $tamListaGrafemas; $i++) { 
             if(!array_search($listaGrafemas[$i], $retorno)){
                 $retorno[] = $listaGrafemas[$i];
             }                                                               
         }
+
         return $retorno;
     }
 

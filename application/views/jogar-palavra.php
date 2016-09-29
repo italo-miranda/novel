@@ -73,11 +73,11 @@
 										echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$p->letraGabarito.'" >';
 									echo '<input type="hidden" name="justificativa'.$i.'" value="'.$p->justificativa.'">';
-									echo '<input type="hidden" name="palavraCompleta'.$i.'" value="'.$p->palavraCompleta.'">';
+									echo '<input type="hidden" name="palavraCompleta'.$i.'" value="'.$p->palavraCompleta.'">';	
 									$i++;									
 								endforeach;	
-								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';			
-
+								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';
+								echo '<input type="hidden" id="url" value="'.base_url().'">';
 
 							?>							
 
@@ -188,7 +188,7 @@
 	        </div>
 		    <div class="row centered">
 		    	<div class="modal-footer">
-		    			<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>		    		
+		    		<button type="button" id="sairGabarito" data-dismiss="modal" class="btn btn-default">Fechar</button>
 		        </div>
 		    </div>
 	      </div>
@@ -253,7 +253,9 @@
 	function mostrarSair(){
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
-			window.location.href = "http://192.168.1.109/principal/menu";
+			url = document.getElementById("url").value;
+			string = "http:"+url+"/principal/menu";
+			window.location.href = string;
 		}
 	}
 	
@@ -261,4 +263,5 @@
 
 
 </form>
+
 

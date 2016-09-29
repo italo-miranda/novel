@@ -94,7 +94,7 @@ class Principal extends CI_Controller {
 
 
 	public function menu()
-	{		
+	{				
 		if ($this->session->userdata('logged_in')) {		
         	$pagina = array('tela' => 'menu', 'linkNovel'=> 'principal/menu', 'linkLogoff'=>'principal/logoff', 'abrirModalHistoria'=> FALSE, 'conquista' => 0);
 			$this->load->view('construtor', $pagina);    

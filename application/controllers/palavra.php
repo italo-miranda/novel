@@ -115,10 +115,9 @@ class Palavra extends CI_Controller {
 
 			$codGrafema = $dados['codGrafema'];
 			$pontuacao = $this->modelPalavra->calcularPontuacao($inputJogador, $gabarito);
-			$nivelAntigo = $this->session->userdata('nivel');
-			$tipoRodada = 'palavra';
+			$nivelAntigo = $this->session->userdata('nivel');			
 			$codJogador = $this->session->userdata('codJogador');						
-			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada);				
+			$nivelNovo = $this->modelJogador->subirNivelPalavra($codJogador, $pontuacao, $codGrafema);				
 			if($nivelNovo){
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}

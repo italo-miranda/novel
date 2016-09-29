@@ -58,7 +58,8 @@
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$t->gabarito.'" >';									
 								$i++;									
 								endforeach;	
-								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';			
+								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';
+								echo '<input type="hidden" id="url" value="'.base_url().'">';
 							?>							
 
 								<!--FIM DO PREENCHIMENTO DINÂMICO DOS TESTES-->
@@ -145,7 +146,9 @@
 	function mostrarSair(){
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
-			window.location.href = "http://192.168.1.109/principal/menu";
+			url = document.getElementById("url").value;
+			string = "http:"+url+"/principal/menu";
+			window.location.href = string;
 		}
 	}
 	

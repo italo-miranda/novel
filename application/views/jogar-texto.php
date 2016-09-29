@@ -46,6 +46,7 @@
 					echo '</h2>';
 					echo '<input type="hidden" name="grafemas" value="'.$grafemas.'">';								
 					echo '<input type="hidden" name="codTexto" value="'.$texto[0]->codTexto.'">';
+					echo '<input type="hidden" id="url" value="'.base_url().'">';
 				?>	
 				<div class="row">
 					<div class="col-md-12 col-xs-12">
@@ -108,7 +109,9 @@
 	function mostrarSair(){
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
-			window.location.href = "http://192.168.1.109/principal/menu";
+			url = document.getElementById("url").value;
+			string = "http:"+url+"/principal/menu";
+			window.location.href = string;
 		}
 	}
 	

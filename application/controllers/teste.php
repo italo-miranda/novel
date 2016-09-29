@@ -31,7 +31,7 @@ class Teste extends CI_Controller {
 
 			$codJogador = $this->session->userdata('codJogador');
 
-			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
+			$grafemasJogados = $this->modelTeste->buscarGrafemasJogadosTeste($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 			
 			$pagina = array(
@@ -109,13 +109,12 @@ class Teste extends CI_Controller {
 			}
 
 			$codGrafema = $dados['codGrafema'];
-			$codJogador = $this->session->userdata('codJogador');
-			$tipoRodada = 'teste';			
+			$codJogador = $this->session->userdata('codJogador');				
 			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito);
-
+			$quantidade = count($gabarito);
 			$nivelAntigo = $this->session->userdata('nivel');
 
-			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $tipoRodada);	
+			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $gabarito);	
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
 			if($nivelNovo){

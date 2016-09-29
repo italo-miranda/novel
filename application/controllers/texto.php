@@ -26,7 +26,7 @@ class Texto extends CI_Controller {
 			}
 			$codJogador = $this->session->userdata('codJogador');
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
-			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);		
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);					
 			$pagina = array('tela' => 'menu-texto', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
@@ -112,20 +112,21 @@ class Texto extends CI_Controller {
 			$duracao = $dados['duracao'];
 			$codTexto = $dados['codTexto'];
 			$gabarito = $this->modelTexto->encontrarGabarito($codTexto);
+			$quantidade = count($gabarito);
 			
-			$codJogador = $this->session->userdata('codJogador');						
+			$codJogador = $this->session->userdata('codJogador');							
 			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
 			$nivelAntigo = $this->session->userdata('nivel');
 			$tipoRodada = 'texto';
 			$codJogador = $this->session->userdata('codJogador');						
-			$nivelNovo = $this->modelJogador->subirNivelTexto($codJogador, $pontuacao, $grafemas);				
+			$nivelNovo = $this->modelJogador->subirNivelTexto($codJogador, $pontuacao, $grafemas, $quantidade);				
 			if($nivelNovo){
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}
 
-			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $this->session->userdata('codJogador'), $duracao, $pontuacao);
+			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $this->session->userdata('codJogador'), $duracao, $pontuacao, $codTexto);
 
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
 			if($cenas){
