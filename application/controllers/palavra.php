@@ -133,8 +133,7 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-
-
+		
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 
 			$this->session->set_userdata('experiencia', $experiencia);			
