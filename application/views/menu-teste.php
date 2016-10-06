@@ -7,29 +7,28 @@
 				
 				<?php
 				$tamGrafemasBD = count($grafemasCadastrados);
-				$tamGrafemasJogados = count($grafemasJogados);
-
+				$tamGrafemasJogados = count($grafemasJogados);				
 				echo '<div class="row afastado-1pc">';
 
 				for($i = 0; $i<$tamGrafemasBD; $i++) {
 					if (($i%4)==0){
 						echo '</div>';
 						echo '<div class="row afastado-1pc">';
-					}
-
+					}					
 					echo '<div class="col-md-3 col-xs-3">';
 						echo '<div class="row">';
 							echo '<div class="col-md-12 col-xs-12">';
-								$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i]->tipoGrafema;
+								$url = 'teste/jogarTeste/'.$grafemasCadastrados[$i];
 								echo '<a href="'.base_url($url).'">';
-									$url = 'assets/img/grafemas/teste/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
+									$url = 'assets/img/grafemas/teste/'.$grafemasCadastrados[$i].'.png';
 									echo '<img  class="img img-responsive" src="'.base_url($url).'">';		
 								echo '</a>';
 							echo '</div>';
 						echo '</div>';
 						echo '<div class="row">';
 							for ($j=0; $j < $tamGrafemasJogados; $j++) { 
-								if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 60){
+
+								if ($grafemasJogados[$j] == $grafemasCadastrados[$i]){
 									echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
 								}								
 							}

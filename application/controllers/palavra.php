@@ -21,7 +21,7 @@ class Palavra extends CI_Controller {
             $codJogador = $this->session->userdata('codJogador');
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
-			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();		
+			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
             
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($nivel);
 			if($cenas){

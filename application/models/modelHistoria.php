@@ -17,7 +17,7 @@ class modelHistoria extends CI_Model {
     	return $retorno;
     }
 
-    public function buscarNovaConquista($experiencia, $codJogador){
+    public function buscarNovaConquista($experiencia, $codJogador){        
         $ultimaConquista = $this->buscarUltimaConquistaJogador($codJogador);        
         $novaConquista = $ultimaConquista[0]->codConquista + 1;        
         $experienciaNecessaria = $this->buscarExperienciaNecessaria($novaConquista);         

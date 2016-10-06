@@ -26,7 +26,8 @@ class Texto extends CI_Controller {
 			}
 			$codJogador = $this->session->userdata('codJogador');
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
-			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);					
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
+
 			$pagina = array('tela' => 'menu-texto', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
@@ -115,18 +116,21 @@ class Texto extends CI_Controller {
 			$quantidade = count($gabarito);
 			
 			$codJogador = $this->session->userdata('codJogador');							
-			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);
-			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
+			$pontuacao = $this->modelTexto->calcularPontuacao($inputJogador, $gabarito);	
 
-			$nivelAntigo = $this->session->userdata('nivel');
-			$tipoRodada = 'texto';
-			$codJogador = $this->session->userdata('codJogador');						
+			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
+			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
+			$this->session->set_userdata('experiencia', $experiencia);	
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
+			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);	
+					
+			$nivelAntigo = $this->session->userdata('nivel');								
 			$nivelNovo = $this->modelJogador->subirNivelTexto($codJogador, $pontuacao, $grafemas, $quantidade);				
 			if($nivelNovo){
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}
-
-			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $this->session->userdata('codJogador'), $duracao, $pontuacao, $codTexto);
+			
+			$inseriu = $this->modelTexto->inserirRodadaTexto($grafemas, $codJogador, $duracao, $pontuacao, $codTexto);
 
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
 			if($cenas){
@@ -137,13 +141,7 @@ class Texto extends CI_Controller {
 			}
 
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
-			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
-
-			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
-
-			$this->session->set_userdata('experiencia', $experiencia);			
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
-			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);			
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);						
 			$pagina = array(
 				'tela' => 'menu-texto',
 				'linkNovel'=> 'principal/menu', 

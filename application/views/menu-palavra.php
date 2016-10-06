@@ -4,7 +4,7 @@
 				<h3 class="titulo-menu">Nível Palavra</h3>
 		</div>		
 		<div id="imagens-menu" class="centered" >
-
+	
 			<?php
 				$tamGrafemasBD = count($grafemasCadastrados);
 				$tamGrafemasJogados = count($grafemasJogados);

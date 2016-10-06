@@ -190,7 +190,8 @@ class modelJogador extends CI_Model {
 
 	public function verificarNivelAlcancadoPalavra($codGrafema, $codJogador){		
 			$this->db->select('MAX(pontuacao) AS pontuacao');
-			$this->db->from('Rodada');
+			$this->db->from('Rodada r');
+			$this->db->join('RodadaGrafema rg', 'r.codRodada = rg.codRodada');
 			$this->db->where('tipoRodada', 'palavra');
 			$this->db->where('codJogador', $codJogador);
 			$this->db->where('codGrafema', $codGrafema);
@@ -214,13 +215,14 @@ class modelJogador extends CI_Model {
     	} 
           
 		$this->db->select('MAX(r.pontuacao) as pontuacao');
-		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where($where);
+		$this->db->from('Rodada r');
+		$this->db->join('RodadaGrafema rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema g', 'rg.codGrafema = g.codGrafema');		
 		$this->db->where('r.tipoRodada', 'texto');
 		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('r.codJogador');
-		$this->db->having('COUNT(r.codGrafema)', $tamanho);
+		$this->db->where($where);
+		$this->db->group_by('r.codRodada');
+		$this->db->having('COUNT(g.codGrafema)', $tamanho);
 		$resultado = $this->db->get()->result();
         
     	if($resultado){
@@ -285,59 +287,87 @@ class modelJogador extends CI_Model {
 
 //ESTATÍSTICAS
 
-    //Esta função deve verificar qual foi a pontuação máxima
-    //do jogador em um nível. $tipoRodada pode ser de palavra, texto ou teste
-    public function verificarPontuacaoMaxima($tipoRodada, $codJogador){
-    	$this->db->select('MAX(pontuacao)');
-    	$this->db->from('Rodada');
-    	$this->db->where('tipoRodada', $tipoRodada);
-    	$this->db->where('codJogador', $codJogador);
-    	$retorno = $this->db->get()->result();
-
-    	return $retorno;
-    }
-
-
 	public function buscarGrafemasJogadosPalavra($codJogador){		
 		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where('tipoRodada', 'palavra');
+		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema as g', 'rg.codGrafema = g.codGrafema');
+		$this->db->where('r.tipoRodada', 'palavra');
 		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('tipoGrafema');
+		$this->db->group_by('rg.codGrafema');
+		$this->db->order_by('rg.codgrafema');
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
 
-	public function verificarConjuntoGrafemasJogados($codJogador, $grafemas){
-		$where = NULL;
-		$tamanho = count($grafemas);
-		for ($i=0; $i < $tamanho; $i++) { 
-			if($i< $tamanho-1){
-				$where = $where.$grafemas[$i].' OR ';
-			} else {
-				$where = $where.$grafemas[$i];
-			}
-		//$this->db->select('MAX(a.pontuacao) as pontuacao')
-		}
-	}
-	
 	public function buscarListaGrafemas(){
 		$this->db->select('tipoGrafema');
 		$this->db->from('Grafema');
+		$this->db->order_by('codgrafema');
 		$retorno = $this->db->get()->result();
 		return $retorno;
 	}
 
+	public function buscarListaTestes(){
+		$this->db->select('grafemas');
+		$this->db->from('GrupoTeste');
+		$this->db->order_by('codGrupo');
+		$listaGrupos = $this->db->get()->result();		
+		$lista = NULL;
+		foreach ($listaGrupos as $key) {
+			if (($key->grafemas != "total") && ($key->grafemas != "-total")){
+				$grupo = $this->separarGrupo($key->grafemas);				
+			} else {
+				$grupo = array($key->grafemas);				
+			}				
+			$grafemas = NULL;
+			foreach ($grupo as $j) {				
+				if(($j != "total") && ($j != "-total")){					
+					$tipoGrafema = $this->buscarGrafema($j);									
+					$grafemas[] = $tipoGrafema[0]->tipoGrafema;					
+				} else {
+					$grafemas[] = $j;
+				}
+			}
 
-	//select g.tipoGrafema, SUM(r.pontuacao) from rodada as r join grafema as g on r.codGrafema = g.codGrafema where codJogador=1 group by tipoGrafema;
+			$lista[] = $this->juntarGrupoGrafemas($grafemas);			
+		}		
+		return $lista;
+	}
+
+	public function buscarGrafema($codigo){
+		$this->db->select('tipoGrafema');
+		$this->db->from('Grafema');
+		$this->db->where('codGrafema', $codigo);
+		$retorno = $this->db->get()->result();			
+		return $retorno;
+	}
+
+	public function separarGrupo($grupo){
+		$separados = explode("_", $grupo);
+		return $separados;
+	}
+
+	public function juntarGrupoGrafemas($grupo){		
+		$retorno = "";
+		$tamanho = count($grupo);				
+		for ($i=0; $i < $tamanho ; $i++) { 
+			if ($i != $tamanho -1){
+				$retorno = $retorno.$grupo[$i]."&";
+			} else {
+				$retorno = $retorno.$grupo[$i];
+			}
+		}		
+		return $retorno;
+	}
 
 	public function buscarHistoricoPalavra($codJogador){
 		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where('tipoRodada', 'palavra');
-		$this->db->where('codJogador', $codJogador);
+		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema as g', 'rg.codGrafema = g.codGrafema');
+		$this->db->where('r.tipoRodada', 'palavra');
+		$this->db->where('r.codJogador', $codJogador);
 		$this->db->group_by('g.tipoGrafema');
 		$retorno = $this->db->get()->result();
 		return $retorno;
@@ -346,9 +376,10 @@ class modelJogador extends CI_Model {
 	public function buscarHistoricoTeste($codJogador){
 		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where('tipoRodada', 'teste');
-		$this->db->where('codJogador', $codJogador);
+		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema as g', 'rg.codGrafema = g.codGrafema');
+		$this->db->where('r.tipoRodada', 'teste');
+		$this->db->where('r.codJogador', $codJogador);
 		$this->db->group_by('g.tipoGrafema');		
 		$retorno = $this->db->get()->result();
 		return $retorno;
@@ -357,9 +388,10 @@ class modelJogador extends CI_Model {
 	public function buscarHistoricoTexto($codJogador){
 		$this->db->select('g.tipoGrafema, SUM(r.duracao) as duracao, SUM(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where('tipoRodada', 'texto');
-		$this->db->where('codJogador', $codJogador);
+		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema as g', 'rg.codGrafema = g.codGrafema');
+		$this->db->where('r.tipoRodada', 'texto');
+		$this->db->where('r.codJogador', $codJogador);
 		$this->db->group_by('g.tipoGrafema');		
 		$retorno = $this->db->get()->result();
 		return $retorno;
@@ -375,11 +407,12 @@ class modelJogador extends CI_Model {
     	return $retorno;
 	}
 
-	public function buscarExperienciaJogador($codJogador){
+	public function buscarExperienciaJogador($codJogador){			
 		$this->db->select('experiencia');
 		$this->db->from('Jogador');
 		$this->db->where('codJogador', $codJogador);
-		$retorno = $this->db->get()->result();
+		$this->db->limit(1);
+		$retorno = $this->db->get()->result();		
 		return $retorno;
 	}
 

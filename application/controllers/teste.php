@@ -32,8 +32,9 @@ class Teste extends CI_Controller {
 			$codJogador = $this->session->userdata('codJogador');
 
 			$grafemasJogados = $this->modelTeste->buscarGrafemasJogadosTeste($codJogador);	
-			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
 			
+			$grafemasCadastrados = $this->modelJogador->buscarListaTestes();			
+
 			$pagina = array(
 				'tela' => 'menu-teste', 
 				'linkNovel'=> 'principal/menu', 
@@ -98,23 +99,23 @@ class Teste extends CI_Controller {
 			$erro = $this->uri->segment(3);
         	$erro = urldecode($erro);
 
-			$dados = $this->input->post();
-
-			for ($i = 0; $i<5; $i++){
+			$dados = $this->input->post();			
+			$qtdTestes = $dados['qtdTestes'];
+			for ($i = 0; $i<$qtdTestes; $i++){
 				$inputJogador[] = $dados['inputJogador'.$i];
 			}
 
-			for ($i = 0; $i<5; $i++){
+			for ($i = 0; $i<$qtdTestes; $i++){
 				$gabarito[] = $dados['gabarito'.$i];
 			}
 
 			$codGrafema = $dados['codGrafema'];
 			$codJogador = $this->session->userdata('codJogador');				
-			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito);
+			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito, $qtdTestes);
 			$quantidade = count($gabarito);
 			$nivelAntigo = $this->session->userdata('nivel');
 
-			$nivelNovo = $this->modelJogador->subirNivel($codJogador, $pontuacao, $codGrafema, $gabarito);	
+			$nivelNovo = $this->modelJogador->subirNivelTeste($codJogador, $pontuacao, $codGrafema, $gabarito);	
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
 			if($nivelNovo){
@@ -131,8 +132,8 @@ class Teste extends CI_Controller {
 				$abrirModalHistoria = FALSE;
 			}
 
-			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosTeste($codJogador);	
-			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
+			$grafemasJogados = $this->modelTeste->buscarGrafemasJogadosTeste($codJogador);	
+			$grafemasCadastrados = $this->modelJogador->buscarListaTestes();
 
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 

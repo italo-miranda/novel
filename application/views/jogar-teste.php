@@ -15,6 +15,7 @@
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DOS TESTES-->
 							<?php									
 								$i = 0;
+								$qtdTestes = count($testes);								
 								foreach ($testes as $t):	
 									if ($i == 0) {					   
 										echo '<div class="item active">';	
@@ -59,6 +60,7 @@
 								$i++;									
 								endforeach;	
 								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';
+								echo '<input type="hidden" name="qtdTestes" value="'.$qtdTestes.'">';
 								echo '<input type="hidden" id="url" value="'.base_url().'">';
 							?>							
 
@@ -93,7 +95,7 @@
 				</div>
 			</div>	
 		</div>
-
+	</form>
 <script language="JavaScript">
 
 	var timeCrono; 
@@ -147,7 +149,7 @@
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
 			url = document.getElementById("url").value;
-			string = "http:"+url+"/principal/menu";
+			string = url+"/principal/menu";
 			window.location.href = string;
 		}
 	}

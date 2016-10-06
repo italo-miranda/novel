@@ -254,7 +254,8 @@
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
 			url = document.getElementById("url").value;
-			string = "http:"+url+"/principal/menu";
+			alert(url);
+			string = url+"/principal/menu";
 			window.location.href = string;
 		}
 	}

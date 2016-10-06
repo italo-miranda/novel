@@ -19,7 +19,7 @@ class modelTeste extends CI_Model {
         unset($alternativas);
         $retorno = NULL;
 
-        if ($grafemas == "total"){
+        if (($grafemas == "total")){
             $tiposGrafemas = $this->sortearTodosTestes();
         } else {
             $tiposGrafemas = $this->separarGrafemas($grafemas);  
@@ -93,9 +93,9 @@ class modelTeste extends CI_Model {
     //Esta função deve receber as respostas escolhidas pelo jogador
     //e o gabarito da rodada. Em seguida, deve verificar se as respostas
     //estão certas. Para cada palavra certa, o jogador recebe 30 pontos
-    public function calcularPontuacao($inputJogador, $gabarito){
+    public function calcularPontuacao($inputJogador, $gabarito, $qtdTestes){
     	$pontuacao = 0;
-    	for ($i = 0; $i < 5 ; $i++){
+    	for ($i = 0; $i < $qtdTestes ; $i++){
     		if (strcasecmp($inputJogador[$i], $gabarito[$i]) == 0){
     			$pontuacao = $pontuacao + 30;    		
     		}
@@ -107,16 +107,19 @@ class modelTeste extends CI_Model {
     public function inserirRodadaTeste($grafemas, $codJogador, $duracao, $pontuacao){
     	if ($grafemas != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
             $separados = $this->separarGrafemas($grafemas);
-            foreach ($separados as $key) {
-                $this->buscarCodigoPeloTipo($key);
-        		$dados = array(
-        			'codGrafema' => $codGrafema,
-        			'codJogador' => $codJogador,
-        			'tipoRodada' => 'teste',
-        			'duracao' => $duracao,
-        			'pontuacao' => $pontuacao,
-        			);
-        		$this->db->insert('rodada', $dados);                           
+            
+            $dadosRodada = array(                   
+                'codJogador' => $codJogador,
+                'tipoRodada' => 'teste',
+                'duracao' => $duracao,
+                'pontuacao' => $pontuacao,
+            );
+            $this->db->insert('rodada', $dadosRodada); 
+            $codRodada = $this->db->insert_id();
+            foreach ($separados as $key) {                
+        		$codGrafema = $this->buscarCodigoPeloTipo($key);
+                $dadosRodadaGrafema = array('codGrafema'=>$codGrafema, 'codRodada'=> $codRodada);
+                $this->db->insert('RodadaGrafema', $dadosRodada);
             }
             $this->adicionarTempo($codJogador, $duracao);
             return TRUE;
@@ -128,8 +131,7 @@ class modelTeste extends CI_Model {
     public function adicionarTempo($codJogador, $tempo){
         $this->db->select('tempoTotal');
         $this->db->from('Jogador');
-        $this->db->where('codJogador', $codJogador);
-        
+        $this->db->where('codJogador', $codJogador);        
         $tempoAntigo = $this->db->get()->result();
         $tempoNovo = $tempoAntigo[0]->tempoTotal + $tempo;
         
@@ -189,14 +191,13 @@ class modelTeste extends CI_Model {
             }
         } 
         
-
         $codJogador = $this->session->userdata('codJogador');
 
-
-        $this->db->select('COUNT(DISTINCT r.codGrafema) as qtd');
+        $this->db->select('COUNT(DISTINCT rg.codGrafema) as qtd');
         $this->db->from('Rodada as r');
-        $this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-        $this->db->where('tipoRodada = "palavra"');
+        $this->db->join('RodadaGrafema rg', 'r.codRodada = rg.codRodada');
+        $this->db->join('Grafema as g', 'rg.codGrafema = g.codGrafema');
+        $this->db->where('r.tipoRodada = "palavra"');
         $this->db->where($where);
         $this->db->where('codJogador', $codJogador);
         $this->db->limit(1);
@@ -210,43 +211,71 @@ class modelTeste extends CI_Model {
     }
 
     public function buscarGrafemasJogadosTeste($codJogador){        
-        $this->db->select('codGrafema, pontuacao');
-        $this->db->from('rodada');
+        $this->db->select('codRodada, pontuacao');
+        $this->db->from('Rodada');
         $this->db->where('codJogador', $codJogador);
         $this->db->where('tipoRodada', 'teste');    
         $listaCodigos = $this->db->get()->result();    
-        $juntos = NULL;      
+        $juntos = NULL; 
+        $pontuacao = NULL;     
+
         foreach ($listaCodigos as $key) {    
-            $pontuacao = $this->buscarPontuacaoPeloCodigoTeste($key->codTeste, $codJogador);
-            $passou = $this->verificarPontuacaoSuperiorTeste($key->codTexto, $pontuacao);
-            if($passou){
-                $separados = $this->buscarGrafemaPeloCodigoTeste($key->codTeste);                                 
-                $juntos[] = $this->juntarGrafemas($separados);            
-            }
+            $grafemas = $this->buscarGrafemasPeloCodigoRodada($key->codRodada);             
+            $qtd = count($grafemas) * 2;             
+            if ($qtd != 0){
+                $passou = $this->verificarPontuacaoSuperiorTeste($key->pontuacao, $qtd);      
+            } else {
+                $passou = FALSE;
+            }                          
+            if($passou){                                            
+                $juntos[] = $this->juntarGrafemas($grafemas);            
+            }            
         }
-        $unicos = $this->coletarGrafemasUnicosTexto($juntos);            
+        $unicos = $this->coletarGrafemasUnicosTeste($juntos);           
         return $unicos;   
     }
 
-    public function buscarPontuacaoPeloCodigoTeste($codTeste, $codJogador){
-        $this->db->select('MAX(r.pontuacao) as pontuacao');
-        $this->db->from('Rodada r');
-        $this->db->join('GrafemaTeste gt', 'r.codGrafema = gt.codGrafema');
-        $this->db->where('r.codJogador', $codJogador);
-        $this->db->where('gt.codTeste', $codTeste);
-        $retorno = $this->db->get()->result();        
+    public function buscarGrafemasPeloCodigoRodada($codRodada){
+        $this->db->select('g.tipoGrafema');
+        $this->db->from('RodadaGrafema rg');
+        $this->db->join('Grafema g', 'g.codGrafema = rg.codGrafema');
+        $this->db->where('rg.codRodada', $codRodada);
+        $this->db->order_by('g.codgrafema');
+        $retorno = $this->db->get()->result();
         return $retorno;
     }
 
-    public function verificarPontuacaoSuperiorTeste($codTeste, $pontuacao){
+    public function verificarPontuacaoSuperiorTeste($pontuacao, $qtd){
         $retorno = FALSE;
-        if(($codTeste != NULL) && ($pontuacao != NULL)){
-            $qtd = $this->buscarQuantidadeTeste($codTeste);
-            $media = floor($qtd->qtd*18); //18 é 0,6*30 (60% de 30 pontos)
-            if ($pontuacao > $media){
+        $media = $qtd*18;//18 é 0,6*30 (60% de 30 pontos)  
+        if ($pontuacao > $media){
                 $retorno = TRUE;
-            }
         }
+        return $retorno;
+    }
+
+    public function juntarGrafemas($separados){
+        $retorno = NULL;
+        $tamanho = count($separados);
+        for ($i=0; $i < $tamanho; $i++) { 
+            if($i == 0){
+                $retorno = $retorno.$separados[$i]->tipoGrafema; 
+            } else{
+                $retorno = $retorno.'&'.$separados[$i]->tipoGrafema; 
+            }
+        }        
+
+        return $retorno;
+    } 
+
+    public function coletarGrafemasUnicosTeste($listaGrafemas){
+        $retorno = array();
+        $tamListaGrafemas = count($listaGrafemas);            
+        for ($i=0; $i < $tamListaGrafemas; $i++) { 
+            if(!array_search($listaGrafemas[$i], $retorno)){
+                $retorno[] = $listaGrafemas[$i];
+            }                                                               
+        }        
         return $retorno;
     }
 }

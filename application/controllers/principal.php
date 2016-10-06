@@ -91,8 +91,6 @@ class Principal extends CI_Controller {
 		}
 	}
 
-
-
 	public function menu()
 	{				
 		if ($this->session->userdata('logged_in')) {		
