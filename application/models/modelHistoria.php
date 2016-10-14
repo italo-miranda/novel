@@ -58,5 +58,49 @@ class modelHistoria extends CI_Model {
         $retorno = $this->db->get()->result();
         return $retorno;
     }
+	
+	public function buscarBonus($experiencia, $codJogador){
+        $retorno = FALSE;
+        $this->db->select('MAX(codBonus) as codBonus');
+        $this->db->from('Bonus');
+        $this->db->where('experienciaNecessaria <=', $experiencia);
+        $codBonus = $this->db->get()->result();
+
+        $jogou = $this->verificarJogadorBonus($codJogador, $codBonus[0]->codBonus);
+
+        if(!$jogou){
+            $retorno[] = $this->buscarTextoBonus($codBonus[0]->codBonus);
+            $retorno[] = $this->buscarPalavraBonus($codBonus[0]->codBonus);
+        }
+
+        return $retorno;
+    }
+
+    public function buscarTextoBonus($codBonus){
+        $this->db->select('textoBonus');
+        $this->db->from('Bonus');
+        $this->db->where('codBonus', $codBonus);
+        $retorno = $this->db->get()->result();
+
+        return $retorno;
+    }
+
+    public function buscarPalavraBonus($codBonus){
+        $this->db->select('palavra, inicio, fim');
+        $this->db->from('PalavraBonus');
+        $this->db->where('codBonus', $codBonus);
+        $retorno = $this->db->get()->result();
+
+        return $retorno;
+    }
+
+    public function verificarJogadorBonus($codJogador, $codBonus){
+        $this->db->select('codBonus');
+        $this->db->from('JogadorBonus');
+        $this->db->where('codJogador', $codJogador);
+        $this->db->where('codBonus', $codBonus);
+        $retorno = $this->db->get()->result();        
+        return $retorno;
+    }
 
 }

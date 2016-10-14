@@ -169,7 +169,7 @@ class modelJogador extends CI_Model {
 	public function subirNivelTexto($codJogador, $pontuacao, $grafemas, $quantidade){
 		$retorno = NULL;
 		if ($pontuacao > 120){
-			$jogou = $this->verificarNivelAlcandadoTexto($grafemas, $codJogador);
+			$jogou = $this->verificarNivelAlcancadoTexto($grafemas, $codJogador);
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;
 			if(!$jogou || $jogou[0]->pontuacao < 140){
@@ -201,7 +201,7 @@ class modelJogador extends CI_Model {
 
 	//Esta função verifica se o jogador já jogou um texto que possui
     //determinados grafemas.
-    public function verificarNivelAlcandadoTexto($grafemas, $codJogador){
+    public function verificarNivelAlcancadoTexto($grafemas, $codJogador){
 
     	$tiposGrafemas = explode("&", $grafemas);
     	$where = '';

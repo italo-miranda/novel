@@ -35,22 +35,29 @@ class Teste extends CI_Controller {
 			
 			$grafemasCadastrados = $this->modelJogador->buscarListaTestes();			
 
-			$pagina = array(
-				'tela' => 'menu-teste', 
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff', 
-				'abrirModalGabarito' => FALSE,
-				'abrirModalHistoria' => $abrirModalHistoria,
-				'inputJogador' => $inputJogador,
-				'gabarito' => NULL,
-				'pontuacao' => NULL,
-				'conquista' => 0,
-				'erro' => $erro,				
-				'inseriu' => TRUE,
-				'grafemasJogados' => $grafemasJogados,
-				'grafemasCadastrados' => $grafemasCadastrados,
-				);
-			$this->load->view('construtor', $pagina);
+			$experiencia = $this->session->userdata('experiencia');
+			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
+
+			if($bonus[0] != NULL){
+					redirect('principal/bonus');
+			} else {			
+				$pagina = array(
+					'tela' => 'menu-teste', 
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'abrirModalGabarito' => FALSE,
+					'abrirModalHistoria' => $abrirModalHistoria,
+					'inputJogador' => $inputJogador,
+					'gabarito' => NULL,
+					'pontuacao' => NULL,
+					'conquista' => 0,
+					'erro' => $erro,				
+					'inseriu' => TRUE,
+					'grafemasJogados' => $grafemasJogados,
+					'grafemasCadastrados' => $grafemasCadastrados,
+					);
+				$this->load->view('construtor', $pagina);
+			}
         } else {
 			redirect('principal/index');
 		}
@@ -140,24 +147,28 @@ class Teste extends CI_Controller {
 			$this->session->set_userdata('experiencia', $experiencia);			
 			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
 			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);
-			
-			$pagina = array(
-				'tela' => 'menu-teste',
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff', 
-				'inputJogador' => $inputJogador,
-				'gabarito' => $gabarito,
-				'pontuacao' => $pontuacao,
-				'conquista' => $conquista,
-				'nomeConquista'=> $nomeConquista,
-				'abrirModalGabarito' => TRUE,				
-				'abrirModalHistoria'=> $abrirModalHistoria,
-				'erro' => $erro,
-				'grafemasJogados' => $grafemasJogados,
-				'grafemasCadastrados' => $grafemasCadastrados,			
-				);
-			$this->load->view('construtor', $pagina);
-		
+			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
+
+			if($bonus[0] != NULL){
+					redirect('principal/bonus');
+			} else {				
+				$pagina = array(
+					'tela' => 'menu-teste',
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'inputJogador' => $inputJogador,
+					'gabarito' => $gabarito,
+					'pontuacao' => $pontuacao,
+					'conquista' => $conquista,
+					'nomeConquista'=> $nomeConquista,
+					'abrirModalGabarito' => TRUE,				
+					'abrirModalHistoria'=> $abrirModalHistoria,
+					'erro' => $erro,
+					'grafemasJogados' => $grafemasJogados,
+					'grafemasCadastrados' => $grafemasCadastrados,			
+					);
+				$this->load->view('construtor', $pagina);
+			}
         } else {
         	redirect('principal/index');
 		}	

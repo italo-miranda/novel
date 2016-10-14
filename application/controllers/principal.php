@@ -7,6 +7,7 @@ class Principal extends CI_Controller {
         parent::__construct();
         $this->load->helper('array');
         $this->load->model('modelJogador');
+        $this->load->model('modelHistoria');
     }
 
 
@@ -228,5 +229,22 @@ class Principal extends CI_Controller {
 			echo 'window.location="'.base_url('principal/menu').'";';
 			echo '</script>';			
 		}
+	}
+	
+	public function bonus(){
+		$codJogador = $this->session->userdata('codJogador');						
+		$experiencia = $this->session->userdata('experiencia');			
+
+		$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);						
+
+		$pagina = array(
+		'tela' => 'bonus', 
+		'linkNovel'=> 'principal/menu', 
+		'linkLogoff'=>'principal/logoff', 				
+		'abrirModalHistoria'=> FALSE,												
+		'conquista' => 0,
+		'bonus'=>$bonus,																
+		);
+		$this->load->view('construtor', $pagina);
 	}
 }

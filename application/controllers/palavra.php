@@ -30,8 +30,15 @@ class Palavra extends CI_Controller {
 			} else {
 				$abrirModalHistoria = FALSE;
 			}
-				
-			$pagina = array(
+			
+			$experiencia = $this->session->userdata('experiencia');
+
+			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
+			
+			if($bonus[0] != NULL){
+				redirect('principal/bonus');
+			} else { 
+				$pagina = array(
 				'tela' => 'menu-palavra', 
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff', 
@@ -47,7 +54,8 @@ class Palavra extends CI_Controller {
 				'grafemasJogados' => $grafemasJogados,
 				'grafemasCadastrados' =>$grafemasCadastrados,
 				);
-			$this->load->view('construtor', $pagina);
+				$this->load->view('construtor', $pagina);
+			}	
         } else {
 			redirect('principal/index');
 		}
@@ -142,25 +150,31 @@ class Palavra extends CI_Controller {
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
-			$pagina = array(
-				'tela' => 'menu-palavra',
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff', 
-				'inputJogador' => $inputJogador,
-				'gabarito' => $gabarito,
-				'pontuacao' => $pontuacao,
-				'justificativa' => $justificativa,
-				'palavraCompleta' => $palavraCompleta,
-				'abrirModalGabarito' => TRUE,
-				'abrirModalHistoria'=> $abrirModalHistoria,
-				'inseriu' => $inseriu,
-				'erro' => NULL,
-				'conquista' => $conquista,
-				'nomeConquista'=> $nomeConquista,
-				'grafemasJogados' => $grafemasJogados,
-				'grafemasCadastrados' => $grafemasCadastrados,
-				);
-			$this->load->view('construtor', $pagina);		
+			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);			
+			if($bonus[0] != NULL){
+				redirect('principal/bonus');
+			} else {
+
+				$pagina = array(
+					'tela' => 'menu-palavra',
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'inputJogador' => $inputJogador,
+					'gabarito' => $gabarito,
+					'pontuacao' => $pontuacao,
+					'justificativa' => $justificativa,
+					'palavraCompleta' => $palavraCompleta,
+					'abrirModalGabarito' => TRUE,
+					'abrirModalHistoria'=> $abrirModalHistoria,
+					'inseriu' => $inseriu,
+					'erro' => NULL,
+					'conquista' => $conquista,
+					'nomeConquista'=> $nomeConquista,
+					'grafemasJogados' => $grafemasJogados,
+					'grafemasCadastrados' => $grafemasCadastrados,
+					);
+				$this->load->view('construtor', $pagina);		
+			}
         } else {
         	redirect('principal/index');
 		}	

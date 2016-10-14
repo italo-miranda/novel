@@ -27,19 +27,26 @@ class Texto extends CI_Controller {
 			$codJogador = $this->session->userdata('codJogador');
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
+			
+			$experiencia = $this->session->userdata('experiencia');
+			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
 
-			$pagina = array('tela' => 'menu-texto', 
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff', 
-				'abrirModalHistoria'=> $abrirModalHistoria, 
-				'abrirModalGabarito' => FALSE, 
-				'erro' =>FALSE,
-				'conquista' => 0,
-				'grafemasTextos' => $grafemasTextos,
-				'grafemasJogados' => $grafemasJogados
-				);
+			if($bonus[0] != NULL){
+					redirect('principal/bonus');
+			} else {
+				$pagina = array('tela' => 'menu-texto', 
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'abrirModalHistoria'=> $abrirModalHistoria, 
+					'abrirModalGabarito' => FALSE, 
+					'erro' =>FALSE,
+					'conquista' => 0,
+					'grafemasTextos' => $grafemasTextos,
+					'grafemasJogados' => $grafemasJogados
+					);
 
-			$this->load->view('construtor', $pagina);            
+				$this->load->view('construtor', $pagina);
+			}
         } else {
 			redirect('principal/menu');
 		}
@@ -141,25 +148,30 @@ class Texto extends CI_Controller {
 			}
 
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
-			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);						
-			$pagina = array(
-				'tela' => 'menu-texto',
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff', 
-				'inputJogador' => $inputJogador,
-				'gabarito' => $gabarito,
-				'pontuacao' => $pontuacao,
-				'abrirModalGabarito' => TRUE,
-				'inseriu' => $inseriu,
-				'conquista' => $conquista,
-				'nomeConquista'=> $nomeConquista,
-				'abrirModalHistoria' => $abrirModalHistoria,
-				'erro' => FALSE,
-				'grafemasTextos' => $grafemasTextos,
-				'grafemasJogados' => $grafemasJogados			
-				);
-			$this->load->view('construtor', $pagina);
+			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);
 
+			if($bonus[0] != NULL){
+					redirect('principal/bonus');
+			} else {
+				$pagina = array(
+					'tela' => 'menu-texto',
+					'linkNovel'=> 'principal/menu', 
+					'linkLogoff'=>'principal/logoff', 
+					'inputJogador' => $inputJogador,
+					'gabarito' => $gabarito,
+					'pontuacao' => $pontuacao,
+					'abrirModalGabarito' => TRUE,
+					'inseriu' => $inseriu,
+					'conquista' => $conquista,
+					'nomeConquista'=> $nomeConquista,
+					'abrirModalHistoria' => $abrirModalHistoria,
+					'erro' => FALSE,
+					'grafemasTextos' => $grafemasTextos,
+					'grafemasJogados' => $grafemasJogados			
+					);
+				$this->load->view('construtor', $pagina);
+			}
 		} else {
 			redirect('principal/index');
 		}
