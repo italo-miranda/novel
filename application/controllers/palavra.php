@@ -32,8 +32,8 @@ class Palavra extends CI_Controller {
 			}
 			
 			$experiencia = $this->session->userdata('experiencia');
-
-			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
+			$experiencia = $experiencia[0]->experiencia;
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);				
 			
 			if($bonus[0] != NULL){
 				redirect('principal/bonus');
@@ -150,7 +150,9 @@ class Palavra extends CI_Controller {
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
-			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);			
+			$experiencia = $experiencia[0]->experiencia;
+			
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);			
 			if($bonus[0] != NULL){
 				redirect('principal/bonus');
 			} else {

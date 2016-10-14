@@ -29,7 +29,8 @@ class Texto extends CI_Controller {
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
 			
 			$experiencia = $this->session->userdata('experiencia');
-			$bonus = $this->modelHistoria->buscarBonus($experiencia[0]->experiencia, $codJogador);
+			$experiencia = $experiencia[0]->experiencia;
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){
 					redirect('principal/bonus');
@@ -149,7 +150,8 @@ class Texto extends CI_Controller {
 
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);
+			$experiencia = $experiencia[0]->experiencia;
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){
 					redirect('principal/bonus');
