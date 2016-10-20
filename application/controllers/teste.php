@@ -36,7 +36,6 @@ class Teste extends CI_Controller {
 			$grafemasCadastrados = $this->modelJogador->buscarListaTestes();			
 
 			$experiencia = $this->session->userdata('experiencia');
-			$experiencia = $experiencia[0]->experiencia;
 			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){
@@ -146,9 +145,8 @@ class Teste extends CI_Controller {
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 
 			$this->session->set_userdata('experiencia', $experiencia);			
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
 			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);
-			$experiencia = $experiencia[0]->experiencia;
 			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){

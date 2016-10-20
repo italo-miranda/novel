@@ -276,7 +276,7 @@ class modelJogador extends CI_Model {
 	//as conquistas que o jogador alcançou
 	public function buscarConquistasJogador($codJogador){	
 		$experiencia = $this->buscarExperienciaJogador($codJogador);
-		$where = "experienciaDesbloqueio <= ".$experiencia[0]->experiencia;
+		$where = "experienciaDesbloqueio <= ".$experiencia;
 		$this->db->select('nomeConquista, codConquista');
 		$this->db->from('Conquista');
 		$this->db->where($where);
@@ -413,7 +413,7 @@ class modelJogador extends CI_Model {
 		$this->db->where('codJogador', $codJogador);
 		$this->db->limit(1);
 		$retorno = $this->db->get()->result();		
-		return $retorno;
+		return $retorno[0]->experiencia;
 	}
 
 	public function buscarDadosJogador($codJogador){

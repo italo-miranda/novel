@@ -99,7 +99,7 @@
 			echo '</div>';
 
 			echo '<div class="row">';						
-				echo '<h5>Experiência: '.$experiencia[0]->experiencia.' pontos</h5>';
+				echo '<h5>Experiência: '.$experiencia.' pontos</h5>';
 			echo '</div>';
 
 			echo '<div class="row">';						
@@ -111,7 +111,7 @@
 						echo '<h5 class="btn" onclick="abrirConquista'.$key->codConquista.'()">'.$key->nomeConquista.'</h5>';
 				echo '</div>';
 				echo '<div class="row">';	
-						echo '<img id="conquista'.$key->codConquista.'" src="'.base_url('assets/img/conquistas/'.$avatar.'/conquista-'.$key->codConquista).'" onclick="abrirConquista'.$key->codConquista.'()">';
+						echo '<img class="img-responsive" id="conquista'.$key->codConquista.'" src="'.base_url('assets/img/conquistas/'.$avatar.'/conquista'.$key->codConquista).'" onclick="abrirConquista'.$key->codConquista.'()">';
 						echo '<script type="text/javascript">';
 							echo '$("#conquista'.$key->codConquista.'").hide();';
 							echo 'function abrirConquista'.$key->codConquista.'(){';

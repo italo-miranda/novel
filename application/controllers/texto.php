@@ -29,7 +29,6 @@ class Texto extends CI_Controller {
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
 			
 			$experiencia = $this->session->userdata('experiencia');
-			$experiencia = $experiencia[0]->experiencia;
 			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){
@@ -129,7 +128,7 @@ class Texto extends CI_Controller {
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 			$this->session->set_userdata('experiencia', $experiencia);	
-			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia[0]->experiencia, $codJogador);
+			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
 			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);	
 					
 			$nivelAntigo = $this->session->userdata('nivel');								
@@ -150,7 +149,6 @@ class Texto extends CI_Controller {
 
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
-			$experiencia = $experiencia[0]->experiencia;
 			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
 			if($bonus[0] != NULL){
