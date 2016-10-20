@@ -171,6 +171,7 @@ class Principal extends CI_Controller {
 			$tempoTotal = $this->modelJogador->buscarTempoTotal($codJogador);
 			$experiencia = $this->modelJogador->buscarExperienciaJogador($codJogador);
 			$conquistas = $this->modelJogador->buscarConquistasJogador($codJogador);
+			$avatar = $this->session->userdata('avatar');
 
 
 			$pagina = array('tela' => 'meus-pontos', 
@@ -184,7 +185,8 @@ class Principal extends CI_Controller {
 				'conquistas' =>$conquistas,
 				'linkNovel'=> 'principal/menu', 
 				'linkLogoff'=>'principal/logoff',
-				'conquista' => 0,			
+				'conquista' => 0,
+				'avatar' => $avatar,	
 				);
 			
 			$this->load->view('construtor', $pagina);
