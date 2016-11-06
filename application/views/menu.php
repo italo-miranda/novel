@@ -1,5 +1,5 @@
 	<!-- Aqui é a área do conteúdo -->
-	<div id="conteudo" class="col-md-12 col-xs-12 well">
+	<div id="conteudo" class="col-md-12 col-xs-12">
 		<div class="row centered">
 			<h3 class="titulo-menu centered">Escolha o nível</h3>
 			<br/>

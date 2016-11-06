@@ -265,7 +265,7 @@ class modelJogador extends CI_Model {
 
 	public function subirExperiencia($codJogador, $pontuacao){
 		$experienciaAntiga = $this->buscarExperienciaJogador($codJogador);
-		$experienciaNova = $experienciaAntiga[0]->experiencia + $pontuacao;		
+		$experienciaNova = $experienciaAntiga + $pontuacao;		
 		$this->db->set('experiencia', $experienciaNova);
 		$this->db->where('codJogador', $codJogador);
 		$this->db->update('Jogador');
