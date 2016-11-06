@@ -1,5 +1,5 @@
 ﻿<!-- Aqui é a área do conteúdo -->
-<div id="conteudo" class="col-md-12 col-xs-12 well">
+<div id="conteudo" class="col-md-12 col-xs-12">
 	<div class="row">
 		<div class="col-md-8 coluna-tabelas"">			
 			<?php
@@ -169,7 +169,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
-		               'height':400};
+		               'height':400,
+		           		backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoPalavras'));
@@ -195,7 +196,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
-		               'height':400};
+		               'height':400,
+		           		backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoPalavras'));
@@ -226,7 +228,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
-		               'height':400};
+		               'height':400,
+		           backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoTextos'));
@@ -252,7 +255,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
-		               'height':400};
+		               'height':400,
+		           backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoTextos'));
@@ -284,7 +288,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
-		               'height':400};
+		               'height':400,
+		           backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoTestes'));
@@ -311,7 +316,8 @@
 		// Set chart options
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
-		               'height':400};
+		               'height':400,
+		           backgroundColor: '#ADD8E6'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoTestes'));

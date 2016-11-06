@@ -7,7 +7,7 @@
 	
 			<?php
 				$tamGrafemasBD = count($grafemasCadastrados);
-				$tamGrafemasJogados = count($grafemasJogados);
+				$tamGrafemasJogados = count($grafemasJogados);				
 
 				echo '<div class="row afastado-1pc">';
 
@@ -31,7 +31,7 @@
 							echo '<div class="col-md-12 col-xs-12">';
 								for ($j=0; $j < $tamGrafemasJogados; $j++) { 
 									if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 20){
-										echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';
+										echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';			
 									}								
 								}
 							echo '</div>';	

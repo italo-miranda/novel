@@ -1,6 +1,11 @@
 #pagina-inicial {
 	background: url('../img/logo.png')  no-repeat center fixed;
 	background-size: contain;	
+	background-color: #ADD8E6;
+}
+
+#body {
+	background-color: #ADD8E6;
 }
 
 #painel-dados-usuario{
@@ -33,6 +38,12 @@
 	height: 30px;
 	font-size: 100%;
 	font-weight: bold;
+}
+
+.navbar {
+	background-color: #4682B4;
+	border: none;
+	color: #FFF;
 }
 
 //Fazer as tabelas do google ficarem responsivas
@@ -85,7 +96,7 @@
 }
 
 .historia {
-	min-height: 500px;
+	max-height: 600px;
 }
 
 

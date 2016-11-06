@@ -1,5 +1,5 @@
 
-<div id="conteudo" class="col-md-12 col-xs-12 well">				
+<div id="conteudo" class="col-md-12 col-xs-12">				
 	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('palavra/inserirRodadaPalavra');?>">		
 			<div class="row">
 				<div>
@@ -253,8 +253,7 @@
 	function mostrarSair(){
 		var confirma  =  confirm("Deseja mesmo sair? Sua pontuação não será computada.");
 		if (confirma){
-			url = document.getElementById("url").value;
-			alert(url);
+			url = document.getElementById("url").value;			
 			string = url+"/principal/menu";
 			window.location.href = string;
 		}

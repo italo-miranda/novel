@@ -1,7 +1,5 @@
 <?php
-if($tela =='controle'){
-	$this->load->view('controle');
-}elseif ($tela == 'index') {
+if ($tela == 'index') {
 		$this->load->view($tela);
 	} else {
 		$this->load->view('header');
@@ -12,5 +10,5 @@ if($tela =='controle'){
 	    	$this->load->view($tela);
 		}	
 	$this->load->view('footer');
-	}
+}
 ?>

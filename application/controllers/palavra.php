@@ -129,8 +129,7 @@ class Palavra extends CI_Controller {
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}
 
-			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);
-
+			$inseriu = $this->modelPalavra->inserirRodadaPalavra($dados['codGrafema'], $this->session->userdata('codJogador'), $dados['duracao'], $pontuacao);			
 			$this->modelJogador->subirExperiencia($codJogador, $pontuacao);
 
 			$cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
