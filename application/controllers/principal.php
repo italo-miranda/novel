@@ -238,7 +238,7 @@ class Principal extends CI_Controller {
 		$experiencia = $this->session->userdata('experiencia');			
 
 		$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);						
-
+	
 		$pagina = array(
 		'tela' => 'bonus', 
 		'linkNovel'=> 'principal/menu', 

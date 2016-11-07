@@ -88,6 +88,22 @@
 	font-size: 100%;
 }
 
+#tabela-bonus {
+	font-size: 100%; 
+	border: none;	
+}
+
+#tabela-bonus tr{
+	border: none;
+	border-bottom: none;
+	border-top: none;
+	text-align: center;
+}
+
+#tabela-bonus td:hover {
+	background-color: red;
+}
+
 .tabela-gabarito{
 	width: 80%;
 	padding: 1%;

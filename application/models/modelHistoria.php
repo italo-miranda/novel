@@ -80,8 +80,7 @@ class modelHistoria extends CI_Model {
         $this->db->select('textoBonus');
         $this->db->from('Bonus');
         $this->db->where('codBonus', $codBonus);
-        $retorno = $this->db->get()->result();
-
+        $retorno = $this->db->get()->result();        
         return $retorno;
     }
 
