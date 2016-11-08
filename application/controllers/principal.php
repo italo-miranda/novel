@@ -252,6 +252,8 @@ class Principal extends CI_Controller {
 
 	public function inserirBonus(){
 		$dados = $this->input->post();
-		var_dump($dados);
+
+		$correcao = $this->modelHistoria->corrigirBonus($dados);
+		var_dump($correcao);
 	}
 }

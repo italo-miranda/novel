@@ -71,6 +71,7 @@ class modelHistoria extends CI_Model {
         if(!$jogou){
             $retorno[] = $this->buscarTextoBonus($codBonus[0]->codBonus);
             $retorno[] = $this->buscarPalavraBonus($codBonus[0]->codBonus);
+            $retorno[] = $codBonus;
         }
 
         return $retorno;
@@ -102,4 +103,61 @@ class modelHistoria extends CI_Model {
         return $retorno;
     }
 
+    public function corrigirBonus($dados){
+        $codBonus = $dados['codBonus'];            
+        unset($dados['codBonus']);
+        $palavras = $this->buscarPalavraBonus($codBonus);
+        $posicoes = $this->separarPosicoesBonus($palavras);
+        $cont = 0;
+        foreach ($dados as $key) {
+            $acertou = array_search($key, $posicoes);
+            if($acertou){
+                $cont++;
+                $posicoesCertas[] = $key;
+            }
+        }        
+        $pontuacao = $this->calcularPontuacaoBonus($cont);
+        if ($pontuacao > 0){
+            $palavrasCertas = $this->buscarPalavraInicioFim($codBonus, $posicoesCertas);
+        }
+        $retorno[] = $pontuacao;
+        $retorno[] = $palavrasCertas;
+        return $retorno;
+    }
+
+    public function separarPosicoesBonus($palavras){
+        $retorno = NULL;
+        foreach ($palavras as $key) {
+            $retorno[] = $key->inicio;
+            $retorno[] = $key->fim;
+        }
+        return $retorno;
+    }
+
+    public function calcularPontuacaoBonus($cont){
+        if($cont%2 != 0){
+            $cont--;
+        }
+        return ($cont/2)*50;
+    }
+
+    public function buscarPalavraInicioFim($codBonus, $posicoes){
+        $retorno = array();
+        foreach ($posicoes as $pos) {
+            $this->db->select('palavra');
+            $this->db->from('palavrabonus');
+            $this->db->where('codBonus', $codBonus);
+            $this->db->where('inicio', $pos);
+            $this->db->or_where('fim', $pos);            
+            $palavra = $this->db->get()->result();
+            $se = array_search($palavra[0]->palavra, $retorno);
+            if($se == FALSE){
+                $retorno[] = $palavra[0]->palavra;
+            }
+        }
+        if(!empty($retorno)){
+            unset($retorno[0]);
+        }        
+        return $retorno;
+    }
 }
