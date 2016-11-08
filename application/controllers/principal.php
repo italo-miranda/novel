@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Principal extends CI_Controller {
@@ -252,8 +252,8 @@ class Principal extends CI_Controller {
 
 	public function inserirBonus(){
 		$dados = $this->input->post();
-
-		$correcao = $this->modelHistoria->corrigirBonus($dados);
-		var_dump($correcao);
+		if (count($dados) != 1){
+			$correcao = $this->modelHistoria->corrigirBonus($dados);
+		}			
 	}
 }

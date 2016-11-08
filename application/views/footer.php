@@ -1,4 +1,4 @@
-</div>
+﻿</div>
 
 <!--MODAL DA HISTORIA-->
 

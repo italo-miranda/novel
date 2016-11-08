@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administracao extends CI_Controller {
@@ -29,8 +29,7 @@ class Administracao extends CI_Controller {
 		    $dados = $this->input->post(array('login', 'senha'));
 
 		    //tenta fazer o login
-		    $login = $this->modelAdministracao->fazerLogin($dados['login'], $dados['senha']);
-		   	var_dump($login);
+		    $login = $this->modelAdministracao->fazerLogin($dados['login'], $dados['senha']);		   	
 		    if($login){	        	
 			    	$this->session->set_userdata(array(			    			
 	                    'codAdministrador' => $login['codAdministrador'],	                    

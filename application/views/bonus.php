@@ -1,4 +1,4 @@
-<!-- Aqui e a area do conteudo -->
+﻿<!-- Aqui e a area do conteudo -->
 	<div class="col-md-12 col-xs-12 afastado-1pc vertical-center">
 		<div class="col-md-9 col-xs-12 centered">
 			<form id="form" role="form" method="post" action="<?php echo base_url('principal/inserirBonus');?>">

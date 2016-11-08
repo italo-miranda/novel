@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title>Novel</title>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/estilo.css"); ?>" />
 </head>
@@ -16,7 +16,7 @@
 
 <!-- Aqui começa o conteudo -->
 <div role="main">
-	<div class="col-md-12 col-xs-12">
+	<div class="col-md-12 col-xs-12">	
 
 		
 			

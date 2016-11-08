@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -287,7 +287,7 @@ class modelJogador extends CI_Model {
 
 //ESTATÍSTICAS
 
-	public function buscarGrafemasJogadosPalavra($codJogador){		
+	public function buscarGrafemasJogadosPalavra($codJogador){				
 		$this->db->select('g.tipoGrafema, MAX(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
 		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');

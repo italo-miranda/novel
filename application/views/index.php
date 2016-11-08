@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title>Novel</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/estilo.css"); ?>" />
 	
