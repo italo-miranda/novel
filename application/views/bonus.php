@@ -9,28 +9,28 @@
 						for ($i=0; $i <= 224; $i++) {						
 							if($i==0){
 								echo '<tr>';									
-									echo '<td onclick="clicou(this)">
-										<input type="checkbox" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</td>';
+									echo '<td id="'.$i.'" onclick="clicou('.$i.')">
+										<input type="checkbox" id="'.$i.'" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</input></td>';
 								$j++;
 							} elseif($j == 1){
 								echo '</tr>';
 								echo '<tr>';									
-									echo '<td onclick="clicou(this)">
-										<input type="checkbox" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</td>';		
+									echo '<td id="'.$i.'" onclick="clicou('.$i.')">
+										<input type="checkbox" name="'.$i.'" class="checkbox-bonus"  value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</input></td>';		
 								$j++;
 							}elseif ($j == 15){																
-									echo '<td onclick="clicou(this)">
-										<input type="checkbox" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</td>';
+									echo '<td id="'.$i.'" onclick="clicou('.$i.')">
+										<input type="checkbox" name="'.$i.'" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</input></td>';
 								$j = 1;
 							} else {
 								if ($i == 224){
-									echo '<td onclick="clicou(this)">
-										<input type="checkbox" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</td>';
+									echo '<td id="'.$i.'" onclick="clicou('.$i.')">
+										<input type="checkbox" name="'.$i.'" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</input></td>';
 									$j++;
 									echo '</tr>';
 								}else {
-									echo '<td onclick="clicou(this)">
-										<input type="checkbox" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</td>';
+									echo '<td id="'.$i.'" onclick="clicou('.$i.')">
+										<input type="checkbox" name="'.$i.'" class="checkbox-bonus" value="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</input></td>';
 									$j++;
 								}								
 							}							
@@ -41,23 +41,25 @@
 			<div class="row">
 				<div class="col-xs-2 col-md-2"></div>
 				<div class="col-xs-8 col-md-8">
-					<input class="btn btn-block btn-success centered" type="submit" name="enviar">
+					<button class="btn btn-block btn-success centered" type="submit">Enviar</button>
 				</div>
 				<div class="col-xs-2 col-md-2"></div>
 			</div>
 		</div>
 	</form>
 <script type="text/javascript">
-
 	desaparecer();
 	function desaparecer(){
 		$(".checkbox-bonus").hide();
 	}
-	function clicou(id){
-		if (id.style.background == "yellow"){
-			id.style.background = "#ADD8E6";
+	function clicou(id){		
+		if (document.getElementById(id).style.background == "yellow"){
+			document.getElementById(id).style.background = "#ADD8E6";
+			document.getElementByName(id).checked = false;
+
 		} else{
-			id.style.background = "yellow";
+			document.getElementById(id).style.background = "yellow";
+			document.getElementById(id).checked = true;		
 		}		
 	}
 </script>

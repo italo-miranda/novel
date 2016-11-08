@@ -104,6 +104,10 @@
 	background-color: red;
 }
 
+#tabela-bonus td:visited {
+	background-color: red;
+}
+
 .tabela-gabarito{
 	width: 80%;
 	padding: 1%;
