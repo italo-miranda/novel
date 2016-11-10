@@ -30,11 +30,11 @@
 				    </div>
 
 				    <!-- Left and right controls -->
-				    <a class="left carousel-control" href="#carrosselHistoria" role="button" data-slide="prev">
+				    <a class="left carousel-control" onclick="i--" href="#carrosselHistoria" role="button" data-slide="prev">
 				      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 				      <span class="sr-only">Previous</span>
 				    </a>
-				    <a class="right carousel-control" href="#carrosselHistoria" role="button" data-slide="next">
+				    <a class="right carousel-control" onclick="fecharHistoria()" href="#carrosselHistoria" role="button" data-slide="next">
 				      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				      <span class="sr-only">Next</span>
 				    </a>
@@ -50,7 +50,7 @@
 	    </div>
 	  </div>
 	</div>
-
+	<input type="hidden" name="qtd" id="qtd" value="<?php echo $abrirModalHistoria[1]; ?>">
 
 <!-- MODAL DA CONQUISTA -->
 
@@ -110,3 +110,13 @@
 	}
 
 ?>
+
+<script type="text/javascript">
+	i = 0;
+	function fecharHistoria(){
+		i++;
+		if(i == document.getElementById("qtd").value){
+			$("#modalHistoria").modal("hide");
+		}		
+	}
+</script>

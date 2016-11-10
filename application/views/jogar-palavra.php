@@ -175,11 +175,11 @@
 				    </div>
 
 				    <!-- Left and right controls -->
-				    <a class="left carousel-control" href="#carrosselRegra" role="button" data-slide="prev">
+				    <a class="left carousel-control" onclick="i--" href="#carrosselRegra" role="button" data-slide="prev">
 				      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 				      <span class="sr-only">Previous</span>
 				    </a>
-				    <a class="right carousel-control" href="#carrosselRegra" role="button" data-slide="next">
+				    <a class="right carousel-control" onclick="fecharRegra()" href="#carrosselRegra" role="button" data-slide="next">
 				      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				      <span class="sr-only">Next</span>
 				    </a>
@@ -248,6 +248,14 @@
 
 	function mostrarRegra(){		
 		$("#modalRegra").modal();		
+	}
+
+	i = 0;
+	function fecharRegra(){
+		i++;
+		if(i == 3){
+			$("#modalRegra").modal("hide");
+		}		
 	}
 
 	function mostrarSair(){
