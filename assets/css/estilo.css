@@ -1,11 +1,50 @@
 #pagina-inicial {
-	background: url('../img/logo.png')  no-repeat center fixed;
-	background-size: contain;	
+	background: url('../img/logo.png');
+	background-repeat:no-repeat;
+	background-size: cover;
 	background-color: #ADD8E6;
 }
-
+.c .modal-content{
+	border-radius: 0px!important;
+	background-color: #263CFF;
+}
+.c .modal-header{
+	text-transform: uppercase;
+	color: #FFFFFF;
+	font-size: 30px;
+}
+.c .modal-header {
+	border: none;
+}
+.c input, .c button {
+	border-radius: 0px;
+}
+.c button{
+	margin-top: 40px;
+}
+.c .s{
+	color: 19AAFF;
+	border-radius: 0px!important;
+	margin-top: 10px!important;
+}
+.btn-success{
+	background-color: #27ae60!important;
+}
+.c h4{
+	color: #FFFFFF;
+}
+.c .t{
+	color: #FFFFFF;
+	text-decoration: underline;
+	border-radius: 0px!important;
+	margin-top: 10px!important;
+}
 #body {
-	background-color: #ADD8E6;
+	background: #263cff; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #263cff 0%, #2989d8 50%, #207cca 51%, #19aaff 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg, #263cff 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg, #263cff 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#263cff', endColorstr='#19aaff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #painel-dados-usuario{
@@ -33,6 +72,9 @@
 	height: 50px;
 	font-size: 90%;
 }
+.ii:hover{
+	border-color: #FFFFFF!important;
+}
 .input-texto{	
 	width: 5%;
 	height: 30px;
@@ -45,7 +87,26 @@
 	border: none;
 	color: #FFF;
 }
-
+.cc{
+	background-color: transparent!important;
+	width: 100%!important;
+	border-radius: 0px!important;
+	text-transform: uppercase!important;
+}
+.navbar-default .navbar-toggle {
+    border:none;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #3A17E8;
+    height: 10px;
+    width: 40px;
+}
+.aa:hover{
+	border: 5px solid rgba(250,245,250,1);
+	-webkit-box-shadow: 0px 6px 21px 5px rgba(250,245,250,1);
+	-moz-box-shadow: 0px 6px 21px 5px rgba(250,245,250,1);
+	box-shadow: 0px 6px 21px 5px rgba(250,245,250,1);
+}
 //Fazer as tabelas do google ficarem responsivas
 
 .chart {
@@ -201,4 +262,22 @@
 
   display: flex;
   align-items: center;
+}
+.b{
+	background-color: #263CFF!important;
+	border: 5px solid #1764E8;
+	border-radius: 50%;
+	width: 120px;
+	padding: 30px 7px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.b:hover{
+	background-color: #263CFF!important;
+	border: 5px solid #FFFFFF;
+	border-radius: 50%;
+	width: 120px;
+	padding: 30px 7px;
+	text-transform: uppercase;
+	font-weight: bold;
 }
