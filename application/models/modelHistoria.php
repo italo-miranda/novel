@@ -66,7 +66,7 @@ class modelHistoria extends CI_Model {
         $this->db->where('experienciaNecessaria <=', $experiencia);
         $codBonus = $this->db->get()->result();
 
-        $jogou = $this->verificarJogadorBonus($codJogador, $codBonus[0]->codBonus);
+        $jogou = $this->verificarJogadorBonus($codJogador, $codBonus[0]->codBonus);        
 
         if(!$jogou){
             $retorno[] = $this->buscarTextoBonus($codBonus[0]->codBonus);
@@ -118,16 +118,40 @@ class modelHistoria extends CI_Model {
                 $posicoesCertas[] = $key;
             }
         }  
-        $palavrasCertas = NULL;
+        $palavrasCertas = NULL;        
         $pontuacao = $this->calcularPontuacaoBonus($cont);
         if ($pontuacao > 0){
-            $palavrasCertas = $this->buscarPalavraInicioFim($codBonus, $posicoesCertas);
-        }
+            $palavrasCertas = $this->buscarPalavraInicioFim($codBonus, $posicoesCertas);            
+        } 
+
+        $this->inserirRodadaBonus($codBonus, $pontuacao);
+
         $retorno[] = $nivel;
         $retorno[] = $pontuacao;
         $retorno[] = $palavrasCertas;
         return $retorno;
     }   
+
+    public function inserirRodadaBonus($codBonus, $pontuacao){
+        $codJogador = $this->session->userdata('codJogador');
+        $experiencia = $this->buscarExperienciaJogador() +  $pontuacao;
+        
+        $string = array('codJogador'=>$codJogador, 'codBonus'=>$codBonus);
+        $this->db->insert('JogadorBonus', $string);
+        
+        $string = array('experiencia'=>$experiencia); 
+        $this->db->where('codJogador', $codJogador);
+        $this->db->update('Jogador', $string);
+    }
+
+    public function buscarExperienciaJogador(){
+        $codJogador = $this->session->userdata('codJogador');
+        $this->db->select('experiencia');
+        $this->db->from('Jogador');
+        $this->db->where('codJogador', $codJogador);
+        $retorno = $this->db->get()->result();
+        return $retorno[0]->experiencia;
+    }
 
     public function separarPosicoesBonus($palavras){
         $retorno = NULL;

@@ -8,7 +8,8 @@
 			<form id="form" role="form" method="post" action="<?php echo base_url('principal/inserirBonus');?>">
 				<div class="row">
 					<table id="tabela-bonus" class="centered table">					
-						<?php							
+						<?php
+							
 							echo '<input type="hidden" name="codBonus" value="'.$bonus[2][0]->codBonus.'">';
 							echo '<input type="hidden" name="nivel" value="'.$nivel.'">';
 							$j = 1;						
