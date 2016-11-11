@@ -29,14 +29,7 @@ class Palavra extends CI_Controller {
 				$abrirModalHistoria[] = $cenas[0]->quadros;
 			} else {
 				$abrirModalHistoria = FALSE;
-			}
-			
-			$experiencia = $this->session->userdata('experiencia');
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);				
-			
-			if($bonus[0] != NULL){
-				redirect('principal/bonus');
-			} else { 
+			}				
 				$pagina = array(
 				'tela' => 'menu-palavra', 
 				'linkNovel'=> 'principal/menu', 
@@ -53,8 +46,7 @@ class Palavra extends CI_Controller {
 				'grafemasJogados' => $grafemasJogados,
 				'grafemasCadastrados' =>$grafemasCadastrados,
 				);
-				$this->load->view('construtor', $pagina);
-			}	
+				$this->load->view('construtor', $pagina);	
         } else {
 			redirect('principal/index');
 		}
@@ -63,35 +55,43 @@ class Palavra extends CI_Controller {
 	public function jogarPalavra() 	{
 			
 		if ($this->session->userdata('logged_in')) {
-        	$grafema = $this->uri->segment(3);
-        	$grafema = urldecode($grafema);
-			$retorno = $this->modelPalavra->sortearPalavras($grafema);
-			$regra = $this->modelPalavra->buscarRegraPeloTipo($grafema);
 
-			if($retorno){
-
-				$palavrasSorteadas = $retorno[0];
-				$codGrafema = $retorno[1];				
-
-				foreach ($palavrasSorteadas as $key) {			 			
-					$palavras[] = $key[0];					
-				}
-
-				$pagina = array('tela' => 'jogar-palavra', 
-					'linkNovel'=> 'principal/menu', 
-					'linkLogoff'=>'principal/logoff', 
-					'palavras'=> $palavras,
-					'grafema'=> $grafema, 
-					'codGrafema' => $codGrafema,
-					'abrirModalRegra' => TRUE,
-					'abrirModalHistoria'=> FALSE,
-					'conquista' => 0,
-					'regra' => $regra,
-					);
-
-				$this->load->view('construtor', $pagina);
+			$experiencia = $this->session->userdata('experiencia');
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);				
+			
+			if($bonus[0] != NULL){
+				redirect('principal/bonus/0');
 			} else {
-				redirect('palavra/index/TRUE');
+	        	$grafema = $this->uri->segment(3);
+	        	$grafema = urldecode($grafema);
+				$retorno = $this->modelPalavra->sortearPalavras($grafema);
+				$regra = $this->modelPalavra->buscarRegraPeloTipo($grafema);
+
+				if($retorno){
+
+					$palavrasSorteadas = $retorno[0];
+					$codGrafema = $retorno[1];				
+
+					foreach ($palavrasSorteadas as $key) {			 			
+						$palavras[] = $key[0];					
+					}
+
+					$pagina = array('tela' => 'jogar-palavra', 
+						'linkNovel'=> 'principal/menu', 
+						'linkLogoff'=>'principal/logoff', 
+						'palavras'=> $palavras,
+						'grafema'=> $grafema, 
+						'codGrafema' => $codGrafema,
+						'abrirModalRegra' => TRUE,
+						'abrirModalHistoria'=> FALSE,
+						'conquista' => 0,
+						'regra' => $regra,
+						);
+
+					$this->load->view('construtor', $pagina);
+				} else {
+					redirect('palavra/index/TRUE');
+				}
 			}
         } else {
 			redirect('principal/index');
@@ -148,11 +148,7 @@ class Palavra extends CI_Controller {
 
 			$grafemasJogados = $this->modelJogador->buscarGrafemasJogadosPalavra($codJogador);	
 			$grafemasCadastrados = $this->modelJogador->buscarListaGrafemas();
-			
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);			
-			if($bonus[0] != NULL){
-				redirect('principal/bonus');
-			} else {
+				
 
 				$pagina = array(
 					'tela' => 'menu-palavra',
@@ -173,7 +169,6 @@ class Palavra extends CI_Controller {
 					'grafemasCadastrados' => $grafemasCadastrados,
 					);
 				$this->load->view('construtor', $pagina);		
-			}
         } else {
         	redirect('principal/index');
 		}	

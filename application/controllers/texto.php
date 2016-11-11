@@ -27,13 +27,7 @@ class Texto extends CI_Controller {
 			$codJogador = $this->session->userdata('codJogador');
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
-			
-			$experiencia = $this->session->userdata('experiencia');
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
-
-			if($bonus[0] != NULL){
-					redirect('principal/bonus');
-			} else {
+						
 				$pagina = array('tela' => 'menu-texto', 
 					'linkNovel'=> 'principal/menu', 
 					'linkLogoff'=>'principal/logoff', 
@@ -46,7 +40,6 @@ class Texto extends CI_Controller {
 					);
 
 				$this->load->view('construtor', $pagina);
-			}
         } else {
 			redirect('principal/menu');
 		}
@@ -56,41 +49,48 @@ class Texto extends CI_Controller {
 	{
 		if ($this->session->userdata('logged_in')) {
 			
-			$grafemas = $this->uri->segment(3);
-			$grafemas = urldecode($grafemas);
+			$experiencia = $this->session->userdata('experiencia');
+			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
-			$texto = $this->modelTexto->sortearTexto($grafemas);
-			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
-			$codJogador = $this->session->userdata('codJogador');
-			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
+			if($bonus[0] != NULL){
+					redirect('principal/bonus/1');
+			} else {
+				$grafemas = $this->uri->segment(3);
+				$grafemas = urldecode($grafemas);
 
-			if($texto){
-				$codTexto = $texto[0]->codTexto;				
+				$texto = $this->modelTexto->sortearTexto($grafemas);
+				$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
+				$codJogador = $this->session->userdata('codJogador');
+				$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
-				$pagina = array('tela' => 'jogar-texto', 
-				'linkNovel'=> 'principal/menu', 
-				'linkLogoff'=>'principal/logoff',
-				'texto' => $texto,
-				'grafemas' => $grafemas,
-				'conquista' => 0,
-				'abrirModalHistoria' => FALSE,
-				'grafemasTextos' => $grafemasTextos,
-				'grafemasJogados' => $grafemasJogados
-				);
-			
-			$this->load->view('construtor', $pagina); 
-			} else{				
-				$pagina = array('tela' => 'menu-texto', 
+				if($texto){
+					$codTexto = $texto[0]->codTexto;				
+
+					$pagina = array('tela' => 'jogar-texto', 
 					'linkNovel'=> 'principal/menu', 
-					'linkLogoff'=>'principal/logoff', 
-					'abrirModalHistoria'=> FALSE, 
-					'abrirModalGabarito' => FALSE,	
-					'erro' => TRUE,
+					'linkLogoff'=>'principal/logoff',
+					'texto' => $texto,
+					'grafemas' => $grafemas,
 					'conquista' => 0,
+					'abrirModalHistoria' => FALSE,
 					'grafemasTextos' => $grafemasTextos,
 					'grafemasJogados' => $grafemasJogados
-				);
-			$this->load->view('construtor', $pagina); 
+					);
+				
+				$this->load->view('construtor', $pagina); 
+				} else{				
+					$pagina = array('tela' => 'menu-texto', 
+						'linkNovel'=> 'principal/menu', 
+						'linkLogoff'=>'principal/logoff', 
+						'abrirModalHistoria'=> FALSE, 
+						'abrirModalGabarito' => FALSE,	
+						'erro' => TRUE,
+						'conquista' => 0,
+						'grafemasTextos' => $grafemasTextos,
+						'grafemasJogados' => $grafemasJogados
+					);
+				$this->load->view('construtor', $pagina); 
+				}
 			}			          
         } else {	
 			redirect('principal/index');
@@ -149,11 +149,7 @@ class Texto extends CI_Controller {
 
 			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
-
-			if($bonus[0] != NULL){
-					redirect('principal/bonus');
-			} else {
+			
 				$pagina = array(
 					'tela' => 'menu-texto',
 					'linkNovel'=> 'principal/menu', 
@@ -170,8 +166,7 @@ class Texto extends CI_Controller {
 					'grafemasTextos' => $grafemasTextos,
 					'grafemasJogados' => $grafemasJogados			
 					);
-				$this->load->view('construtor', $pagina);
-			}
+				$this->load->view('construtor', $pagina);	
 		} else {
 			redirect('principal/index');
 		}

@@ -237,6 +237,8 @@ class Principal extends CI_Controller {
 		$codJogador = $this->session->userdata('codJogador');						
 		$experiencia = $this->session->userdata('experiencia');			
 
+		$nivel = $this->uri->segment(3);
+	    $nivel = urldecode($nivel);
 		$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);						
 	
 		$pagina = array(
@@ -245,15 +247,30 @@ class Principal extends CI_Controller {
 		'linkLogoff'=>'principal/logoff', 				
 		'abrirModalHistoria'=> FALSE,												
 		'conquista' => 0,
-		'bonus'=>$bonus,																
+		'bonus'=>$bonus,
+		'nivel'=>$nivel,
 		);
 		$this->load->view('construtor', $pagina);
 	}
 
 	public function inserirBonus(){
-		$dados = $this->input->post();
-		if (count($dados) != 1){
+		$dados = $this->input->post();		
+		$correcao = NULL;
+		if (count($dados) != 2){
 			$correcao = $this->modelHistoria->corrigirBonus($dados);
-		}			
+			$tela = NULL;
+			switch ($correcao[0]) {
+				case '1':
+					$tela = "texto";
+					break;
+				case '2':
+					$tela = "teste";
+				default:
+					$tela = "palavra";
+					break;
+			}
+			unset($correcao[0]);
+			var_dump($correcao);
+		}		
 	}
 }

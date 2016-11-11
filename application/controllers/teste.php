@@ -36,11 +36,7 @@ class Teste extends CI_Controller {
 			$grafemasCadastrados = $this->modelJogador->buscarListaTestes();			
 
 			$experiencia = $this->session->userdata('experiencia');
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
-
-			if($bonus[0] != NULL){
-					redirect('principal/bonus');
-			} else {			
+		
 				$pagina = array(
 					'tela' => 'menu-teste', 
 					'linkNovel'=> 'principal/menu', 
@@ -57,47 +53,51 @@ class Teste extends CI_Controller {
 					'grafemasCadastrados' => $grafemasCadastrados,
 					);
 				$this->load->view('construtor', $pagina);
-			}
         } else {
 			redirect('principal/index');
 		}
 	}
 
-	public function jogarTeste() 	{
+	public function jogarTeste(){
 			
 		if ($this->session->userdata('logged_in')) {
-        	$grafema = $this->uri->segment(3);
-        	$grafema = urldecode($grafema);
-			$retorno = $this->modelTeste->sortearTestes($grafema);			
+        	$experiencia = $this->session->userdata('experiencia');
+        	$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
-			if($retorno){
+			if($bonus[0] != NULL){
+					redirect('principal/bonus/2');
+			} else {	
+	        	$grafema = $this->uri->segment(3);
+	        	$grafema = urldecode($grafema);
+				$retorno = $this->modelTeste->sortearTestes($grafema);			
 
-				$testesSorteados = $retorno[0];
-				$codGrafema = $retorno[1];
-				$alternativas = $retorno[2];				
+				if($retorno){
+					$testesSorteados = $retorno[0];
+					$codGrafema = $retorno[1];
+					$alternativas = $retorno[2];				
 
-				foreach ($testesSorteados as $key) {			 			
-					$testes[] = $key[0];					
+					foreach ($testesSorteados as $key) {			 			
+						$testes[] = $key[0];					
+					}
+
+					$pagina = array('tela' => 'jogar-teste', 
+						'linkNovel'=> 'principal/menu', 
+						'linkLogoff'=>'principal/logoff', 
+						'testes'=> $testes,
+						'codGrafema' => $codGrafema,
+						'conquista' => 0,					
+						'alternativas' => $alternativas,
+						'abrirModalHistoria'=> FALSE,
+						);
+
+					$this->load->view('construtor', $pagina);
+				}else {				
+					redirect('teste/index/TRUE');
 				}
-
-
-				$pagina = array('tela' => 'jogar-teste', 
-					'linkNovel'=> 'principal/menu', 
-					'linkLogoff'=>'principal/logoff', 
-					'testes'=> $testes,
-					'codGrafema' => $codGrafema,
-					'conquista' => 0,					
-					'alternativas' => $alternativas,
-					'abrirModalHistoria'=> FALSE,
-					);
-
-				$this->load->view('construtor', $pagina);
-			} else {
-				redirect('teste/index/TRUE');
-			}
-        } else {
+        } 
+	} else {
 			redirect('principal/index');
-		}		
+		}
 	}
 
 	public function inserirRodadaTeste(){
@@ -147,11 +147,7 @@ class Teste extends CI_Controller {
 			$this->session->set_userdata('experiencia', $experiencia);			
 			$conquista = $this->modelHistoria->buscarNovaConquista($experiencia, $codJogador);
 			$nomeConquista = $this->modelHistoria->buscarNomeConquista($conquista);
-			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
-
-			if($bonus[0] != NULL){
-					redirect('principal/bonus');
-			} else {				
+			
 				$pagina = array(
 					'tela' => 'menu-teste',
 					'linkNovel'=> 'principal/menu', 
@@ -168,7 +164,6 @@ class Teste extends CI_Controller {
 					'grafemasCadastrados' => $grafemasCadastrados,			
 					);
 				$this->load->view('construtor', $pagina);
-			}
         } else {
         	redirect('principal/index');
 		}	

@@ -106,6 +106,8 @@ class modelHistoria extends CI_Model {
     public function corrigirBonus($dados){
         $codBonus = $dados['codBonus'];            
         unset($dados['codBonus']);
+        $nivel = $dados['nivel'];
+        unset($dados['nivel']);
         $palavras = $this->buscarPalavraBonus($codBonus);
         $posicoes = $this->separarPosicoesBonus($palavras);
         $cont = 0;
@@ -115,15 +117,17 @@ class modelHistoria extends CI_Model {
                 $cont++;
                 $posicoesCertas[] = $key;
             }
-        }        
+        }  
+        $palavrasCertas = NULL;
         $pontuacao = $this->calcularPontuacaoBonus($cont);
         if ($pontuacao > 0){
             $palavrasCertas = $this->buscarPalavraInicioFim($codBonus, $posicoesCertas);
         }
+        $retorno[] = $nivel;
         $retorno[] = $pontuacao;
         $retorno[] = $palavrasCertas;
         return $retorno;
-    }
+    }   
 
     public function separarPosicoesBonus($palavras){
         $retorno = NULL;
