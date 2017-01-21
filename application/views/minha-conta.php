@@ -6,7 +6,15 @@
 							<div class="row">
 								<h1 class="titulo-menu centered">Seus dados</h1>
 							</div>
-							<input class="centered" type="radio" name="edita" onclick="permitirEdicao()" />Editar							
+
+							<div class="row">
+								<div class="form-group centered">
+									<div class="col-md-12 col-xs-12 habilitar-edicao">
+										<input class="centered" type="radio" name="edita" onclick="permitirEdicao()" />Habilitar Edição	
+										</div>								    
+								</div>
+							</div>						
+							
 							<form class="form-vertical" id="form" role="form" method="post" action="<?php echo base_url('principal/editarCadastro');?>">
 							  	<div class="row">
 							  		<div class="form-group centered">
@@ -59,7 +67,7 @@
 								  	</div>
 							  	</div>							  	
 								<div class="row centered afastado-1pc">
-									<button type="button" onclick="verificarSenhas()" id="botaoEditar" class="btn btn-lg btn-success">Editar</button>
+									<button type="button" onclick="verificarSenhas()" id="botaoEditar" class="btn btn-lg btn-success col-lg-7 pull-right botao_editar">Editar</button>
 									<button type="submit" id="enviarEdicao" ></button>
 								</div>
 							</form>																				

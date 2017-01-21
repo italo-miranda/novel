@@ -245,11 +245,6 @@
 .afastado-1pc{
 	padding: 1%;
 }
-
-.img-texto{
-	opacity: 0.3;
-}
-
 .img-texto:hover{
 	opacity: 1;
 }
@@ -307,10 +302,107 @@ h5{
 	font-size: 40px;
 	text-shadow: 2px 2px #000000;
 }
-h2{
+h2, .titulo-menu{
 	font-family: 'Bangers', cursive!important;
 	letter-spacing: 5px;
 	font-size: 40px;
 	text-shadow: 2px 2px #000000;
 	color: #FFFFFF;
+}
+.conquistas{
+	font-size: 30px;
+	color: #FFFFFF;
+}
+.imagem img{
+	width: 200px;
+	margin: 0 auto;
+}
+.titulo-menu{
+	padding: 20px;
+}
+.habilitar-edicao{
+	font-family: 'Bangers', cursive!important;
+	font-size: 20px;
+	padding: 20px;
+	text-shadow: 2px 2px #000000;
+	color: #FFFFFF;
+}
+.botao_editar{
+	width: 395px;
+	text-transform: uppercase;
+}
+label{
+	color: #FFFFFF;
+}
+.modal-footer button{
+	background-color: #3498db;
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
+.modal-footer button:hover{
+	background-color: #2980b9;
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
+#tempo{
+	font-family: 'Bangers', cursive!important;
+	font-size: 20px;
+	text-shadow: 2px 2px #000000;
+	color: #FFFFFF;
+	width: 90px;
+}
+.relogio{
+	color: #FFFFFF;
+	font-size: 20px;
+	text-shadow: 2px 2px #000000;
+}
+.enunciado{
+	color: #FFFFFF;
+	text-align: justify;
+}
+.tamanho{
+	font-size: 30px;
+}
+.centralizar{
+	text-align: center!important;
+}
+.alternativasTeste{
+	text-align: left!important;
+}
+.branco{
+	color: #FFFFFF;
+	font-size: 20px;
+}
+.formatacao{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif!important;
+	letter-spacing: 0px!important;
+	font-size: 20px!important;
+	text-shadow: 0px 0px #000000;
+	color: #000000!important;
+}
+.title{
+	font-family: 'Bangers', cursive!important;
+	padding: 20px;
+	text-shadow: 2px 2px #000000;
+	color: #FFFFFF;
+}
+button{
+	text-transform: uppercase!important;
+}
+.justificado{
+	text-align: left!important;
+	font-size: 25px!important;
+	text-shadow: 0px 0px #000000;
+}
+#palavraIncompleta{
+	color: #FFFFFF;
+}
+h4{
+	font-family: 'Bangers', cursive!important;
+	letter-spacing: 5px;
+	text-shadow: 0px 0px #000000;
+}
+input{
+	color: #000000;
+	font-size: 25px!important;
 }

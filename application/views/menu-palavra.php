@@ -23,7 +23,7 @@
 								$url = 'palavra/jogarPalavra/'.$grafemasCadastrados[$i]->tipoGrafema;
 								echo '<a href="'.base_url($url).'">';
 									$url = 'assets/img/grafemas/palavra/'.$grafemasCadastrados[$i]->tipoGrafema.'.png';
-									echo '<img class="img-responsive" src="'.base_url($url).'">';		
+									echo '<img class="img-responsive aa" src="'.base_url($url).'">';		
 								echo '</a>';
 							echo '</div>';
 						echo '</div>';
@@ -31,7 +31,7 @@
 							echo '<div class="col-md-12 col-xs-12">';
 								for ($j=0; $j < $tamGrafemasJogados; $j++) { 
 									if (($grafemasJogados[$j]->tipoGrafema == $grafemasCadastrados[$i]->tipoGrafema) && $grafemasJogados[$j]->pontuacao > 20){
-										echo '<span class="glyphicon glyphicon-check" aria-hidden="true"/>';			
+										echo '<span class="glyphicon glyphicon-check branco" aria-hidden="true"/>';			
 									}								
 								}
 							echo '</div>';	
@@ -51,15 +51,15 @@
   	<div class="modal fade" id="modalGabarito" role="dialog">
 	    <div class="modal-dialog modal-lg">
 	      <div class="modal-content">
-	        <div class="modal-header">
+	        <div class="modal-header" style="background-color: #3498db;">
 	          	<button type="submit" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">Veja seu desempenho!</h4>
+	          <h4 class="modal-title title" style="font-size: 40px;">Veja seu desempenho!</h4>
 	        </div>
 	        <input type="hidden" id="inputs" name="inputs" value=""/>
 	        <div class="modal-body">          
 					<?php
 						echo '<div class="table-responsive">';									
-							echo '<table class="centered tabela-gabarito table-bordered table-striped">';
+							echo '<table class="centered tabela-gabarito table table-striped">';
 								echo '<tr>';
 									echo '<th class="titulo"> Sua resposta </th>';
 									echo '<th class="titulo"> Gabarito </th>';
@@ -78,7 +78,7 @@
 								}
 							echo '</table>';
 						echo '</div>';
-						echo '<p class="centered afastado-1pc" > Sua pontuação foi '.$pontuacao. ' pontos!</p>';						
+						echo '<h4 class="centered afastado-1pc" > Sua pontuação foi '.$pontuacao. ' pontos!</h4>';						
 					?>			
 	        </div>
 		    <div class="row centered">

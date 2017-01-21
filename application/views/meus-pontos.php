@@ -72,7 +72,7 @@
 			?>
 		</div>
 		
-		<div class="col-md-4 coluna-conquistas">
+		<div class="col-md-4 coluna-conquistas imagem">
 			<?php
 			$horas = 0;
 			$segundos = $tempoTotal[0]->tempoTotal%60;
@@ -103,7 +103,7 @@
 			echo '</div>';
 
 			echo '<div class="row">';						
-					echo '<h3 class="centered afastado-1pc">Conquistas do jogador</h3>';
+					echo '<h3 class="centered afastado-1pc conquistas">Conquistas do jogador</h3>';
 				echo '</div>';
 			$i = 0;
 			foreach ($conquistas as $key) {				
@@ -111,7 +111,7 @@
 						echo '<h5 class="btn" onclick="abrirConquista'.$key->codConquista.'()">'.$key->nomeConquista.'</h5>';
 				echo '</div>';
 				echo '<div class="row">';	
-						echo '<img class="img-responsive" id="conquista'.$key->codConquista.'" src="'.base_url('assets/img/conquistas/'.$avatar.'/conquista'.$key->codConquista).'" onclick="abrirConquista'.$key->codConquista.'()">';
+						echo '<img class="img-responsive" id="conquista'.$key->codConquista.'" src="'.base_url('assets/img/conquistas/'.$avatar.'/conquista'.$key->codConquista).'.png" onclick="abrirConquista'.$key->codConquista.'()">';
 						echo '<script type="text/javascript">';
 							echo '$("#conquista'.$key->codConquista.'").hide();';
 							echo 'function abrirConquista'.$key->codConquista.'(){';

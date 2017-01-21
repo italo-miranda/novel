@@ -1,8 +1,8 @@
 ﻿<!-- Aqui e a area do conteudo -->
 	<div class="col-md-12 col-xs-12 afastado-1pc vertical-center">
 		<div class="col-md-9 col-xs-12 centered">
-			<div class="row centered">
-				<p><span class="glyphicon glyphicon-time"></span>
+			<div class="row centered col-md-2 col-md-offset-4">
+				<p><span class="glyphicon glyphicon-time relogio"></span>
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 			</div>
 			<form id="form" role="form" method="post" action="<?php echo base_url('principal/inserirBonus');?>">
@@ -47,8 +47,8 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-2 col-md-2"></div>
-					<div class="col-xs-8 col-md-8">
-						<button class="btn btn-block btn-success centered" id="enviar" type="submit">Enviar</button>
+					<div class="col-xs-8 col-md-4 col-md-offset-2">
+						<button class="btn btn-block btn-success centered" id="enviar" type="submit">Responder</button>
 					</div>
 					<div class="col-xs-2 col-md-2"></div>
 				</div>

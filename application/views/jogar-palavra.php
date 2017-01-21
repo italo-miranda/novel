@@ -3,14 +3,14 @@
 	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('palavra/inserirRodadaPalavra');?>">		
 			<div class="row">
 				<div>
-					<button type="button" id="botaoMostrarRegra" class="btn btn-primary" onclick="mostrarRegra()">Ver os ensinamentos do mestre Exímio</button>
+					<button type="button" id="botaoMostrarRegra" class="btn btn-warning" onclick="mostrarRegra()">Ver os ensinamentos do mestre Exímio</button>
 					<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair do treinamento</button>
 				</div>
 				<div id="carrosselPalavras" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
 					<div class="row" style="padding: 1%;">
 						<div class="col-md-8 col-xs-12 centered">			  				
 			  				<div class="centered col-md-12 col-xs-12">
-								<p><span class="glyphicon glyphicon-time"></span>
+								<p><span class="glyphicon glyphicon-time relogio"></span>
 								<input type="text" id="tempo" name="tempo" disabled=""></p>
 								<input type="hidden" id="duracao" name="duracao" value="0">
 								<input type="hidden" id="abrirModalRegra" value="<?php echo ($abrirModalRegra); ?>">
@@ -54,7 +54,7 @@
 												} else {
 													echo '<div class="col-md-2 col-xs-2"></div>';
 													echo '<div class="col-md-8 col-xs-8">';
-														echo "<p id="."enunciado"."><h3>". $p->enunciado."</h3></p>";		
+														echo "<p class="."enunciado"."><h3 class='tamanho justificado'>". $p->enunciado."</h3></p>";		
 												}
 													echo '</div>';
 													echo '<div class="col-md-2 col-xs-2"></div>';
@@ -65,7 +65,7 @@
 													$palavraDividida = explode("_", $p->palavraIncompleta);
 													echo '<h1 id="palavraIncompleta">';
 														echo $palavraDividida[0];
-														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required">';
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required" maxlength="2">';
 														echo $palavraDividida[1];
 													echo '</h1>';
 												echo '</div>';
@@ -129,7 +129,7 @@
 	        	<div id="carrosselRegra" class="carousel slide"  data-ride="carousel" data-interval="false">
 
 				    <!-- Wrapper for slides -->
-				    <div class="carousel-inner" role="listbox" >				    
+				    <div class="carousel-inner" role="listbox">				    
 					    <?php 
 				    	
 					    	$array[] = $regra[0]->regra;

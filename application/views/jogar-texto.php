@@ -3,12 +3,12 @@
 		<div class="row">
 			<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair do treinamento</button>
 			<div class="col-md-8 col-xs-12 centered">									
-				<p><span class="glyphicon glyphicon-time"></span>
+				<p><span class="glyphicon glyphicon-time relogio"></span>
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 				<input type="hidden" id="duracao" name="duracao" value="0">
 				<?php 
 					echo '<div class="row">';
-						echo '<h1> Preencha os campos com ';
+						echo '<h1 class="title"> Preencha os campos com ';
 							$grafemasUnderline = explode('&', $grafemas);
 							$tamanhoUnderline = count($grafemasUnderline);							
 							for ($i = 0; $i < $tamanhoUnderline; $i++) {
@@ -26,7 +26,7 @@
 							}
 						echo'</h1>';
 					echo '</div>';
-					echo '<h2 id="paragrafoTexto">';	
+					echo '<h2 class="enunciado formatacao">';	
 						$enunciado = explode("_", $texto[0]->textoIncompleto);
 						$tamanho = count($enunciado);
 						for ($i = 0; $i < $tamanho; $i++){

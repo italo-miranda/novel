@@ -26,7 +26,7 @@
 										$url = 'texto/jogarTexto/'.$grafemas[$i];
 										echo '<a href="'.base_url($url).'">';
 											$url = 'assets/img/grafemas/texto/'.$grafemas[$i].'.png';
-											echo '<img class="img-texto img-responsive centered" src="'.base_url($url).'">';
+											echo '<img class="img-texto img-responsive centered aa" src="'.base_url($url).'">';
 										echo '</a>';
 									echo '</div>';
 								echo '</div>';												

@@ -14,7 +14,8 @@ class Principal extends CI_Controller {
 	public function index()
 	{		
 		if ($this->session->userdata('logged_in')) {			
-            $this->logoff();
+            //$this->logoff();
+            redirect('principal/menu');
         } else {        	
 			$pagina = array('tela' => 'index', 'erro' => FALSE, 'abrirModalHistoria'=> FALSE, 'enviou' =>  TRUE, 'email'=>NULL, 'conquista' => 0);
 			$this->load->view('construtor', $pagina);

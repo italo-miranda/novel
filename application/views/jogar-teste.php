@@ -7,7 +7,7 @@
 					<div class="row" style="padding: 1%;">
 						<div class="col-md-10 col-xs-12 centered">			  				
 			  				<div class="centered col-md-12 col-xs-12">
-								<p><span class="glyphicon glyphicon-time"></span>
+								<p><span class="glyphicon glyphicon-time relogio"></span>
 								<input type="text" id="tempo" name="tempo" disabled=""></p>
 								<input type="hidden" id="duracao" name="duracao" value="0">								
 							</div>							
@@ -24,8 +24,8 @@
 									}
 											echo '<div class="row">';
 												echo '<div class="col-md-2 col-xs-2"></div>';
-									    		echo '<div class="col-md-8 col-xs-8">';
-									    			echo '<h4 class="enunciadoTeste">'; 
+									    		echo '<div class="centralizar col-md-8"><span>';
+									    			echo '<h4 class="enunciado">'; 
 									    			$tamanho = strlen($t->enunciado);
 									    			$enun = $t->enunciado;
 									    			for ($j=0; $j < $tamanho; $j++) { 
@@ -38,12 +38,12 @@
 									    				}
 									    			}									    				
 									    			echo "</h4>";
-										    	echo '</div>';
+										    	echo '</span></div>';
 										    	echo '<div class="col-md-2 col-xs-2"></div>';
 									    	echo '</div>';														   	
 											echo '<div class="row centered">';
 
-												echo '<div class="col-md-12 col-xs-12 alternativasTeste">';
+												echo '<span class="col-md-2"></span><div class="col-md-8 col-md-offset-1 col-xs-12 alternativasTeste">';
 													$alt = $alternativas[$i];
 													$tamanho = count($alt);
 													$embaralhadas = array_rand($alt, $tamanho);
@@ -53,7 +53,7 @@
 															echo ($alt[$embaralhadas[$k]]->alternativa).'</h3>';	
 														echo '</div>';						
 													}													
-												echo '</div>';
+												echo '</div><span class="col-md-2"></span>';
 											echo '</div>';											
 										echo '</div>';
 									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$t->gabarito.'" >';									
@@ -70,7 +70,7 @@
 							<div class="item">
 								<div class="row">
 									<div class="col-md-12 col-xs-12">
-										<h3>Clique em Responder para enviar as respostas!</h3>
+										<h3 class="tamanho">Clique em Responder para enviar as respostas!</h3>
 										<h5>Tenha certeza de que não deixou nenhum campo em branco!</h5>
 									</div>
 								</div>
