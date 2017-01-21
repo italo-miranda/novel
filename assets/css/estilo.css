@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
 #pagina-inicial {
 	background: url('../img/logo.png');
 	background-repeat:no-repeat;
@@ -6,7 +7,7 @@
 }
 .c .modal-content{
 	border-radius: 0px!important;
-	background-color: #263CFF;
+	background-color: #2980b9!important;
 }
 .c .modal-header{
 	text-transform: uppercase;
@@ -23,7 +24,7 @@
 	margin-top: 40px;
 }
 .c .s{
-	color: 19AAFF;
+	color: #19AAFF;
 	border-radius: 0px!important;
 	margin-top: 10px!important;
 }
@@ -40,10 +41,10 @@
 	margin-top: 10px!important;
 }
 #body {
-	background: #263cff; /* Old browsers */
-	background: -moz-linear-gradient(-45deg, #263cff 0%, #2989d8 50%, #207cca 51%, #19aaff 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(-45deg, #263cff 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(135deg, #263cff 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	background: #2980b9; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #2980b9 0%, #2989d8 50%, #207cca 51%, #19aaff 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg, #2980b9 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg, #2980b9 0%,#2989d8 50%,#207cca 51%,#19aaff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#263cff', endColorstr='#19aaff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
@@ -142,6 +143,7 @@
 
 #avatarNav{
 	max-width: 25%;
+	border: 2px solid #FFFFFF;
 }
 
 #paragrafoTexto{
@@ -264,8 +266,8 @@
   align-items: center;
 }
 .b{
-	background-color: #263CFF!important;
-	border: 5px solid #1764E8;
+	background-color: #2980b9!important;
+	border: 5px solid #2980b9;
 	border-radius: 50%;
 	width: 120px;
 	padding: 30px 7px;
@@ -273,11 +275,42 @@
 	font-weight: bold;
 }
 .b:hover{
-	background-color: #263CFF!important;
+	background-color: #2980b9!important;
 	border: 5px solid #FFFFFF;
 	border-radius: 50%;
 	width: 120px;
 	padding: 30px 7px;
 	text-transform: uppercase;
 	font-weight: bold;
+	opacity: 0.8;
+}
+h3{
+	font-family: 'Bangers', cursive!important;
+	letter-spacing: 5px;
+	font-size: 40px;
+	text-shadow: 2px 2px #000000;
+}
+h5{
+	color: #FFFFFF;
+}
+.navbar-default .navbar-nav > li > a{
+	font-family: 'Bangers', cursive!important;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px #000000;
+}
+.navbar-default .navbar-nav > li > a:hover{
+	color: #bdc3c7;
+}
+.navbar-default .navbar-brand{
+	font-family: 'Bangers', cursive!important;
+	letter-spacing: 5px;
+	font-size: 40px;
+	text-shadow: 2px 2px #000000;
+}
+h2{
+	font-family: 'Bangers', cursive!important;
+	letter-spacing: 5px;
+	font-size: 40px;
+	text-shadow: 2px 2px #000000;
+	color: #FFFFFF;
 }

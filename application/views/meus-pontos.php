@@ -170,7 +170,8 @@
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
 		               'height':400,
-		           		backgroundColor: '#ADD8E6'};
+		               colors: ['#f1c40f', '#e74c3c', '#2ecc71', '#9b59b6', '#34495e', '#95a5a6', '#ecf0f1'],
+		           		backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoPalavras'));
@@ -197,7 +198,8 @@
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
 		               'height':400,
-		           		backgroundColor: '#ADD8E6'};
+		               colors: ['#f1c40f', '#9b59b6', '#2ecc71', '#34495e', '#95a5a6', '#e74c3c', '#ecf0f1'],
+		           		backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoPalavras'));
@@ -229,7 +231,8 @@
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
 		               'height':400,
-		           backgroundColor: '#ADD8E6'};
+		               colors: ['#f1c40f', '#e74c3c', '#2ecc71', '#9b59b6', '#34495e', '#95a5a6', '#ecf0f1'],
+		           backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoTextos'));
@@ -256,7 +259,8 @@
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
 		               'height':400,
-		           backgroundColor: '#ADD8E6'};
+		               colors: ['#34495e', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#95a5a6', '#ecf0f1'],
+		           backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoTextos'));
@@ -289,7 +293,8 @@
 		var options = {'title':'Pontuação e duração por grafema jogado',
 		               'width':450,
 		               'height':400,
-		           backgroundColor: '#ADD8E6'};
+		               colors: ['#9b59b6', '#ecf0f1', '#e74c3c', '#2ecc71', '#f1c40f', '#34495e', '#95a5a6', '#ecf0f1'],
+		           backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.BarChart(document.getElementById('graficoTestes'));
@@ -317,7 +322,8 @@
 		var options = {'title':'Pontuação por grafema jogado',
 		               'width':400,
 		               'height':400,
-		           backgroundColor: '#ADD8E6'};
+		               colors: ['#34495e', '#95a5a6', '#2ecc71', '#9b59b6', '#ecf0f1', '#e74c3c', '#f1c40f'],
+		           		backgroundColor: 'transparent'};
 
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('graficoPontuacaoTestes'));
