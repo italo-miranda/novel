@@ -155,7 +155,12 @@
 	font-size: 100%; 
 	border: none;	
 }
-
+#tabela-bonus button{
+	border-style: none;
+	background-color: transparent;
+	color: #FFFFFF;
+	font-weight: bold;
+}
 #tabela-bonus tr{
 	border: none;
 	border-bottom: none;
@@ -164,11 +169,11 @@
 }
 
 #tabela-bonus td:hover {
-	background-color: red;
+	background-color: #bdc3c7;
 }
 
 #tabela-bonus td:visited {
-	background-color: red;
+	background-color: #bdc3c7;
 }
 
 .tabela-gabarito{

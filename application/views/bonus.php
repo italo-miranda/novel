@@ -7,7 +7,7 @@
 			</div>
 			<form id="form" role="form" method="post" action="<?php echo base_url('principal/inserirBonus');?>">
 				<div class="row">
-					<table id="tabela-bonus" class="centered table">					
+					<table id="tabela-bonus" class="centered table table-bordered" style="margin-bottom: 10px!important;">					
 						<?php
 							
 							echo '<input type="hidden" name="codBonus" value="'.$bonus[2][0]->codBonus.'">';
@@ -17,27 +17,27 @@
 								if($i==0){
 									echo '<tr>';									
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><label for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</label></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 									$j++;
 								} elseif($j == 1){
 									echo '</tr>';
 									echo '<tr>';									
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus"  value="'.$i.'"><label for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</label></td>';		
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus"  value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';		
 									$j++;
 								}elseif ($j == 15){																
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><label for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</label></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 									$j = 1;
 								} else {
 									if ($i == 224){
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><label for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</label></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 										$j++;
 										echo '</tr>';
 									}else {
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><label for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</label></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 										$j++;
 									}								
 								}							
@@ -62,11 +62,11 @@
 	}
 	function clicou(id){
 		td = "td"+id;		
-		if (document.getElementById(td).style.background == "yellow"){
-			document.getElementById(td).style.background = "#ADD8E6";
+		if (document.getElementById(td).style.background == "dimgray"){
+			document.getElementById(td).style.background = "";
 			document.getElementById(id).checked = false;
 		} else{
-			document.getElementById(td).style.background = "yellow";
+			document.getElementById(td).style.background = "dimgray";
 			document.getElementById(id).checked = true;		
 		}		
 	}
