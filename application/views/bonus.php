@@ -5,13 +5,25 @@
 				<p><span class="glyphicon glyphicon-time relogio"></span>
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 			</div>
-			<form id="form" role="form" method="post" action="<?php echo base_url('principal/inserirBonus');?>">
-				<div class="row">
-					<table id="tabela-bonus" class="centered table table-bordered" style="margin-bottom: 10px!important;">					
-						<?php
+			<?php
+					echo '<h3> Encontre as palavras antes que o tempo acabe:</h3>';
+					echo '<table id="tabela-palavras-bonus" class="table" style="border: none!important;">';
+						echo '<tr>';
+						for ($i=0; $i < 5; $i++) { 
+							echo '<td id="palavraBonus'.$i.'"><h4>'.$bonus[1][$i]->palavra.'</h4></td>';
+						}
+						echo '</tr>';
+					echo '</table>';
+					
+					echo '<form id="form" role="form" method="post" action="'.base_url('principal/inserirBonus').'">';
+						echo '<div class="row">';
+						echo '<table id="tabela-bonus" class="centered table table-bordered" style="margin-bottom: 10px!important;">';
+							
 							
 							echo '<input type="hidden" name="codBonus" value="'.$bonus[2][0]->codBonus.'">';
 							echo '<input type="hidden" name="nivel" value="'.$nivel.'">';
+
+
 							$j = 1;						
 							for ($i=0; $i <= 224; $i++) {						
 								if($i==0){

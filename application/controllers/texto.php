@@ -49,6 +49,7 @@ class Texto extends CI_Controller {
 	{
 		if ($this->session->userdata('logged_in')) {
 			
+			$codJogador = $this->session->userdata('codJogador');
 			$experiencia = $this->session->userdata('experiencia');
 			$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 

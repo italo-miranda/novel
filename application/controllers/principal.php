@@ -271,7 +271,7 @@ class Principal extends CI_Controller {
 					break;
 			}
 			unset($correcao[0]);
-			var_dump($correcao);
+			redirect($tela);
 		}		
 	}
 }

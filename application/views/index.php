@@ -71,8 +71,8 @@
 		    	<div class="modal-footer">
 		    		<div class="row">
 						<a href="<?php echo base_url('principal/cadastrarJogador'); ?>" class="btn btn-block btn-lg btn-link t" role="button">Não tenho cadastro</a>
-						<div id="botao-esqueciSenha" class="">
-							<button type="button" class="btn btn-link s" role="button" onclick="mostrarRecuperarSenha()">Esqueci a senha</a>
+						<div  class="">
+							<button type="button" id="botao-esqueciSenha" class="btn btn-link" role="button" onclick="mostrarRecuperarSenha()">Esqueci a senha</a>
 						</div>
 					</div>				
 		        </div>

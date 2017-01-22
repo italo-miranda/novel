@@ -63,12 +63,14 @@
           <h4 class="modal-title titulo">Nova conquista alcançada:</h4>
         </div>
         <div class="modal-body">
-         <?php            	
+         <?php  
+         		$avatar = $this->session->userdata('avatar');
          		echo '<div class="row conquista">';
-					echo '<h4 class="titulo">'.$nomeConquista[0]->nomeConquista.'</h4>';	        					
+         			echo '<h4 class="titulo">'.$conquista.'/20</h4>';
+					echo '<h4 class="titulo">'.$nomeConquista[0]->nomeConquista.'</h4>';					
 				echo '</div>';				    		    	
 	    		echo '<div class="row conquista">';
-					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/conquistas/conquista-'.$conquista.'.png').'">';	        					
+					echo 	'<img class="historia centered img-responsive" src="'.base_url('assets/img/conquistas/'.$avatar.'/conquista'.$conquista.'.png').'">';	        					
 				echo '</div>';	   
 	    ?>		
         </div>
@@ -83,7 +85,7 @@
 
 <div class="row centered">
 	<div class="col-md-12 col-xs-12" id="footer" style="padding: 1%;">
-		<h5>Novel - Um Software Educativo para a Aprendizagem Autônoma de Ortografia - 2016</h5>	
+		<h5>Novel - Um Software Educativo para a Aprendizagem Autônoma de Ortografia - 2017</h5>	
 	</div>
 </div>
 	
@@ -96,16 +98,17 @@
 </body>
 </html>
 
-<?php
-	if ($abrirModalHistoria != FALSE){
-		echo '<script language="javascript">';			
-				echo '$("#modalHistoria").modal();';
-		echo '</script>';
-	}
+<?php	
 
 	if ($conquista != 0){
 		echo '<script language="javascript">';			
 				echo '$("#modalConquista").modal();';
+		echo '</script>';
+	}
+
+	if ($abrirModalHistoria != FALSE){
+		echo '<script language="javascript">';			
+				echo '$("#modalHistoria").modal();';
 		echo '</script>';
 	}
 

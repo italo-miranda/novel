@@ -61,10 +61,11 @@ class Teste extends CI_Controller {
 	public function jogarTeste(){
 			
 		if ($this->session->userdata('logged_in')) {
+			$codJogador = $this->session->userdata('codJogador');
         	$experiencia = $this->session->userdata('experiencia');
         	$bonus = $this->modelHistoria->buscarBonus($experiencia, $codJogador);	
 
-			if($bonus[0] != NULL){
+			if($bonus[0] != NULL){					
 					redirect('principal/bonus/2');
 			} else {	
 	        	$grafema = $this->uri->segment(3);
