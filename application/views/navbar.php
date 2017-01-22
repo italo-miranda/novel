@@ -24,8 +24,14 @@
 				</a>
 			</li> 
 			<li>
+				<a href="<?php echo base_url('principal/sobre');?>">
+					<span class="glyphicons glyphicons-puzzle"></span>Sobre o Novel
+				</a>
+			</li>
+			<li>
 				<a href="<?php echo base_url($linkLogoff);?>">
-				<span class="glyphicon glyphicon-log-out"></span> Sair</a>
+					<span class="glyphicon glyphicon-log-out"></span> Sair
+				</a>
 			</li>
 	    </ul> 
 	</div> 

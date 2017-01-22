@@ -109,6 +109,20 @@ class Principal extends CI_Controller {
 		$this->load->view('construtor', $pagina);
 	}
 
+	public function sobre()
+	{
+
+		$pagina = array('tela' => 'sobre',				
+				'erro' => FALSE,
+				'abrirModalHistoria'=> FALSE,
+				'linkNovel'=> 'principal/menu', 
+				'linkLogoff'=>'principal/logoff',
+				'existe' => FALSE,
+				'conquista' => 0,);
+		$this->load->view('construtor', $pagina);
+	}
+
+
 	public function cadastrarJogador()
 	{					
 		if ($this->session->userdata('logged_in')) {
@@ -255,12 +269,11 @@ class Principal extends CI_Controller {
 	}
 
 	public function inserirBonus(){
-		$dados = $this->input->post();		
+		$dados = $this->input->post();	
+		var_dump($dados);
 		$correcao = NULL;
-		if (count($dados) != 2){
-			$correcao = $this->modelHistoria->corrigirBonus($dados);
-			$tela = NULL;
-			switch ($correcao[0]) {
+		$tela = NULL;
+			switch ($dados[0]->nivel) {
 				case '1':
 					$tela = "texto";
 					break;
@@ -270,8 +283,10 @@ class Principal extends CI_Controller {
 					$tela = "palavra";
 					break;
 			}
-			unset($correcao[0]);
-			redirect($tela);
-		}		
+		if (count($dados) != 2){
+			$correcao = $this->modelHistoria->corrigirBonus($dados);			
+			unset($correcao[0]);			
+		} 
+		redirect($tela);
 	}
 }
