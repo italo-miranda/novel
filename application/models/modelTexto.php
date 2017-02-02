@@ -276,7 +276,7 @@ class modelTexto extends CI_Model {
         $retorno = array();
         $tamListaGrafemas = count($listaGrafemas);         
         for ($i=0; $i < $tamListaGrafemas; $i++) { 
-            if(!array_search($listaGrafemas[$i], $retorno)){
+            if(!in_array($listaGrafemas[$i], $retorno)){
                 $retorno[] = $listaGrafemas[$i];
             }                                                               
         }

@@ -4,15 +4,17 @@
 				<h3 class="titulo-menu">Nível Texto</h3>
 		</div>
 		<div id="imagens-menu" class="centered" >
-			<?php
+			<?php					
 					$tamGrafemasBD = count($grafemasTextos);
-					$grafemas = array();
+					$grafemas = array();									
 					for ($i=1; $i < $tamGrafemasBD; $i++) { 
-						if(!array_search($grafemasTextos[$i], $grafemas)){
+						if(!in_array($grafemasTextos[$i], $grafemas)){							
 							$grafemas[] = $grafemasTextos[$i];
 						}																
-					}																
+					}										
 					echo '<div class="row afastado-1pc">';
+						array_pop($grafemas);
+						array_push($grafemas, "_total", "total");
 						$tamGrafemasUnicos = count($grafemas);
 						for($i = 0; $i<$tamGrafemasUnicos; $i++) {
 							if ($i==4){

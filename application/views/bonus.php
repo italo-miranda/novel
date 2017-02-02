@@ -29,27 +29,27 @@
 								if($i==0){
 									echo '<tr>';									
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" class="btn-bonus" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 									$j++;
 								} elseif($j == 1){
 									echo '</tr>';
 									echo '<tr>';									
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus"  value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';		
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus"  value="'.$i.'"><button type="button" class="btn-bonus" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';		
 									$j++;
 								}elseif ($j == 15){																
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" class="btn-bonus" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 									$j = 1;
 								} else {
 									if ($i == 224){
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" class="btn-bonus" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 										$j++;
 										echo '</tr>';
 									}else {
 										echo '<td id="td'.$i.'" onclick="clicou('.$i.')">
-											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
+											<input type="checkbox" id="'.$i.'" name="'.$i.'" class="checkbox-bonus" value="'.$i.'"><button type="button" class="btn-bonus" for="'.$i.'">'.$bonus[0][0]->textoBonus[$i].'</button></td>';
 										$j++;
 									}								
 								}							

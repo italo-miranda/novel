@@ -25,7 +25,7 @@ class Texto extends CI_Controller {
 				$abrirModalHistoria = FALSE;
 			}
 			$codJogador = $this->session->userdata('codJogador');
-			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();	
+			$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();			
 			$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);			
 						
 				$pagina = array('tela' => 'menu-texto', 
