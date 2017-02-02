@@ -139,7 +139,7 @@ class modelPalavra extends CI_Model {
     }
 
     public function buscarRegraPeloTipo($tipoGrafema){
-        $this->db->select('regra, homonimoParonimo, excecoes');
+        $this->db->select('quadros');
         $this->db->from('Grafema');
         $this->db->where('tipoGrafema', $tipoGrafema);
         $this->db->limit(1);

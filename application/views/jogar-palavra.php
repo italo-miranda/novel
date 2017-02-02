@@ -17,7 +17,7 @@
 							</div>							
 							<div class="carousel-inner" id="corpoCarrosselPalavras" role="listbox">
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DAS PALAVRAS-->
-							<?php									
+							<?php										
 								$i = 0;
 								foreach ($palavras as $p):	
 									if ($i == 0) {					   
@@ -131,45 +131,17 @@
 				    <!-- Wrapper for slides -->
 				    <div class="carousel-inner" role="listbox">				    
 					    <?php 
-				    	
-					    	$array[] = $regra[0]->regra;
-					    	$array[] = $regra[0]->excecoes;
-					    	$array[] = $regra[0]->homonimoParonimo;				    					    	
-					    					    	
-					    	$tamanhoArray = count($array);				    	
-					    	for($l = 0; $l < $tamanhoArray; $l++) {
-					    		$item = $array[$l];
+				    		
+					    	$quadros = $regra[0]->quadros;					    				    					    
+					    	
+					    	echo '<div class="item active historia">';
+	        					echo '<img class="historia centered img-responsive" src="'.base_url('assets/img/regras/'.$grafema.'-1.png').'">';
+	        				echo '</div>';
 
-					    		if ($item != NULL){
-					    			if ($l == 0){
-					    				echo '<div class="item regra active">';
-					    			} else {
-					    				echo '<div class="item regra">';
-					    			}					    			
-					    			    echo '<div class="col-md-2 col-xs-2">';
-					    			    echo '</div>';
-					    				echo '<div class="col-md-8 col-xs-8">';
-						    				echo '<p class="textoRegra">';
-								    			$tamanhoItem = strlen($item);
-								    			for($m = 0; $m < $tamanhoItem; $m++){
-								    				if (strcmp($item[$m], ":") == 0 ){
-								    					echo $item[$m].'<br />';				    					
-								    				} elseif (strcmp($item[$m], "|") == 0) {
-								    					echo '<br />';
-								    				} elseif (strcmp($item[$m], "[") == 0){
-								    					echo '<h3 class="titulo centered">';
-								    				} elseif (strcmp($item[$m], "]") == 0){
-								    					echo '</h3><br />';
-								    				} else {
-								    					echo $item[$m];
-								    				}				    				
-								    			}
-								    		echo '</p>';
-								    	echo '</div>';
-								    	echo '<div class="col-md-2 col-xs-2">';
-					    			    echo '</div>';
-					    			echo '</div>';
-					    		}
+					    	for($l = 2; $l <= $quadros; $l++) {
+					    		echo '<div class="item historia">';
+	        						echo '<img class="historia centered img-responsive" src="'.base_url('assets/img/regras/'.$grafema.'-'.$l.'.png').'">';
+	        					echo '</div>';
 					    	}					    
 					    ?>		    
 				    </div>
