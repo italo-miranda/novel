@@ -269,11 +269,10 @@ class Principal extends CI_Controller {
 	}
 
 	public function inserirBonus(){
-		$dados = $this->input->post();	
-		var_dump($dados);
+		$dados = $this->input->post();			
 		$correcao = NULL;
-		$tela = NULL;
-			switch ($dados[0]->nivel) {
+		$tela = NULL;		
+			switch ($dados['nivel']) {
 				case '1':
 					$tela = "texto";
 					break;

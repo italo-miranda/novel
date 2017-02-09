@@ -6,6 +6,7 @@
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 			</div>
 			<?php
+					echo '<h2 class="titulo">Você ganhou um bônus!</h2>';
 					echo '<h3> Encontre as palavras antes que o tempo acabe:</h3>';
 					echo '<table id="tabela-palavras-bonus" class="table" style="border: none!important;">';
 						echo '<tr>';

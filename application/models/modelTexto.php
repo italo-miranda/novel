@@ -14,13 +14,15 @@ class modelTexto extends CI_Model {
     //e sortear 1 texto, que irão compor uma rodada
     public function sortearTexto($grafemas){
 
-    	$tiposGrafemas = $this->separarGrafemas($grafemas);        
+    	$tiposGrafemas = $this->separarGrafemas($grafemas);
+
 
     	$jogadorApto = $this->verificarJogadorGrafemas($tiposGrafemas);
 
     	if ($jogadorApto){
 
 	    	$textos = $this->buscarCodigoTextoPelosGrafemas($tiposGrafemas);
+            
 
 			//Se a consulta não for nula
 			if ($textos) {
@@ -28,10 +30,15 @@ class modelTexto extends CI_Model {
 		    	$listaCodigos = array();
 		    	unset($listaCodigos);
 
-	            //Guarda os códigos dos textos em $listaCódigos
+                $tamanho = count($tiposGrafemas);
+                var_dump($tamanho);
+                //Guarda os códigos dos textos em $listaCódigos
 				foreach ($textos as $lista) {
-					$listaCodigos[] = $lista->codTexto;
-				}
+                    $resposta = $this->garimparTextos($lista->codTexto, $tamanho);                    
+                    if($resposta){
+                        $listaCodigos[] = $lista->codTexto;
+                    }					
+				}                
 	    		
 	            //Armazena os códigos dos textos e escolhe 1 aleatoreamente			
 	            $selecionados = array_rand($listaCodigos, 1);            
@@ -71,6 +78,19 @@ class modelTexto extends CI_Model {
         $this->db->group_by('gt.codTexto');
         $this->db->having('COUNT(gt.codGrafema)', $tamanho);
         $retorno = $this->db->get()->result();
+        return $retorno;
+    }
+
+    //Essa funcao garante que somente farao parte do sorteio
+    //os textos que possuem somente os grafemas correspondentes
+    //ja que a consulta pode trazer textos a mais
+    public function garimparTextos($texto, $tamanho){        
+            $this->db->select("codTexto");
+            $this->db->from("GrafemaTexto");
+            $this->db->where("codTexto", $texto);
+            $this->db->group_by("codTexto");
+            $this->db->having("count(codGrafema)", $tamanho);
+            $retorno = $this->db->get()->result();
         return $retorno;
     }
 

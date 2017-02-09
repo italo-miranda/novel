@@ -41,7 +41,7 @@ class modelTeste extends CI_Model {
                         $listaCodigos = array();
                         unset($listaCodigos);
 
-                        //Guarda os códigos das palavras em $listaCódigos
+                        //Guarda os códigos dos testes em $listaCódigos
                         foreach ($listaTestes as $list) {
                             $listaCodigos[] = $list->codTeste;
                             $qtd++;
