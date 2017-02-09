@@ -65,7 +65,7 @@
 													$palavraDividida = explode("_", $p->palavraIncompleta);
 													echo '<h1 id="palavraIncompleta">';
 														echo $palavraDividida[0];
-														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required" maxlength="2">';
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required="required" maxlength="2">';
 														echo $palavraDividida[1];
 													echo '</h1>';
 												echo '</div>';

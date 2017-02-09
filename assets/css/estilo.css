@@ -77,9 +77,9 @@
 	border-color: #FFFFFF!important;
 }
 .input-texto{	
-	width: 5%;
+	width: 6%;
 	height: 30px;
-	font-size: 100%;
+	font-size: 100%!important;
 	font-weight: bold;
 }
 

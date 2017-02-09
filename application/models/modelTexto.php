@@ -30,8 +30,7 @@ class modelTexto extends CI_Model {
 		    	$listaCodigos = array();
 		    	unset($listaCodigos);
 
-                $tamanho = count($tiposGrafemas);
-                var_dump($tamanho);
+                $tamanho = count($tiposGrafemas);                
                 //Guarda os códigos dos textos em $listaCódigos
 				foreach ($textos as $lista) {
                     $resposta = $this->garimparTextos($lista->codTexto, $tamanho);                    

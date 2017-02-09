@@ -40,7 +40,7 @@
 								echo $string[$j];
 							}
 							if ($i != $tamanho -1){
-								echo '<input type="text" id="inputLetra'.$i.'" required class="input-sm input-texto" name="inputLetra'.$i.'">';	
+								echo '<input type="text" id="inputLetra'.$i.'" required class="input-sm input-texto" name="inputLetra'.$i.'" maxlength="2">';	
 							}
 						}
 					echo '</h2>';
