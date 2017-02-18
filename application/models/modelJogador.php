@@ -147,8 +147,11 @@ class modelJogador extends CI_Model {
 		return $retorno;
 	}
 
-	public function subirNivelTeste($codJogador, $pontuacao, $grafemas, $quantidade){
+	public function subirNivelTeste($codJogador, $pontuacao, $codigos, $quantidade){
 		if ($pontuacao > 60) {
+			for ($i=0; $i < count($codigos); $i++) { 
+				$grafemas[] = $this->buscarGrafema($codigos[$i]);
+			}
 			$jogou = $this->verificarNivelAlcancadoTeste($grafemas, $codJogador);
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;
@@ -233,14 +236,13 @@ class modelJogador extends CI_Model {
     }
 
 
-    public function verificarNivelAlcandadoTeste($grafemas, $codJogador){
+	    public function verificarNivelAlcancadoTeste($grafemas, $codJogador){
 
-    	$tiposGrafemas = explode("&", $grafemas);
     	$where = '';
-    	$tamanho = count($tiposGrafemas);
+    	$tamanho = count($grafemas);
 
     	for($i = 0; $i < $tamanho; $i++) {
-    		$where = $where.'g.tipoGrafema = "'. $tiposGrafemas[$i].'"';
+    		$where = $where.'g.tipoGrafema = "'. $grafemas[$i][0]->tipoGrafema.'"';
     		if ($i < $tamanho -1){
     			$where = $where.' OR ';
     		}
@@ -248,12 +250,13 @@ class modelJogador extends CI_Model {
           
 		$this->db->select('MAX(r.pontuacao) as pontuacao');
 		$this->db->from('Rodada as r');
-		$this->db->join('Grafema as g', 'r.codGrafema = g.codGrafema');
-		$this->db->where($where);
+		$this->db->join('RodadaGrafema as rg', 'r.codRodada = rg.codRodada');
+		$this->db->join('Grafema as g', 'g.codGrafema = g.codGrafema');		
 		$this->db->where('r.tipoRodada', 'teste');
 		$this->db->where('codJogador', $codJogador);
-		$this->db->group_by('r.codJogador');
-		$this->db->having('COUNT(r.codGrafema)', $tamanho);
+		$this->db->where($where);
+		$this->db->group_by('r.codRodada');
+		$this->db->having('COUNT(g.codGrafema)', $tamanho);
 		$resultado = $this->db->get()->result();
         
     	if($resultado){

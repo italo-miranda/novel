@@ -105,9 +105,10 @@ class Teste extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
 
 			$erro = $this->uri->segment(3);
-        	$erro = urldecode($erro);
+        	$erro = urldecode($erro);        	
 
-			$dados = $this->input->post();			
+			$dados = $this->input->post();					
+			$qtdGrafemas = $dados['qtdGrafemas'];
 			$qtdTestes = $dados['qtdTestes'];
 			for ($i = 0; $i<$qtdTestes; $i++){
 				$inputJogador[] = $dados['inputJogador'.$i];
@@ -117,7 +118,12 @@ class Teste extends CI_Controller {
 				$gabarito[] = $dados['gabarito'.$i];
 			}
 
-			$codGrafema = $dados['codGrafema'];
+			for ($i=1; $i <= $qtdGrafemas; $i++) { 
+				$grafemas[] = $dados['codGrafema'.$i];
+				$codGrafema[] = $dados['codGrafema'.$i];
+			}
+
+			
 			$codJogador = $this->session->userdata('codJogador');				
 			$pontuacao = $this->modelTeste->calcularPontuacao($inputJogador, $gabarito, $qtdTestes);
 			$quantidade = count($gabarito);
@@ -130,7 +136,7 @@ class Teste extends CI_Controller {
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}
 
-			$inseriu = $this->modelTeste->inserirRodadaTeste($dados['codGrafema'], $codJogador, $dados['duracao'], $pontuacao);
+			$inseriu = $this->modelTeste->inserirRodadaTeste($grafemas, $codJogador, $dados['duracao'], $pontuacao);
 
             $cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));
 			if($cenas){

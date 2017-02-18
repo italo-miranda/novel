@@ -19,7 +19,7 @@ class modelTeste extends CI_Model {
         unset($alternativas);
         $retorno = NULL;
 
-        if (($grafemas == "total")){
+        if (($grafemas == "total") || ($grafemas == "-total")){
             $tiposGrafemas = $this->sortearTodosTestes();
         } else {
             $tiposGrafemas = $this->separarGrafemas($grafemas);  
@@ -28,12 +28,13 @@ class modelTeste extends CI_Model {
         $jogadorApto = $this->verificarJogadorGrafemas($tiposGrafemas);
 
         if ($jogadorApto){
-            foreach ($tiposGrafemas as $key) {
-                $codigo = $this->buscarCodigoPeloTipo($key);
-
+            $tamanho = count($tiposGrafemas);
+            foreach($tiposGrafemas as $key) {
+                $codigo = $this->buscarCodigoPeloTipo($key);                
+                $codigoGrafema[] = $codigo[0];
                 if ($codigo){
                     $codGrafema = $codigo[0]->codGrafema;                           
-                    $listaTestes = $this->buscarConjuntoTestes($codGrafema);  
+                    $listaTestes = $this->buscarConjuntoTestes($codGrafema);                      
                     
                     //Se a consulta não for nula
                     if ($listaTestes) {
@@ -45,22 +46,18 @@ class modelTeste extends CI_Model {
                         foreach ($listaTestes as $list) {
                             $listaCodigos[] = $list->codTeste;
                             $qtd++;
-                        }
+                        }                        
                     
                         //Armazena os códigos das palavras e escolhe 2 aleatoreamente           
-                        $selecionados = array_rand($listaCodigos, 2);                         
+                        $selecionados = array_rand($listaCodigos, 2);   
 
-                        //Armazena as palavras escolhidas em $palavrasSorteadas
+
+                        //Armazena as palavras escolhidas em $testesSorteados
                         for ($i=0; $i < 2; $i++) { 
                             $numero = $listaCodigos[$selecionados[$i]];                            
                             $testesSorteados[] = $this->buscarTestePeloCodigo($numero);
-                            $alternativas[] = $this-> buscarAlternativasPeloCodigoTeste($numero);                                  
-                        }
-                        
-                        $retorno[] = $testesSorteados;                
-                        $retorno[] = $codGrafema;
-                        $retorno[] = $alternativas;
-                        return $retorno;
+                            $alternativas[] = $this-> buscarAlternativasPeloCodigoTeste($numero);
+                        }                                                                                        
                     } else {
                         $retorno = FALSE;
                     }
@@ -70,7 +67,10 @@ class modelTeste extends CI_Model {
             }
         } else {
             $retorno = FALSE;
-        }                    	        
+        }
+        $retorno[] = $testesSorteados;                         
+        $retorno[] = $codigoGrafema;
+        $retorno[] = $alternativas;         
         return $retorno;
     }
 
@@ -104,22 +104,29 @@ class modelTeste extends CI_Model {
     }
 
     //Esta função recebe os dados de uma rodada e os armazena no banco de dados
-    public function inserirRodadaTeste($grafemas, $codJogador, $duracao, $pontuacao){
-    	if ($grafemas != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
-            $separados = $this->separarGrafemas($grafemas);
+    public function inserirRodadaTeste($codigos, $codJogador, $duracao, $pontuacao){
+
+    	if ($codigos != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
+
+            for ($i=0; $i < count($codigos); $i++) { 
+                $separados[] = $this->buscarGrafema($codigos[$i]);
+            }                    
             
             $dadosRodada = array(                   
                 'codJogador' => $codJogador,
                 'tipoRodada' => 'teste',
                 'duracao' => $duracao,
                 'pontuacao' => $pontuacao,
-            );
+            );                    
+
             $this->db->insert('rodada', $dadosRodada); 
             $codRodada = $this->db->insert_id();
+            
             foreach ($separados as $key) {                
-        		$codGrafema = $this->buscarCodigoPeloTipo($key);
-                $dadosRodadaGrafema = array('codGrafema'=>$codGrafema, 'codRodada'=> $codRodada);
-                $this->db->insert('RodadaGrafema', $dadosRodada);
+        		$codGrafema = $this->buscarCodigoPeloTipo($key[0]->tipoGrafema);                
+                $dadosRodadaGrafema = array('codGrafema'=>$codGrafema[0]->codGrafema, 'codRodada'=> $codRodada);            
+                $inseriu = $this->db->insert('RodadaGrafema', $dadosRodadaGrafema); 
+                var_dump($inseriu);
             }
             $this->adicionarTempo($codJogador, $duracao);
             return TRUE;
@@ -164,7 +171,7 @@ class modelTeste extends CI_Model {
         $this->db->from('Grafema');
         $this->db->where('tipoGrafema', $tipoGrafema);
         $this->db->limit(1);
-        $codigo = $this->db->get()->result();
+        $codigo = $this->db->get()->result();        
         return $codigo;
     }
 
@@ -208,6 +215,14 @@ class modelTeste extends CI_Model {
         } else {
             return FALSE;
         }
+    }
+
+    public function buscarGrafema($codigo){
+        $this->db->select('tipoGrafema');
+        $this->db->from('Grafema');
+        $this->db->where('codGrafema', $codigo);
+        $retorno = $this->db->get()->result();          
+        return $retorno;
     }
 
     public function buscarGrafemasJogadosTeste($codJogador){        

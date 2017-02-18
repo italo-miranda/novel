@@ -15,7 +15,11 @@ class modelTexto extends CI_Model {
     public function sortearTexto($grafemas){
 
     	$tiposGrafemas = $this->separarGrafemas($grafemas);
+        
 
+        if(strcmp($tiposGrafemas[0],"total") || strcmp($tiposGrafemas[0],"_total")){
+            $tiposGrafemas = array("g_j", "ch_x", "s_z_x", "c_ç_s_ss_sc_sç_xc", "m_n", "r_rr", "e_i", "o_u_l");
+        }
 
     	$jogadorApto = $this->verificarJogadorGrafemas($tiposGrafemas);
 

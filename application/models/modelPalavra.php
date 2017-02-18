@@ -76,13 +76,13 @@ class modelPalavra extends CI_Model {
     //Esta função recebe os dados de uma rodada e os armazena no banco de dados
     public function inserirRodadaPalavra($codGrafema, $codJogador, $duracao, $pontuacao){
 
-    	if ($codGrafema != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
-    		$dados = array(    			
+    	if ($codGrafema != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){    		
+            $dados = array(    			
     			'codJogador' => $codJogador,
     			'tipoRodada' => 'palavra',
     			'duracao' => $duracao,
     			'pontuacao' => $pontuacao,
-    			);
+    			);            
 
     		$this->db->insert('rodada', $dados);
             $codRodada = $this->db->insert_id();

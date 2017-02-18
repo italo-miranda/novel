@@ -86,7 +86,7 @@
 	if ($erro){
 		echo '<script language="javascript">';
 			echo 'function mensagemErro(){';
-				echo 'alert("Ops! Moncoso provocou um distúrbio nos testes... \nTente novamente!");';
+				echo 'alert("Você ainda não está apto! \nPara jogar este teste você precisa ter jogado os grafemas mostrados nos ícones de cada fase.");';
 			echo '}';
 			echo 'onload=mensagemErro();';
 		echo '</script>';

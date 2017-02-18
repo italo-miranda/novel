@@ -65,7 +65,7 @@
 													$palavraDividida = explode("_", $p->palavraIncompleta);
 													echo '<h1 id="palavraIncompleta">';
 														echo $palavraDividida[0];
-														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required="required" maxlength="2">';
+														echo '<input type="text" id="inputLetra'.$i.'" class="input-sm input-palavra" name="inputLetra'.$i.'" required maxlength="2">';
 														echo $palavraDividida[1];
 													echo '</h1>';
 												echo '</div>';
@@ -88,11 +88,12 @@
 								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
 										<h3>Clique em Responder para enviar as respostas!</h3>
+										<h5>Tenha certeza de que não deixou nenhum campo em branco!</h5>
 									</div>
 								</div>
 								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
-										<button type="button" class="btn btn-success" onclick="pegarTempoFinal();" name="responder">Responder</button>										
+										<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>										
 									</div>
 								</div>
 							</div>							

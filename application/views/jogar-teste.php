@@ -1,6 +1,6 @@
 ﻿
 <div id="conteudo" class="col-md-12 col-xs-12">				
-	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('teste/inserirRodadaTeste');?>">		
+	<form id="form" class="form-inline" role="form" method="post" action="<?php echo base_url('teste/inserirRodadaTeste/');?>">		
 			<div class="row">
 				<button type="button" id="botaoSair" class="btn btn-danger" onclick="mostrarSair()">Sair da batalha</button>
 				<div id="carrosselTestes" class="carousel slide col-md-12 col-xs-12" data-ride="carousel" data-interval="false">
@@ -15,7 +15,7 @@
 							<!-- INICIO DO PREENCHIMENTO DINÂMICO DOS TESTES-->
 							<?php									
 								$i = 0;
-								$qtdTestes = count($testes);								
+								$qtdTestes = count($testes);									
 								foreach ($testes as $t):	
 									if ($i == 0) {					   
 										echo '<div class="item active">';	
@@ -56,12 +56,22 @@
 												echo '</div><span class="col-md-2"></span>';
 											echo '</div>';											
 										echo '</div>';
-									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$t->gabarito.'" >';									
+									echo '<input type="hidden" id="gabarito'.$i.'" name="gabarito'.$i.'" value="'.$t->gabarito.'" >';
+
 								$i++;									
 								endforeach;	
-								echo '<input type="hidden" name="codGrafema" value="'.$codGrafema.'">';
-								echo '<input type="hidden" name="qtdTestes" value="'.$qtdTestes.'">';
-								echo '<input type="hidden" id="url" value="'.base_url().'">';
+								
+								$i  = 0;
+								$qtdGrafemas = 0;
+								foreach ($codGrafema as $key) {	
+									$i++;	
+									$qtdGrafemas++;							
+									echo '<input type="hidden" name="codGrafema'.$i.'" value="'.$key->codGrafema.'">';
+									
+								}
+
+								echo '<input type="hidden" name="qtdGrafemas" value="'.$qtdGrafemas.'">';
+								echo '<input type="hidden" name="qtdTestes" value="'.$qtdTestes.'">';								
 							?>							
 
 								<!--FIM DO PREENCHIMENTO DINÂMICO DOS TESTES-->
@@ -71,13 +81,13 @@
 								<div class="row">
 									<div class="col-md-12 col-xs-12">
 										<h3 class="tamanho">Clique em Responder para enviar as respostas!</h3>
-										<h5>Tenha certeza de que não deixou nenhum campo em branco!</h5>
+										<h4>Tenha certeza de que não deixou nenhum campo em branco!</h4>
 									</div>
 								</div>
 								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
-										<button type="button" class="btn btn-success" onclick="pegarTempoFinal();" name="responder">Responder</button>
-										<button type="submit" id="enviarRespostas" class="btn"" name="enviarRespostas"></button>										
+										<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>
+										<button type="submit" value="submit" id="enviarRespostas" class="btn"" name="enviarRespostas"></button>										
 									</div>
 								</div>
 							</div>							

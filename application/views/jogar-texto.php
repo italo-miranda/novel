@@ -6,7 +6,10 @@
 				<p><span class="glyphicon glyphicon-time relogio"></span>
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 				<input type="hidden" id="duracao" name="duracao" value="0">
-				<?php 
+				<?php
+					if(strcmp($grafemas[0], "total") || strcmp($grafemas[0],"_total")){
+						$grafemas = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";
+					}
 					echo '<div class="row">';
 						echo '<h1 class="title"> Preencha os campos com ';
 							$grafemasUnderline = explode('&', $grafemas);
@@ -26,31 +29,33 @@
 							}
 						echo'</h1>';
 					echo '</div>';
-					echo '<h2 class="enunciado formatacao">';	
-						$enunciado = explode("_", $texto[0]->textoIncompleto);
-						$tamanho = count($enunciado);
-						for ($i = 0; $i < $tamanho; $i++){
-							$tamanhoString = strlen($enunciado[$i]);
-							$string = $enunciado[$i];
-							
-							for ($j = 0; $j < $tamanhoString; $j++){
-								if ((strcmp($string[$j],"-") == 0) && (strcmp($string[$j+1]," ") == 0)){
-									echo '<br />';
-								}							
-								echo $string[$j];
+					echo '<div class="row">';
+						echo '<h2 class="enunciado formatacao">';	
+							$enunciado = explode("_", $texto[0]->textoIncompleto);
+							$tamanho = count($enunciado);
+							for ($i = 0; $i < $tamanho; $i++){
+								$tamanhoString = strlen($enunciado[$i]);
+								$string = $enunciado[$i];
+								
+								for ($j = 0; $j < $tamanhoString; $j++){
+									if ((strcmp($string[$j],"-") == 0) && (strcmp($string[$j+1]," ") == 0)){
+										echo '<br />';
+									}							
+									echo $string[$j];
+								}
+								if ($i != $tamanho -1){
+									echo '<input type="text" id="inputLetra'.$i.'" required="required" class="input-sm input-texto" name="inputLetra'.$i.'" maxlength="2">';	
+								}
 							}
-							if ($i != $tamanho -1){
-								echo '<input type="text" id="inputLetra'.$i.'" required class="input-sm input-texto" name="inputLetra'.$i.'" maxlength="2">';	
-							}
-						}
-					echo '</h2>';
+						echo '</h2>';
+					echo '</div>';
 					echo '<input type="hidden" name="grafemas" value="'.$grafemas.'">';								
 					echo '<input type="hidden" name="codTexto" value="'.$texto[0]->codTexto.'">';
 					echo '<input type="hidden" id="url" value="'.base_url().'">';
 				?>	
 				<div class="row">
 					<div class="col-md-12 col-xs-12">
-						<button type="button" class="btn btn-success" onclick="pegarTempoFinal();" name="responder">Responder</button>
+						<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>
 					</div>
 				</div>
 																			
