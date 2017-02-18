@@ -273,13 +273,15 @@ class Principal extends CI_Controller {
 		$correcao = NULL;
 		$tela = NULL;		
 			switch ($dados['nivel']) {
+				case '0':
+					$tela = "principal/index";
 				case '1':
-					$tela = "texto";
+					$tela = "principal/index";
 					break;
 				case '2':
-					$tela = "teste";
+					$tela = "principal/index";
 				default:
-					$tela = "palavra";
+					$tela = "principal/index";
 					break;
 			}
 		if (count($dados) != 2){
