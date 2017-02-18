@@ -125,8 +125,7 @@ class modelTeste extends CI_Model {
             foreach ($separados as $key) {                
         		$codGrafema = $this->buscarCodigoPeloTipo($key[0]->tipoGrafema);                
                 $dadosRodadaGrafema = array('codGrafema'=>$codGrafema[0]->codGrafema, 'codRodada'=> $codRodada);            
-                $inseriu = $this->db->insert('RodadaGrafema', $dadosRodadaGrafema); 
-                var_dump($inseriu);
+                $inseriu = $this->db->insert('RodadaGrafema', $dadosRodadaGrafema);                 
             }
             $this->adicionarTempo($codJogador, $duracao);
             return TRUE;
@@ -235,18 +234,20 @@ class modelTeste extends CI_Model {
         $pontuacao = NULL;     
 
         foreach ($listaCodigos as $key) {    
-            $grafemas = $this->buscarGrafemasPeloCodigoRodada($key->codRodada);             
+            $grafemas = $this->buscarGrafemasPeloCodigoRodada($key->codRodada);               
             $qtd = count($grafemas) * 2;             
             if ($qtd != 0){
                 $passou = $this->verificarPontuacaoSuperiorTeste($key->pontuacao, $qtd);      
             } else {
                 $passou = FALSE;
-            }                          
+            }                
+
             if($passou){                                            
                 $juntos[] = $this->juntarGrafemas($grafemas);            
             }            
         }
-        $unicos = $this->coletarGrafemasUnicosTeste($juntos);           
+
+        $unicos = $this->coletarGrafemasUnicosTeste($juntos);              
         return $unicos;   
     }
 
@@ -284,13 +285,26 @@ class modelTeste extends CI_Model {
     } 
 
     public function coletarGrafemasUnicosTeste($listaGrafemas){
-        $retorno = array();
-        $tamListaGrafemas = count($listaGrafemas);            
-        for ($i=0; $i < $tamListaGrafemas; $i++) { 
-            if(!array_search($listaGrafemas[$i], $retorno)){
+        $repetidos = FALSE;
+        $retorno = array();        
+        $tamListaGrafemas = count($listaGrafemas);
+        $qtd = array_count_values($listaGrafemas);
+        
+        if (in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $listaGrafemas)) {
+            if ($qtd["g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l"] > 1){
+                $repetidos = TRUE;
+            }
+        }
+        
+        for ($i=0; $i < $tamListaGrafemas; $i++) {             
+            if(!in_array($listaGrafemas[$i], $retorno)){
                 $retorno[] = $listaGrafemas[$i];
             }                                                               
         }        
+
+        if($repetidos){
+           $retorno[] = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";
+        }
         return $retorno;
     }
 }

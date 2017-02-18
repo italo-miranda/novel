@@ -17,9 +17,9 @@ class modelTexto extends CI_Model {
     	$tiposGrafemas = $this->separarGrafemas($grafemas);
         
 
-        if(strcmp($tiposGrafemas[0],"total") || strcmp($tiposGrafemas[0],"_total")){
+        if(($tiposGrafemas[0] == "total") || ($tiposGrafemas[0] == "_total")){
             $tiposGrafemas = array("g_j", "ch_x", "s_z_x", "c_ç_s_ss_sc_sç_xc", "m_n", "r_rr", "e_i", "o_u_l");
-        }
+        }        
 
     	$jogadorApto = $this->verificarJogadorGrafemas($tiposGrafemas);
 
@@ -171,8 +171,7 @@ class modelTexto extends CI_Model {
 
     public function inserirRodadaTexto($grafemas, $codJogador, $duracao, $pontuacao, $codTexto){
     	if ($grafemas != NULL && $codJogador != NULL && $duracao != NULL && $pontuacao != NULL){
-    		    	
-    		
+    		    	    		
     					
 			$dadosRodada = array(
 			'codJogador' => $codJogador,
@@ -188,8 +187,9 @@ class modelTexto extends CI_Model {
     		                                
             foreach ($grafemaSeparado as $gr => $valor) {
                 $codGrafema = $this->encontrarCodigoGrafema($valor);
+
                 $dadosRodadaGrafema = array('codGrafema' => $codGrafema[0]->codGrafema, 'codRodada'=>$codRodada); 
-                $this->db->insert('RodadaGrafema', $dadosRodadaGrafema);  
+                $inseriu = $this->db->insert('RodadaGrafema', $dadosRodadaGrafema);                  
     		} 
             $this->adicionarTempo($codJogador, $duracao);
             return TRUE;         
@@ -232,14 +232,14 @@ class modelTexto extends CI_Model {
         $juntos = NULL;      
         $pontuacao = NULL;
         foreach ($listaCodigos as $key) {          
-            $grafemas = $this->buscarGrafemasPeloCodigoRodada($key->codRodada);
-
+            $grafemas = $this->buscarGrafemasPeloCodigoRodada($key->codRodada);           
             $passou = $this->verificarPontuacaoSuperiorTexto($key->pontuacao);                                                     
             if($passou){                                            
                 $juntos[] = $this->juntarGrafemas($grafemas);                
             }    
         }        
-        $unicos = $this->coletarGrafemasUnicosTexto($juntos); 
+        $unicos = $this->coletarGrafemasUnicosTexto($juntos);
+
         
         return $unicos;        
     }
@@ -296,14 +296,29 @@ class modelTexto extends CI_Model {
     }  
 
     public function coletarGrafemasUnicosTexto($listaGrafemas){
-        $retorno = array();
-        $tamListaGrafemas = count($listaGrafemas);         
-        for ($i=0; $i < $tamListaGrafemas; $i++) { 
-            if(!in_array($listaGrafemas[$i], $retorno)){
-                $retorno[] = $listaGrafemas[$i];
-            }                                                               
-        }
+        $retorno = array();        
+        $repetidos = FALSE;
+        if($listaGrafemas){
+            $listaGrafemas = array_filter($listaGrafemas);
+            $tamListaGrafemas = count($listaGrafemas);
+            $qtd = array_count_values($listaGrafemas);        
+        
+            if(in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $listaGrafemas)){
+                if ($qtd["g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l"] > 1){
+                    $repetidos = TRUE;
+                }
+            }          
 
+            foreach ($listaGrafemas as $key) {
+                if(!in_array($key, $retorno)){
+                    $retorno[] = $key;
+                }  
+            }
+        }             
+
+        if($repetidos){
+           $retorno[] = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";
+        }
         return $retorno;
     }
 

@@ -136,6 +136,7 @@ class Teste extends CI_Controller {
 				$this->session->set_userdata('nivel', $nivelAntigo + 1);
 			}
 
+
 			$inseriu = $this->modelTeste->inserirRodadaTeste($grafemas, $codJogador, $dados['duracao'], $pontuacao);
 
             $cenas = $this->modelHistoria->buscarCenaPeloNivel($this->session->userdata('nivel'));

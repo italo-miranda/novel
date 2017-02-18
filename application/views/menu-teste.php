@@ -7,7 +7,18 @@
 				
 				<?php
 				$tamGrafemasBD = count($grafemasCadastrados);
-				$tamGrafemasJogados = count($grafemasJogados);				
+				$tamGrafemasJogados = count($grafemasJogados);
+				
+				if(in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $grafemasJogados)){
+					$cod = array_search("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $grafemasJogados);
+					$grafemasJogados[$cod] = "total";
+				}
+
+				if(in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $grafemasJogados)){
+					$cod = array_search("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $grafemasJogados);
+					$grafemasJogados[$cod] = "-total";
+				}
+
 				echo '<div class="row afastado-1pc">';
 
 				for($i = 0; $i<$tamGrafemasBD; $i++) {

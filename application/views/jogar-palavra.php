@@ -93,7 +93,7 @@
 								</div>
 								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
-										<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>										
+										<button type="button" class="btn btn-success" onclick="pegarTempoFinal()" name="responder">Responder</button>										
 									</div>
 								</div>
 							</div>							
@@ -201,7 +201,7 @@
 		timeCrono= (hor < 10) ? "0" + hor : hor;
 		timeCrono+= ((min < 10) ? ":0" : ":") + min;
 		timeCrono+= ((seg < 10) ? ":0" : ":") + seg;
-		document.getElementById("tempo").value = timeCrono;
+		document.getElementById("tempo").value = timeCrono;		
 		setTimeout("iniciarCronometro()",1000);
 	} 
 

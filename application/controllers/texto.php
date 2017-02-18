@@ -62,7 +62,6 @@ class Texto extends CI_Controller {
 				$texto = $this->modelTexto->sortearTexto($grafemas);
 				$grafemasTextos = $this->modelTexto->buscarListaGrafemasTexto();
 				$codJogador = $this->session->userdata('codJogador');
-				$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
 
 				if($texto){
 					$codTexto = $texto[0]->codTexto;				
@@ -73,13 +72,13 @@ class Texto extends CI_Controller {
 					'texto' => $texto,
 					'grafemas' => $grafemas,
 					'conquista' => 0,
-					'abrirModalHistoria' => FALSE,
-					'grafemasTextos' => $grafemasTextos,
-					'grafemasJogados' => $grafemasJogados
+					'abrirModalHistoria' => FALSE,					
 					);
 				
 				$this->load->view('construtor', $pagina); 
 				} else{				
+					$grafemasJogados = $this->modelTexto->buscarGrafemasJogadosTexto($codJogador);
+
 					$pagina = array('tela' => 'menu-texto', 
 						'linkNovel'=> 'principal/menu', 
 						'linkLogoff'=>'principal/logoff', 
@@ -118,6 +117,10 @@ class Texto extends CI_Controller {
 				}			
 			}					
 			$grafemas = $dados['grafemas']; 
+
+			if (($grafemas == "total")|| ($grafemas == "_total")) {
+				$grafemas = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";
+			}
 			$duracao = $dados['duracao'];
 			$codTexto = $dados['codTexto'];
 			$gabarito = $this->modelTexto->encontrarGabarito($codTexto);

@@ -86,7 +86,7 @@
 								</div>
 								<div class="row centered">
 									<div class="col-md-12 col-xs-12">
-										<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>
+										<button type="button" class="btn btn-success" onclick="pegarTempoFinal()" name="responder">Responder</button>
 										<button type="submit" value="submit" id="enviarRespostas" class="btn"" name="enviarRespostas"></button>										
 									</div>
 								</div>

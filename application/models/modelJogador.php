@@ -148,34 +148,37 @@ class modelJogador extends CI_Model {
 	}
 
 	public function subirNivelTeste($codJogador, $pontuacao, $codigos, $quantidade){
-		if ($pontuacao > 60) {
+		$retorno = NULL;
+		$qtd = count($quantidade) * 18;
+		if ($pontuacao > $qtd) {
 			for ($i=0; $i < count($codigos); $i++) { 
 				$grafemas[] = $this->buscarGrafema($codigos[$i]);
 			}
-			$jogou = $this->verificarNivelAlcancadoTeste($grafemas, $codJogador);
+			$jogou = $this->verificarNivelAlcancadoTeste($grafemas, $codJogador);			
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;
-			if ((!$jogou) || ($jogou[0]->pontuacao < 90)) {
-				$nivel++;				
+			if ((!$jogou) || ($jogou[0]->pontuacao < $qtd)) {
+				$nivel++;								
 				$this->db->set('nivel', $nivel);
 				$this->db->where('codJogador', $codJogador);
-				$this->db->update('Jogador');
+				$updetou= $this->db->update('Jogador');
 				$retorno = TRUE;
 			} else {
 				$retorno = FALSE;
 			} 
 		}else {
-			return false;
+			$retorno = FALSE;
 		}
+		return $retorno;
 	}
 
-	public function subirNivelTexto($codJogador, $pontuacao, $grafemas, $quantidade){
-		$retorno = NULL;
+	public function subirNivelTexto($codJogador, $pontuacao, $grafemas){
+		$retorno = NULL;		
 		if ($pontuacao > 120){
-			$jogou = $this->verificarNivelAlcancadoTexto($grafemas, $codJogador);
+			$jogou = $this->verificarNivelAlcancadoTexto($grafemas, $codJogador);			
 			$nivel = $this->buscarNivelJogador($codJogador);
 			$nivel = $nivel[0]->nivel;
-			if(!$jogou || $jogou[0]->pontuacao < 140){
+			if(!$jogou || $jogou[0]->pontuacao < 120){
 				$nivel++;				
 				$this->db->set('nivel', $nivel);
 				$this->db->where('codJogador', $codJogador);
@@ -206,6 +209,7 @@ class modelJogador extends CI_Model {
     //determinados grafemas.
     public function verificarNivelAlcancadoTexto($grafemas, $codJogador){
 
+    	
     	$tiposGrafemas = explode("&", $grafemas);
     	$where = '';
     	$tamanho = count($tiposGrafemas);
@@ -222,10 +226,12 @@ class modelJogador extends CI_Model {
 		$this->db->join('RodadaGrafema rg', 'r.codRodada = rg.codRodada');
 		$this->db->join('Grafema g', 'rg.codGrafema = g.codGrafema');		
 		$this->db->where('r.tipoRodada', 'texto');
-		$this->db->where('codJogador', $codJogador);
+		$this->db->where('r.codJogador', $codJogador);
 		$this->db->where($where);
 		$this->db->group_by('r.codRodada');
+		$this->db->limit(1);
 		$this->db->having('COUNT(g.codGrafema)', $tamanho);
+
 		$resultado = $this->db->get()->result();
         
     	if($resultado){
@@ -257,6 +263,7 @@ class modelJogador extends CI_Model {
 		$this->db->where($where);
 		$this->db->group_by('r.codRodada');
 		$this->db->having('COUNT(g.codGrafema)', $tamanho);
+		$this->db->limit(1);
 		$resultado = $this->db->get()->result();
         
     	if($resultado){

@@ -7,7 +7,7 @@
 				<input type="text" id="tempo" name="tempo" disabled=""></p>
 				<input type="hidden" id="duracao" name="duracao" value="0">
 				<?php
-					if(strcmp($grafemas[0], "total") || strcmp($grafemas[0],"_total")){
+					if(($grafemas[0]=="total") || ($grafemas[0]=="_total")){
 						$grafemas = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";
 					}
 					echo '<div class="row">';
@@ -55,7 +55,7 @@
 				?>	
 				<div class="row">
 					<div class="col-md-12 col-xs-12">
-						<button type="submit" class="btn btn-success" onsubmit="pegarTempoFinal();" name="responder">Responder</button>
+						<button type="button" class="btn btn-success" onclick="pegarTempoFinal()" name="responder">Responder</button>
 					</div>
 				</div>
 																			
