@@ -13,6 +13,7 @@ class modelTeste extends CI_Model {
     //e sortear 5 palavras, que irão compor uma rodada
     public function sortearTestes($grafemas){
 
+
         $testesSorteados = array();
         unset($testesSorteados);
         $alternativas = array();
@@ -65,12 +66,12 @@ class modelTeste extends CI_Model {
                     $retorno = FALSE;
                 }                       
             }
+            $retorno[] = $testesSorteados;                         
+            $retorno[] = $codigoGrafema;
+            $retorno[] = $alternativas; 
         } else {
             $retorno = FALSE;
-        }
-        $retorno[] = $testesSorteados;                         
-        $retorno[] = $codigoGrafema;
-        $retorno[] = $alternativas;         
+        }            
         return $retorno;
     }
 
@@ -285,22 +286,25 @@ class modelTeste extends CI_Model {
     } 
 
     public function coletarGrafemasUnicosTeste($listaGrafemas){
+       $retorno = array();        
         $repetidos = FALSE;
-        $retorno = array();        
-        $tamListaGrafemas = count($listaGrafemas);
-        $qtd = array_count_values($listaGrafemas);
+        if($listaGrafemas){
+            $listaGrafemas = array_filter($listaGrafemas);
+            $tamListaGrafemas = count($listaGrafemas);
+            $qtd = array_count_values($listaGrafemas);        
         
-        if (in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $listaGrafemas)) {
-            if ($qtd["g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l"] > 1){
-                $repetidos = TRUE;
+            if(in_array("g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l", $listaGrafemas)){
+                if ($qtd["g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l"] > 1){
+                    $repetidos = TRUE;
+                }
+            }          
+
+            foreach ($listaGrafemas as $key) {
+                if(!in_array($key, $retorno)){
+                    $retorno[] = $key;
+                }  
             }
-        }
-        
-        for ($i=0; $i < $tamListaGrafemas; $i++) {             
-            if(!in_array($listaGrafemas[$i], $retorno)){
-                $retorno[] = $listaGrafemas[$i];
-            }                                                               
-        }        
+        }             
 
         if($repetidos){
            $retorno[] = "g_j&ch_x&s_z_x&c_ç_s_ss_sc_sç_xc&m_n&r_rr&e_i&o_u_l";

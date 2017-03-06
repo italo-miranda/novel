@@ -71,7 +71,7 @@ class Teste extends CI_Controller {
 	        	$grafema = $this->uri->segment(3);
 	        	$grafema = urldecode($grafema);
 				$retorno = $this->modelTeste->sortearTestes($grafema);			
-
+								
 				if($retorno){
 					$testesSorteados = $retorno[0];
 					$codGrafema = $retorno[1];
