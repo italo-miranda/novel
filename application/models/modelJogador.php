@@ -11,13 +11,18 @@ class modelJogador extends CI_Model {
 //LOGIN E FUNÇÕES ADMINISTRATIVAS
 
 	public function fazerLogin($login, $senha)
-	{		
+	{	
+		
+		$senha = md5($senha);
+		
 		$this->db->select('*');
 		$this->db->from('Jogador');
 		$this->db->where('login', $login);
 		$this->db->where('senha', $senha);
 		$this->db->limit(1);
 		$query = $this->db->get()->result();
+
+		
 
 		if ($query != NULL){
 
@@ -41,9 +46,10 @@ class modelJogador extends CI_Model {
 		$nome = $dados['nome'];
 		$email = $dados['email'];
 		$login = $dados['login'];
-		$senha = $dados['senha1'];
+		$senha = md5($dados['senha1']);
 		$avatar = $dados['avatar'];
 
+		
 		$return = FALSE;
 		if($dados != NULL){
 			$string = array(
@@ -78,14 +84,14 @@ class modelJogador extends CI_Model {
 		if($mudou == $codJogador){
 			$query = array('nome' => $dados['nome'],
 				'login'=> $dados['login'],
-				'senha'=> $dados['senha1'],				
+				'senha'=> md5($dados['senha1']),				
 				);			
 			$this->db->where('codJogador', $codJogador);
 			$retorno = $this->db->update('Jogador', $query);
 		} else {
 			$query = array('nome' => $dados['nome'],
 				'login'=> $dados['login'],
-				'senha'=> $dados['senha1'],				
+				'senha'=> md5($dados['senha1']),				
 				'email' => $dados['email'],
 			);
 			$this->db->where('codJogador', $codJogador);
@@ -97,6 +103,7 @@ class modelJogador extends CI_Model {
 
 	public function recuperarSenha($email){
 		$senhaNova = $this->gerarNovaSenha();
+		$sennhaNova = md5($senhaNova);
 		$this->db->set('senha', $senhaNova);		
 		$this->db->where('email', $email);
 		$this->db->update('Jogador');		

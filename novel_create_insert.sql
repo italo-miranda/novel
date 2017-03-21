@@ -7,7 +7,7 @@ USE Novel;
 
 CREATE TABLE Jogador (
 email Varchar(30) NOT NULL,
-senha Varchar(20) NOT NULL,
+senha Varchar(80) NOT NULL,
 experiencia int DEFAULT 0,
 tempoTotal int DEFAULT 0,
 codJogador int PRIMARY KEY AUTO_INCREMENT,
@@ -183,10 +183,7 @@ ALTER TABLE JogadorBonus CHARACTER SET utf8 COLLATE utf8_general_ci;
 --Insercao de dados
 
 INSERT INTO Jogador (nome, email, login, senha, avatar) VALUES 
-  ("José", "jose@mail.com", "loginjose", "senhajose", "graciliano"),
-  ("Márcia", "marcia@mail.com", "loginmarcia", "senhamarcia", "clarice"),
-  ("Joaquim", "joaquim@mail.com", "loginjoaquim", "senhajoaquim", "joao"),
-  ("Carolina", "carolina@mail.com", "logincarolina", "senhacarolina", "cecilia");
+  ("Teste", "teste@mail.com", "teste", "teste", "graciliano");
 
 INSERT INTO Grafema (tipoGrafema, quadros) VALUES 
 	("g_j", 3),
@@ -1292,7 +1289,7 @@ INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraComplet
 ("Que revela nobreza, gravidade; altivez.", "j", "Ma_estoso", "Majestoso", 1, "Major vem do Latim major (pronunciava-se máior), que era o aumentativo de magnus, grande."), 
 ("Rastro; pegada deixada pelos pés ou pelas patas no lugar em que se passa.", "g", "Vestí_io", "Vestígio", 1,"Nas palavras terminadas em: -ágio, -égio, -ígio, -ógio e -úgio."),
 ("Sensação de uma tontura rotatória,que pode causar náuseas, vômitos, ilusão de movimento, etc.", "g", "Verti_em", "Vertigem", 1,"Escrito com g, diante dos substantivos terminados em: -agem, -igem e -ugem."),
-("Coisa sobrenatural. Coisa ou pessoa anormal. Maravilha; milagre.", "g", "Prodi_ío", "Prodígio", 1, "Vem do Latim prodigium."),
+("Coisa sobrenatural. Coisa ou pessoa anormal. Maravilha; milagre.", "g", "Prodí_io", "Prodígio", 1, "Vem do Latim prodigium."),
 ("Ponto de partida, o princípio de qualquer fato ocorrido.", "g", "Ori_em", "Origem", 1,"Nas palavras terminadas em: -ágio, -égio, -ígio, -ógio e -úgio."), 
 ("Instrumento formado por duas argolas de ferro que se coloca nos pulsos ou tornozelos das pessoas", "g", "Al_ema", "Algema", 1,"Vem do árabe AL-DJAMAA, pulseira."),
 ("Serpente que pode chegar aos 4 metros de comprimento e costuma habitar as àrvores de florestas úmidas.", "j", "_iboia", "Jiboia", 1,"Palavras de origem tupi."), 
@@ -1336,14 +1333,14 @@ INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraComplet
 
 ("Que é capaz de agredir, de atacar.", "ss", "Agre_ivo", "Agressivo", 4,"Usa-se SS nos substantivos relacionados a verbos que contém o radical -gred."),
 ("Debate, controvérsia, polêmica, contenda ou disputa.", "ss", "Discu_ão", "Discussão", 4,"Usa-se SS nos substantivos que se relacionam a verbos constituídos da terminação -tir."),
-("Extradição; Expelir; Ato de colocar pra fora.", "s", "Expu_ão", "Expulsão", 4, "Vem do Latin expulsione, devendo assim ser escrita com S."),
+("Extradição; Expelir; Ato de colocar pra fora.", "s", "Expul_ão", "Expulsão", 4, "Vem do Latin expulsione, devendo assim ser escrita com S."),
 ("Linha perpendicular, baixada do vértice de um ângulo sobre a corda de um arco, que tem por centro aquele vértice.", "ss", "Bi_etriz", "Bissetriz", 4, "Vem do Latin Bis + Sectriz."), 
 ("O oposto ao lado direito; Ao contrario.", "ss", "Ave_o", "Avesso", 4, "São usados SS entre vogais para que se mantenha o som normal de s (S entre vogais soa sibilante, como Z)."),
 ("Equiparada a um juramento, embora geralmente associada como uma tradição religiosa.", "ss", "Prome_a", "Promessa", 4, "Usa-se SS nas palavras relacionadas a verbos que se constituem do radical -met. "), 
 ("Aflição; desejo.", "s", "An_eio", "Anseio", 4, "Vem do  Latim ANXIETAS, S se aproxima do som do X."), 
 ("Ato ou efeito de imergir; imergência, submergir.", "s", "Imer_ão", "Imersão", 4,"Usa-se S nas palavras derivadas dos verbos terminados em -ergir."),
 ("Revogar; Anular ou invalidar os direitos políticos de; Inutilizar.", "ss",  "Ca_ar", "Cassar", 4, "São usados SS entre vogais para que se mantenha o som normal de s (S entre vogais soa sibilante, como Z)."),
-("Ato ou efeito de aspergir água ou outro líquido.", "s", "Asper_ãoo", "Aspersão", 4, "Usa-se S nas palavras derivadas dos verbos terminados em -ergir"),
+("Ato ou efeito de aspergir água ou outro líquido.", "s", "Asper_ão", "Aspersão", 4, "Usa-se S nas palavras derivadas dos verbos terminados em -ergir"),
 ("Consentimento, permitir, transigência.", "ss", "Conce_ão", "Concessão", 4,"Usa-se SS nas palavras derivadas dos verbos terminados em -ceder"), 
 ("Brinquedo de parques de diversões, que girando em suas extremidades figuras como cavalos, aviões e etc.", "ss", "Carro_el", "Carrossel", 4,"São usados SS entre vogais para que se mantenha o som normal de s (S entre vogais soa sibilante, como Z)."),
 ("Passar p/ o outro lado de (algo), por cima ou através de.", "ss", "Atrave_ar", "Atravessar", 4,"São usados SS entre vogais para que se mantenha o som normal de s (S entre vogais soa sibilante, como Z)."), 
@@ -1382,7 +1379,7 @@ INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraComplet
 ("Marido da filha, em relaçao ao pai à mãe dela.", "r", "Gen_o", "Genro", 6,"Pronância de R forte entre consoante e vogal, deve-se usar R."), 
 ("Fora do comum, que foge da realidade, absurdo.", "rr", "Su_eal", "Surreal", 6,"Pronúncia de R forte entre duas vogais, deve-se usar RR. "),
 ("Pequeno mamífero pertencente à ordem dos roedores.", "r", "_ato", "Rato", 6,"Utiliza-se R no início de palavras."),
-("Viagem gratuita em qualquer veículo.", "r", "Ca_ona", "Carona", 6,"Pronúncia de R forte entre consoante e vogal, deve-se usar R."),
+("Viagem gratuita em qualquer veículo.", "r", "Ca_ona", "Carona", 6,"Pronúncia de R fraco entre consoante e vogal, deve-se usar R."),
 ("Provocar queda; Pôr a baixo; demolir.", "rr", "De_ubar", "Derrubar", 6,"Pronúncia de R forte entre duas vogais, deve-se usar RR. "),
 ("Emendar os erros: cosertar os erros de ortografia, Reparar, Solucionar.", "rr", "Co_igir", "Corrigir", 6,"Pronúncia de R forte entre duas vogais, deve-se usar RR. "),
 
@@ -1423,55 +1420,11 @@ INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraComplet
 
 
 
-INSERT INTO Rodada (tipoRodada, duracao, pontuacao, codJogador) VALUES 
-	("palavra", 16, 40, 1),
-	("palavra", 11, 30, 1),
-	("palavra", 40, 40, 1),
-	("palavra", 9, 30, 2),
-	("palavra", 9, 30, 2),
-	("palavra", 9, 10, 2),
-	("palavra", 9, 30, 3),
-	("palavra", 7, 50, 3),
-	("palavra", 10, 10, 3),
-	("palavra", 9, 10, 4),
-	("palavra", 7, 30, 4),
-	("palavra", 10, 20, 4),
-	("texto", 40, 50, 1),
-	("texto", 50, 35, 2),
-	("texto", 35, 50, 3),
-	("texto", 50, 50, 4),
-	("texto", 50, 50, 4),	
-	("texto", 10, 10, 4),
-	("teste", 30, 90, 1),
-	("teste", 30, 90, 2);
+--INSERT INTO Rodada (tipoRodada, duracao, pontuacao, codJogador) VALUES 
+--	("palavra", 16, 40, 1);
 
-INSERT INTO RodadaGrafema (codRodada, codGrafema) VALUES
-	(1, 1),
-	(2, 2),
-	(3, 3),
-	(4, 1),
-	(5, 2),
-	(6, 3),
-	(7, 1),
-	(8, 2),
-	(9, 3),
-	(10, 1),
-	(11, 2),
-	(12, 3),
-	(13, 1),
-	(13, 2),
-	(14, 1),
-	(14, 2),
-	(15, 1),
-	(15, 2),
-	(16, 1),
-	(16, 2),
-	(17, 4),
-	(18, 4),
-	(19, 1),
-	(19, 2),
-	(20, 1),
-	(20, 2);
+--INSERT INTO RodadaGrafema (codRodada, codGrafema) VALUES
+--	(1, 1);
 
 INSERT INTO Conquista(nomeConquista, experienciaDesbloqueio) VALUES 
   ("Entrou para a Academia de Novéis", 0),
@@ -1496,11 +1449,8 @@ INSERT INTO Conquista(nomeConquista, experienciaDesbloqueio) VALUES
   ("Dominou as técnicas da Análise Sintática", 9500);
 
 
-INSERT INTO ConquistaJogador(codConquista, codJogador) VALUES
-  (1,1),
-  (1,2),
-  (1,3),
-  (1,4);
+--INSERT INTO ConquistaJogador(codConquista, codJogador) VALUES
+--  (1,1);
 
 INSERT INTO Cenas(nomeCena, nivelDesbloqueio, quadros) VALUES 
   ("cena1", 1, 8),
@@ -1522,7 +1472,7 @@ INSERT INTO Cenas(nomeCena, nivelDesbloqueio, quadros) VALUES
   ("cena17", 24, 9);
 
 INSERT INTO Administrador (nome, email, login, senha) VALUES 
-	("Administrador da Silva", "adm@mail.com", "admin", "admin");
+	("Administrador do Novel", "novel.noreply@gmail.com", "teste123", "teste123");
 
 INSERT INTO Bonus (textoBonus, experienciaNecessaria) VALUES
 	("ETEULRHGABILZTAWDODFEVMJZIVXNJCCOMCIESHOYNTQGHTNDGGTRCZPMKSIOXJPLWYOVBMUTRCCKBADOLTIYAXYWWAGPJOWSSDIKOPAMRUTVDDEUQIOXTOLRZDXUJIAHLQOOVNIPYOYBSXBBALPSDCLIOIRDERRPASFPEBOTGDTSEIWYBYTZLANOICIDSIRUJYLKMROXVNDJCVYKBQVROWNMVHAOFUJH", 200),

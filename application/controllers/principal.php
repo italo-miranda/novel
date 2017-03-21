@@ -140,13 +140,14 @@ class Principal extends CI_Controller {
         	$dados = $this->input->post();
         	$existe = $this->modelJogador->verificarEmailCadastrado($dados['email']);
 
+
         	if ($existe){
         		$pagina = array('tela' => 'cadastrar-jogador', 'erro' => FALSE, 'existe'=> TRUE, 'abrirModalHistoria'=> FALSE, 'conquista' => 0,);
 				$this->load->view('construtor', $pagina);
         	} else {
-        		$retorno = $this->modelJogador->cadastrarJogador($dados);			
+        		$retorno = $this->modelJogador->cadastrarJogador($dados);	        		
 				if($retorno){					
-					$this->loginCadastro($dados['login'], $dados['senha1']);
+					$this->loginCadastro($dados['login'], $dados['senha1']);					
 				} else {
 					$pagina = array('tela' => 'cadastrar-jogador', 'erro' => TRUE, 'existe' => FALSE, 'abrirModalHistoria'=> FALSE, 'conquista' => 0,);
 					$this->load->view('construtor', $pagina);		
@@ -156,8 +157,7 @@ class Principal extends CI_Controller {
 	}
 
 	public function loginCadastro($login, $senha){
-		$logou = $this->modelJogador->fazerLogin($login, $senha);
-		    	        
+		$logou = $this->modelJogador->fazerLogin($login, $senha);		
 		    if($logou){	        	
 		    	$this->session->set_userdata(array(
 	                    'codJogador' => $logou['codJogador'],
