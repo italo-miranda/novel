@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://novel.conquista.ifba.edu.br';
+$config['base_url'] = '200.128.35.5';
 
 /*
 |--------------------------------------------------------------------------
