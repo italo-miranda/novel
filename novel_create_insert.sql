@@ -1,8 +1,5 @@
--- Geração de Modelo físico
 
-DROP DATABASE Novel;
-CREATE DATABASE Novel;
-ALTER DATABASE Novel CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER DATABASE Novel-Conquista_ CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE Novel;
 
 CREATE TABLE Jogador (
