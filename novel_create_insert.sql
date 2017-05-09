@@ -175,9 +175,6 @@ FOREIGN KEY(codJogador) REFERENCES Jogador (codJogador)
 
 ALTER TABLE JogadorBonus CHARACTER SET utf8 COLLATE utf8_general_ci;
 
---Insercao de dados
-
---Insercao de dados
 
 INSERT INTO Jogador (nome, email, login, senha, avatar) VALUES 
   ("Teste", "teste@mail.com", "teste", "teste", "graciliano");
@@ -192,9 +189,6 @@ INSERT INTO Grafema (tipoGrafema, quadros) VALUES
 	("e_i", 3),
 	("o_u_l", 2);
 
--- AQUI SO VAI O ENUNCIADO E O GABARITO
--- O GABARITO DEVE SER A IGUAL A ALTERNATIVA CORRETA E NAO
--- AS LETRAS QUE RESPONDEM A QUESTAO
 
 INSERT INTO Teste (enunciado, gabarito, codGrafema) VALUES 
 	("Assinale a série em que todas as palavras devam ser escritas com j.", "Laran_eiro, _egue, _ibóia", 1),
@@ -1275,7 +1269,6 @@ INSERT INTO GrafemaTexto (codGrafema, codTexto) VALUES
 	(7, 24),
 	(8, 24);
 
-
 INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraCompleta, codGrafema,justificativa) VALUES
 ("Arrumem; coloquem; consertem; Pôr em boa ordem; dispor.", "j", "Arran_ar", "Arranjar", 1,"Escrito com j, formas verbais terminadas em -jar ou -jear."),
 ("Emitir sons melodiosos, trilar, canto dos pássaros", "j", "Gor_ear", "Gorjear", 1,"Escrito com j, formas verbais terminadas em -jar ou -jear."),
@@ -1415,14 +1408,6 @@ INSERT INTO Palavra (enunciado, letraGabarito, palavraIncompleta, palavraComplet
 ("Relativo à boca.", "u", "B_cal", "Bucal", 8,"Vem latim buccale, devendo assim ser escrita com u."),
 ("Produzir, dar, emitir som, retumbar, ecoar", "o", "S_ar", "Soar", 8, "Vem latim 'sonare', por isso é escrito com a letra O.");
 
-
-
---INSERT INTO Rodada (tipoRodada, duracao, pontuacao, codJogador) VALUES 
---	("palavra", 16, 40, 1);
-
---INSERT INTO RodadaGrafema (codRodada, codGrafema) VALUES
---	(1, 1);
-
 INSERT INTO Conquista(nomeConquista, experienciaDesbloqueio) VALUES 
   ("Entrou para a Academia de Novéis", 0),
   ("Encontrou o pergaminho dos Substantivos", 100),
@@ -1444,10 +1429,6 @@ INSERT INTO Conquista(nomeConquista, experienciaDesbloqueio) VALUES
   ("Adquiriu a força do Adjunto Adnominal", 9000),
   ("Aprendeu a técnica do Adjunto Adverbial", 9200),
   ("Dominou as técnicas da Análise Sintática", 9500);
-
-
---INSERT INTO ConquistaJogador(codConquista, codJogador) VALUES
---  (1,1);
 
 INSERT INTO Cenas(nomeCena, nivelDesbloqueio, quadros) VALUES 
   ("cena1", 1, 8),
@@ -1477,8 +1458,6 @@ INSERT INTO Bonus (textoBonus, experienciaNecessaria) VALUES
 	("PXGCPDMFOYYHZLHORIEUGUBASCXELQOQMMRSMXXQVXPDHGEMIQASLOGCOMTKFWLCZASVGEFNMTRCHDMWRYWREOSRUTUYKEQUNTMREZOMVAQJRGDOQHWNZZOSQJDPJABTGERKXZLBWEMFHIEQPKMPXUAMYECNTFINCARXJEDDSUATSFRAHNCVHPDXSRVWJASYKRNIRFIFRVSVJOUESRGLNAWASBAUPADXK", 1700),
 	("JGFTAJPFQZVUCFAYKKOANZSUQNYXBCRIUGNITSIDBFMBLGMSFRSRGTEPDRUHCSNASZZAASYZLEWXCATCOENCPHYPIBYKMOJGGABEEXORSCJBLTJGCWNZKPOWWHXYGBGLGDYNKNLUCYPALSQBEWSWHBYKYHBRVFLRJWLXXMOTTZIOONENUZBHOQCWHCIMHZWKYADNHUBUESBASIDDKYYLANOICASNESFSI", 2750),
 	("NLSEFHJWWZKCFSNJERSTLIEQTQWKBCWTLXVNIFWLCZCTFLOCBGKEVNIFKECVUBNEWSCGDUQMEHRGZRIRBOCNEECPIGJLCVLCGMGAGPVNVFIGBJZZGETTLCFDOGQLEZXTVAOYPREXWQFJILTPPZDCIKJUPCUNQEMSRDDMTBUIRMGKALOGYSOIWZJGUIZGUXNNLEYVLAXZBAIXELAVDAUXVLJIKHQRUJXAS", 3480);
-
-	
 
 INSERT INTO PalavraBonus (palavra, inicio, fim, codBonus) VALUES
 	("ALGEMA",64,9,1),
